@@ -1,7 +1,5 @@
 # ECS 240: Program Verification - Fall Quarter 2026
 
-TODO: Update
-
 ## Contents
 
 1. [Welcome and Course Information](#welcome-and-course-information)
@@ -14,22 +12,22 @@ TODO: Update
 
 ## Welcome and Course Information
 
-Welcome to ECS 261!
+Welcome!
 
 - **Instructor:** [Caleb Stanford](https://web.cs.ucdavis.edu/~cdstanford/)
-- **TA:** [Lucas Du](https://lucaszdu.com/)
-- **CRN:** 41072
+- **TA:** TBD
+- **CRN:** TBD
 - **Units:** 4
-- **Lectures:** Tuesdays and Thursdays, 4:40-6pm in [Olson Hall](https://campusmap.ucdavis.edu/?b=112) 146
-- **Final exam:** Friday, March 20, 6-8pm. Please note that this is not in schedulebuilder! But it is the correct time for our class slot. If there are any unexpected changes to the schedule, then we will do the final exam in class.
-- **[Piazza](https://piazza.com/class/m8t4cwl1qsm6yw)** for class Q+A, announcements, and office hours
+- **Lectures:** TBD
+- **Final exam:** TBD
+- **Piazza:** TBD (for class Q+A, announcements, and office hours)
 
 ## Lectures
 
 I often lecture via live coding. I will post the code and lecture materials in this repository.
 To follow along with the lectures, clone the repository:
 ```shell
-git clone git@github.com:DavisPL-Teaching/261.git
+git clone git@github.com:DavisPL-Teaching/240.git
 ```
 
 If you make changes to the code after each lecture, you will need to discard them before pulling again.
@@ -49,35 +47,31 @@ at any time prior to the last day of class.
 
 ## Course Description
 
-Introduction to the formal verification of software.
-Topics include a survey on tools and techniques, including: writing specifications, difference between testing and verification, first-order logic, Hoare logic, program safety properties and termination, automated verification tools including SMT solvers, and advanced topics such as advanced type systems, dynamic logic, and symbolic execution. Students will gain hands-on experience with writing program specifications using tools used in industry at companies like Amazon and Microsoft.
-Tools covered will include Z3 (via its Python API) and Dafny.
-This course can be considered as a graduate version of [ECS 189C](https://github.com/DavisPL/189C).
+Topics in programming languages at the graduate level.
+This course will survey theoretical and applied topics, including: formal syntax and semantics, relation between formal semantics and verification, static analysis including abstract interpretation and symbolic execution, program correctness properties and program logics, functional programming languages, and type theory. We will study these topics through a hands-on perspective (working with programming languages such as Dafny, Haskell, Rocq, etc. and building tools that can be used for static analysis and verification of programs).
 
 ### Prerequisites
 
-Some prior background in mathematical reasoning (writing proofs, e.g. ECS 20 or ECS 120) at the undergraduate level is required.
-A course in formal logic (e.g., Phil 112 or its equivalent) is also helpful, but not required.
-As a graduate course, homeworks are a combination of tool-based work and theory (writing proofs), and there is a project component.
-You may ignore the prerequisite listed on [the department website](https://cs.ucdavis.edu/schedules-classes/ecs-261-program-verification).
+An undergraduate course in programming languages (e.g., ECS 140A) is helpful, but not always required. Some prior background in mathematical reasoning (writing proofs, e.g. ECS 20 or ECS 120) at the undergraduate level is required and will be assumed.
+As a graduate course, homeworks are a combination of theory and programming assignments, and there is a project component.
+Please ignore the prerequisite listed on [the department website](https://cs.ucdavis.edu/schedules-classes/ecs-240-programming-languages).
 
 This course is appropriate for graduate students or advanced undergraduates.
-Please note if you have taken 189C, there will be a substantial overlap of material and some homeworks.
+If you are an undergraduate, you should most likely take 140A first.
 
 ### Textbook
 
-The following textbook is optional but recommended:
-
-- [**Program Proofs**](https://mitpress.mit.edu/9780262546232/program-proofs/). K. Rustan M. Leino, MIT Press, 2023.
+TBD
 
 ### Learning Objectives
 
 By the end of the course, students will be able to:
 
-- Understand the concept of software verification and its importance.
-- Understand and apply automated verification tools like Z3 for software analysis and logical reasoning tasks.
-- Understand and use dedicated verification tools such as Dafny to develop formally verified software.
-- Understand the logical underpinnings of verification tools, and program logics for program reasoning.
+- Understand the important definitions of programming languages; what makes a programming language including formal syntax and semantics, interpreted and compiled languages, type systems, etc.;
+- Understand how program semantics relates to other topics including the correctness and verification of software;
+- Know how to define and apply static analyses for the automated analysis of programs;
+- Understand the functional foundations of programming languages including formalizing programs in the lambda calculus;
+- Apply these techniques in the context of specific programming languages and program analysis and verification tools.
 
 ## Schedule
 
@@ -88,9 +82,9 @@ See `schedule.md`.
 Your grade is evaluated based on:
 
 - **Participation (10%):** via in-class polls
-- **Homeworks (10%):** about 4 problem sets planned, plus homework 0
+- **Homeworks (10%):** about 3 problem sets planned, plus homework 0
 - **Final Exam (40%):** I am planning to do one final exam, either in-class or during finals period
-- **Project (40%):** Project applying the concepts in the class to verification of a real-world software project of your choosing, including a project proposal and presentation
+- **Project (40%):** Final project; details TBD
 
 ### Attendance and Participation
 
@@ -123,8 +117,7 @@ I reserve the right to curve exams (this can only help you). That means, for exa
 
 ### Final Project
 
-There will be a final project (including a project proposal and a presentation) to put the concepts in class to practice.
-The project will focus on formal verification applied to a real-world software project of your choosing.
+There will be a final project (including a project proposal and a presentation) to put the concepts studied in class to practice.
 I will announce more details in class!
 
 ### Final Grade
@@ -150,15 +143,14 @@ I will use this to help students who may be on the boundary between two grades a
 
 ### AI Policy
 
-AI collaboration is allowed for homework assignments.
-I encourage you to use AI in a way that is helpful to you, and to use caution that your use of AI is aiding (and not preventing) your own understanding of the material and critical thinking skills.
+I do allow AI use on homework assignments, but with some discretion.
+You should not use AI to generate entire solutions, but in a targeted way to provide solutions matching your own requirements, and to assist with your own understanding.
+Use your critical thinking skills!
 Exams are held in-class and closed-book.
-Please see also [Prof. Jason Lowe-Power's advice here](https://jlpteaching.github.io/comparch/syllabus/#using-generative-ai-tools).
 
 ### Collaboration Policy and Academic Integrity
 
 This class will encourage collaboration; however, each person should complete their own version of the assignment. **You should not directly copy code from someone else, even within your study group,** but you can receive help and give help on individual parts of an assignment.
-In a real software development job, it is common to seek and get help; this class will be no different!
 
 You may work on homework assignments in groups of up to 3 people, as long as everyone is working on their own copy of the code. If you do this, please list the names of your collaborators at the top of your submission.
 
@@ -172,8 +164,8 @@ I will not be able to provide a consolidated list of the form links, as their pu
 watch the lectures.
 
 Homeworks will generally be due at 11:59pm on the due date.
-**I cannot guarantee that late homeworks will be graded;**
-however, I encourage you to update your assignments even after the deadline -- Gradescope will allow you to upload late work up to a few days after the assignment deadline.
+**I cannot guarantee that late homeworks will be graded.**
+However, I encourage you to update your assignments even after the deadline -- Gradescope will allow you to upload late work up to a few days after the assignment deadline.
 At grading time, we may choose to grade the more recent version at our discretion.
 
 ### Job Scams
@@ -184,7 +176,7 @@ You can view and report job scam emails at the [Phish Bowl](https://phishbowl.uc
 
 ### Be Nice!
 
-Finally: **please be kind to each other!**
+Please be kind to each other!
 UC Davis has [policies against harassment and discrimination](https://hr.ucdavis.edu/departments/elr/preventing-discrimination-harassment).
 Be inclusive of your classmates in group study, in group work and projects, and in your questions and answers in class.
 If you need to, you may reach me by email to report an issue with a classmate.
@@ -193,7 +185,7 @@ If you or another graduate student you know needs help, please look at the [GGCS
 
 ### Recommendation letter and research requests
 
-I am happy to write recommendation letters for students!
+I am happy to write recommendation letters for students.
 However, please note that I generally reserve recommendation letters for students who have done particularly well in a course (A or A+), or for students I have interacted more directly with through either research or office hours.
 If you would like to request a recommendation letter from me, please wait until after the quarter to do so
 (in rare cases, I may be able to make an exception to this rule if you have a deadline during the quarter).
