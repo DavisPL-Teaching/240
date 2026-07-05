@@ -15,11 +15,10 @@
 Welcome!
 
 - **Instructor:** [Caleb Stanford](https://web.cs.ucdavis.edu/~cdstanford/)
-- **TA:** TBD
-- **CRN:** TBD
+- **CRN:** 47528
 - **Units:** 4
-- **Lectures:** TBD
-- **Final exam:** TBD
+- **Lectures:** MWF 1:10-2pm in Olson Hall 158
+- **Final exam:** Tue, Dec 8 3:30-5:30pm -- please note that this time is not yet listed in schedulebuilder, but it is the official time for our course slot listed by the registrar.
 - **Piazza:** TBD (for class Q+A, announcements, and office hours)
 
 ## Lectures
