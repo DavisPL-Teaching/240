@@ -1,4 +1,4 @@
-# ECS 240: Program Verification - Fall Quarter 2026
+# ECS 240: Program Languages - Fall Quarter 2026
 
 ## Contents
 
