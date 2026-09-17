@@ -46,12 +46,12 @@ at any time prior to the last day of class.
 
 ## Course Description
 
-Topics in programming languages at the graduate level.
-This course will survey theoretical and applied topics, including: formal syntax and semantics, relation between formal semantics and verification, static analysis including abstract interpretation and symbolic execution, program correctness properties and program logics, functional programming languages, and type theory. We will study these topics through a hands-on perspective (working with programming languages such as Dafny, Haskell, Rocq, etc. and building tools that can be used for static analysis and verification of programs).
+Topics in programming languages at the graduate level, both theoretical and applied.
+Topics surveyed may include: formal syntax and semantics, program analysis, verification and testing, static analysis and program semantics, program correctness properties and program logics, lambda calculus, type theory, and other advanced topics. We will study these topics through a hands-on perspective with real programming languages and tools.
 
 ### Prerequisites
 
-An undergraduate course in programming languages (e.g., ECS 140A) is helpful, but not always required. Some prior background in mathematical reasoning (writing proofs, e.g. ECS 20 or ECS 120) at the undergraduate level is required and will be assumed.
+An undergraduate course in programming languages (e.g., ECS 140A) is helpful, but not always required. Some prior background in mathematical reasoning (writing proofs, e.g. ECS 20 or ECS 120) at the undergraduate level will be assumed.
 As a graduate course, homeworks are a combination of theory and programming assignments, and there is a project component.
 Please ignore the prerequisite listed on [the department website](https://cs.ucdavis.edu/schedules-classes/ecs-240-programming-languages).
 
@@ -60,7 +60,11 @@ If you are an undergraduate, you should most likely take 140A first.
 
 ### Textbook
 
-TBD
+There is no required textbook. The following textbooks are recommended references. Both are available for free online:
+
+- [**Static Program Analysis**](https://cs.au.dk/~amoeller/spa/spa.pdf). Anders Møller and Michael I. Schwartzbach.
+
+- [**Software foundations.**](https://softwarefoundations.cis.upenn.edu/) Benjamin C. Pierce et. al.
 
 ### Learning Objectives
 
@@ -69,6 +73,7 @@ By the end of the course, students will be able to:
 - Understand the important definitions of programming languages; what makes a programming language including formal syntax and semantics, interpreted and compiled languages, type systems, etc.;
 - Understand how program semantics relates to other topics including the correctness and verification of software;
 - Know how to define and apply static analyses for the automated analysis of programs;
+- Know the foundations of abstract program semantics, including abstract interpretation and lattice theory;
 - Understand the functional foundations of programming languages including formalizing programs in the lambda calculus;
 - Apply these techniques in the context of specific programming languages and program analysis and verification tools.
 
@@ -81,9 +86,9 @@ See `schedule.md`.
 Your grade is evaluated based on:
 
 - **Participation (10%):** via in-class polls
-- **Homeworks (10%):** about 3 problem sets planned, plus homework 0
-- **Final Exam (40%):** I am planning to do one final exam, either in-class or during finals period
-- **Project (40%):** Final project; details TBD
+- **Homeworks (10%):** about 2-3 problem sets, plus homework 0
+- **Final Exam (40%):** one exam is planned, during finals period
+- **Final project (40%):** please stay tuned for details in class!
 
 ### Attendance and Participation
 
@@ -95,7 +100,7 @@ More details on the project presentation will be announced later on in the class
 
 ### Homeworks
 
-Homeworks will consist of problem sets which are a combination of programming assignments and pen-and-paper exercises -- solutions must be written up in LaTeX.
+Homeworks will consist of problem sets which are a combination of programming assignments and pen-and-paper exercises -- solutions should be written up in LaTeX.
 I plan to assign homework assignments roughly bi-weekly (about 4 total), plus homework 0, which is designed to help you install the relevant software for the course.
 
 **Important: your code must run to get credit!**
@@ -182,12 +187,12 @@ If you need to, you may reach me by email to report an issue with a classmate.
 
 If you or another graduate student you know needs help, please look at the [GGCS support form](https://ucdavis.co1.qualtrics.com/jfe/form/SV_bCLSRFqZ1lLKgM6). It can be filled out to get help, and contains many links to support resources.
 
-### Recommendation letter and research requests
+### Recommendation Letters and Research Requests
 
 I am happy to write recommendation letters for students.
 However, please note that I generally reserve recommendation letters for students who have done particularly well in a course (A or A+), or for students I have interacted more directly with through either research or office hours.
-If you would like to request a recommendation letter from me, please wait until after the quarter to do so
-(in rare cases, I may be able to make an exception to this rule if you have a deadline during the quarter).
+If you would like to request a recommendation letter from me, please wait until after the quarter to do so.
+In rare cases, I may be able to make an exception to this rule if you have a deadline during the quarter.
 
 If you are asking to get involved in research, a similar rule applies - please wait until after the quarter to ask.
 
