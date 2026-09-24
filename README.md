@@ -9,6 +9,7 @@
 5. [Grade Breakdown](#grade-breakdown)
 6. [Policies](#policies)
 7. [Contact and Office Hours](#contact-and-office-hours)
+8. [Acknowledgment](#acknowledgment)
 
 ## Welcome and Course Information
 
@@ -79,7 +80,7 @@ By the end of the course, students will be able to:
 
 ## Schedule
 
-See `schedule.md`.
+There is a (very rough) draft of the schedule that you can find in the Lecture 0 slides.
 
 ## Grade Breakdown
 
@@ -206,3 +207,7 @@ On Piazza, please ask all questions publicly, with only one exception: if your p
 The instructor and TAs will be available during office hours for additional support on course material and assignments. The schedule of office hours will be posted in a pinned note on Piazza.
 
 If you have a question that is more sensitive or unrelated to the course, please email me: `cdstanford` `ucdavis` `edu`.
+
+## Acknowledgment
+
+Thanks to [Aditya Thakur](https://thakur.cs.ucdavis.edu/) for providing some of the course materials from prior iterations of ECS 240, which will be used for certain lectures.
