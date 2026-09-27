@@ -1,6 +1,4 @@
-# Lecture 1
-
-Introduction to programming languages: syntax and semantics.
+# Lecture 1: Foundations
 
 ### Monday, Sep 28
 
@@ -8,7 +6,7 @@ Announcements:
 
 - HW0 now available: due in 1 week (Monday, Oct 5)
 
-    + Installation/tutorial for Rust
+    + Rust installation/tutorial
 
     + For help: my OH Wed; TA OH Friday
       (no OH planned on Monday! but please use Piazza)
@@ -24,4 +22,12 @@ Announcements:
 
 Plan:
 
-- Lecture 1: Introduction to Programming Languages, Syntax and Semantics.
+- Begin Lecture 1: Foundations of programming languages
+
+    + Part 1: `1-intro.rs`: introduction to syntax and semantics
+
+    + Along the way: learn a few things about Rust (where needed)
+
+- How to follow along
+
+- Poll.
