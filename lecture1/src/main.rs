@@ -17,5 +17,5 @@ fn main() {
     println!();
 
     // Uncomment to run Part 1
-    // intro::main();
+    intro::main();
 }

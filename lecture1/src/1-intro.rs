@@ -3,11 +3,6 @@
 
     Part 1: Introduction to Syntax and Semantics
 
-    This lecture serves as an introduction to the rest of the class!
-
-    We'll cover topics that are foundational to the study of programming languages:
-    starting from syntax and semantics.
-
     === Following along: ===
 
     - Clone this repository:
@@ -31,6 +26,13 @@
     - Run the code: `cargo run`
 
     You should see a message "Hello, ECS 240" with some other info.
+
+    === Introduction ===
+
+    This lecture serves as an introduction to the rest of the class!
+
+    We'll cover topics that are foundational to the study of programming languages:
+    starting from syntax and semantics.
 
     === Note on pacing ===
 
@@ -74,18 +76,21 @@
     Syntax:
 
     Two commands:
-        Fred <n>
+        Fred <n> # takes an integer
 
-        George <s>
+        George <s> # take a string
+
+    In Rust:
 */
 
+#[derive(Debug, PartialEq, Eq)]
 enum SillyLang {
-    Fred(usize),
-    George(String),
+    Fred(usize),    // Fred command: provided with an integer
+    George(String), // George command: provided with a String
 }
 
 // ^^ This is a Rust enum.
-// It means anything in MyLanguage is either a Fred or a George.
+// It means anything in my language is either a Fred or a George.
 // We access the enum fields with SillyLang::Fred, SillyLang::George.
 
 /*
@@ -98,19 +103,33 @@ pub fn main() {
     let prog2 = SillyLang::George("George".to_string());
 
     // We need to do something above to get this to work
-    // println!("{:?}", prog1);
-    // println!("{:?}", prog2);
+    println!("{:?}", prog1);
+    println!("{:?}", prog2);
+
+    // This is a valid syntax! Syntactically we have two valid types of programs, Fred(..) and George(..)
+
+    // Check whether programs are (syntactically) equal
 
     // ... and for this to work:
-    // let prog3 = SillyLang::Fred(3);
-    // assert_eq!(prog1, prog3);
-    // assert_neq!(prog2, prog3);
+    let prog3 = SillyLang::Fred(3);
+    assert_eq!(prog1, prog3);
+    assert_ne!(prog2, prog3);
 
     // To run the code: uncomment in main.rs, then cargo run
 }
 
 /*
-    This is a valid programming language.
+    This is a valid syntax!
+
+    - We have described a syntax for programs
+    - We have **not** described any semantics. If we were to define what
+        Fred(3)
+
+        and
+
+        George("George")
+
+        *mean,* then we would have a valid programming language!
 
     But maybe this doesn't seem very realistic. It doesn't "feel" like a programming language.
 
@@ -118,8 +137,9 @@ pub fn main() {
 */
 
 // Language: NQAS
+#[derive(Debug, PartialEq, Eq)]
 enum NotQuiteAsSilly {
-    Increment(usize), // Increment the program counter
+    Increment(usize), // Increment the program counter by n
     Print(String),    // Display a string
     HaltIf(usize),    // Halt if program counter is at least n
 }
@@ -130,12 +150,18 @@ enum NotQuiteAsSilly {
 // test annotation
 #[test]
 fn test_syntax() {
-    // ^^ name can be anything
-    todo!()
+    // Test for equality
+    assert_eq!(NotQuiteAsSilly::Increment(3), NotQuiteAsSilly::Increment(3));
+    // (Define debug, equality for this to work)
 }
 // Run with `cargo test`
 
 /*
+    So far: we have a **syntax** that defines the set of valid programs
+
+    We know that we can write programs (they are just values in our custom data type),
+    we can print out those programs, and we can compare them for equality.
+
     Okay... but we don't have a programming language just yet.
 
     Semantics:
@@ -155,9 +181,31 @@ fn test_syntax() {
 
         - Increment
 
+            Increment 3
+
+            Increment 4
+
+            Increment 5
+
+            Program semantics?
+
+            - Take whatever is given to it, and add one
+
+            - Assign the resulting value to whatever is given to it
+
+                Increment(VarName, usize)
+
+            - Given a program counter, add the increment (integer value) to the program counter.
+
         - Print
 
+            Print "Hello"
+
+            Prints the string to the output buffer
+
         - HaltIf:
+
+            If the program counter reaches the value given to the HaltIf, halt the program
 
     ===== Poll =====
 
@@ -168,13 +216,57 @@ fn test_syntax() {
     two implementations might disagree on the semantics of NQAS programs?
 
     https://forms.gle/mpxWpmwj5qTW1Z8u9
+
+    === Some recap of points ===
+
+    1. A programming language is defined by a **syntax** and a **semantics.**
+
+    2. very broad! We can define **any** syntax for
+       valid programs, and then define what those programs mean
+
+    3. Writing down the semantics of what the programs mean is necessary so that we can all agree
+
+    4. It's very easy to imagine scenarios where if the semantics is written just in English
+       there's a lot of misinterpretation about what the programs could mean and how to implement
+       the language.
+
+       (**informal** semantics)
+
+    As a result, we'll investigate next how to define a **formal** semantics.
+
+    ----------
 */
 
 /*
     Semantics (a little more formally):
 
     There are many ways to define formal semantics.
-    One way is to give a reference interpreter for the language.
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
 
     Def:
 
