@@ -146,13 +146,35 @@ fn test_syntax() {
 
     - We don't have a way of running the programs.
 
-    There are many ways to define semantics.
-    One way is to give a reference interpreter for the language.
-
     Recall:
 
         __instructions__ = Syntax
         __convention__ = Semantics
+
+    Semantics (**informal:**)
+
+        - Increment
+
+        - Print
+
+        - HaltIf:
+
+    ===== Poll =====
+
+    Semantics is about agreeing -- between different implementations, interpreters, or compilers --
+    on what the programs mean. If we don't agree, we aren't writing in the same language!
+
+    Given our informal description of the semantics above, can you think of an example of how
+    two implementations might disagree on the semantics of NQAS programs?
+
+    https://forms.gle/mpxWpmwj5qTW1Z8u9
+*/
+
+/*
+    Semantics (a little more formally):
+
+    There are many ways to define formal semantics.
+    One way is to give a reference interpreter for the language.
 
     Def:
 
@@ -176,20 +198,14 @@ fn test_nqas_interpreter() {
 }
 
 /*
-    ===== Poll =====
-
-    Semantics is about agreeing -- between different implementations, interpreters, or compilers --
-    on what the programs mean. If we don't agree, we aren't writing in the same language!
-
-    Can you think of an example of how two implementations might disagree on the semantics of
-    NQAS programs?
-
-    https://forms.gle/mpxWpmwj5qTW1Z8u9
-
-    Can we demonstrate this?
+    Can we demonstrate the problem from the poll above?
 */
 
+// fn interpreter_1() {}
+
 // fn interpreter_2() {}
+
+// with formal semantics: we can tell which of interpreter 1 or 2 is **wrong**, and which is right.
 
 /*
     === Some additional questions ===
