@@ -31,3 +31,15 @@ Plan:
 - How to follow along
 
 - Poll.
+
+### Wednesday, Sep 30
+
+Reminders:
+
+- HW0 due Monday (Oct 5)
+
+Plan:
+
+- Questions about HW0 or Rust
+
+- Recap and begin Part 2.

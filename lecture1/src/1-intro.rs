@@ -50,9 +50,6 @@
     production code.)
 */
 
-#![allow(unused_variables)]
-#![allow(dead_code)]
-
 /*
     === The Basics ===
 
@@ -234,6 +231,7 @@ fn test_syntax() {
 
     As a result, we'll investigate next how to define a **formal** semantics.
 
+    ***** Where we ended for Monday *****
     ----------
 */
 
