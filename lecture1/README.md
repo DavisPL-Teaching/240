@@ -40,6 +40,10 @@ Reminders:
 
 Plan:
 
-- Questions about HW0 or Rust
+- Questions about HW0
 
-- Recap and begin Part 2.
+- Begin part 2: More on syntax and semantics.
+
+    + starting with: a side note about Rust & Rust syntax, then, today's poll.
+
+Questions about HW0 or Rust?

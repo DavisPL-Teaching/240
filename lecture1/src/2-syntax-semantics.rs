@@ -19,9 +19,96 @@
 
     So what we want is a way to describe the semantics in a more
     formal, or unambiguous way.
+    (What we will do today.)
 
-    But first, let's generalize our language to fill in a few
-    missing things.
+    === Side note: a Rust & Rust syntax. ===
+
+    Rust syntax takes some getting used to!
+
+    - Rust has a higher learning curve than some other languages.
+
+    - Please stop me or raise your hand if there's something you don't understand!
+
+    - Some things to keep in mind about Rust philosophy:
+
+        + Rust syntax is often similar to (inspired by) C/C++ syntax.
+
+          Rust was targeted at "frustrated C/C++ developers". If that applies to you,
+          or if you have some experience writing code in C/C++, the language will often
+          make a lot more sense.
+
+            (During an internship in 2020, I used to spend 48+ hours at a time
+             debugging memory errors in C/C++ code)
+
+        + Rust wants to be *explicit.* Remember coming from C-land: we want to support pointers,
+          access to raw memory, allocation/deallocation. Rust will make us be explicit about things
+          like memory allocation and copying.
+
+            "Zero-cost abstractions" = no hidden operations!
+
+            But -- if we don't care, there are some tricks to get around this.
+
+                e.g.: .clone()
+
+        + Rust is "strongly statically typed." That means that the type of every variable
+            (string, int, etc.) is known at compile time.
+            Very useful for us when designing a language! For example we can exhaustively match
+            on Rust enums
+            Here is the syntax:
+
+            match my_prog {
+                Increment(_) => { do_something() }
+                Print(_) => { do_another_thing() }
+                HaltIf(_) => { do_something_else() }
+            }
+
+            and we know that our cases are exhaustive. (Rust will complain if we don't handle every case.)
+
+        + Rust is most interested in providing two things: the code should be *fast*, and the code should be *safe.*
+        Safe means that some bad thing (e.g., "Segmentation fault") doesn't occur when running the code.
+
+            What this means when learning Rust is that the compiler will often complain about your code.
+            :-)
+            Don't worry! It takes a few weeks before most programmers are able to write Rust code that
+            passes the compiler.
+
+    - We're using Rust mainly for some of its features (especially static types), which are useful when
+    building programming language tools.
+    However, along the way, I hope that some of the features we see in Rust will also give us
+    some opportunities to learn about programming language design as a case study in their own right.
+*/
+
+/*
+    === Poll ===
+
+    Recall (informal): **Syntax** defines the set of valid programs. (We used a Rust enum)
+    **Semantics** is a convention where we all agree on what those programs mean and how they should
+    be executed.
+
+    Which of the following is an example of ambiguous semantics?
+
+    * In one compiler, the "print" command is case-sensitive. In another, it is case-insensitive ("print" or "Print" or "PRINT" is allowed).
+
+    * It is not specified whether "print" should display a line ending in a newline, or not.
+
+    * When incrementing the program counter, it is not specified whether we return an integer or a floating point.
+
+    * It is not specified whether the command "LoopUntilHalting", which repeats another command until the program terminates, is a valid program.
+
+    * It is not clear whether a compiler or interpreter for our language should be written in C, Python, Rust.
+
+    https://forms.gle/aDFwbPPszPyHTcUM8
+
+    .
+    .
+    .
+*/
+
+/*
+    === Continuing our example ===
+
+    Before we describe the semantics in a more formal way,
+    let's generalize our language to fill in a few missing things.
 */
 
 // Language: NQAS
@@ -65,13 +152,28 @@ enum NotQuiteAsSilly {
     a more realistic subset of programs.
 */
 
+#[derive(Debug, PartialEq, Eq)]
+enum NotQuiteAsSillyV2 {
+    Increment(usize), // Increment the program counter by n
+    Print(String),    // Display a string
+    HaltIf(usize),    // Halt if program counter is at least n
+                      // add here ...
+}
+
 /*
     Semantics:
 
     How can we give a more formal semantics for our programs?
-    Def:
+
+    .
+    .
+    .
+
+    Potentially relevant definitions:
 
         - An **interpreter** is ...
+
+        - A **reference interpreter** is ...
 
         - A **compiler** is ...
 */
@@ -87,7 +189,7 @@ fn test_nqas_interpreter() {
 }
 
 /*
-    Can we demonstrate the problem from the poll above?
+    Exercise: demonstrate the problem from last time's poll.
 */
 
 // fn interpreter_1() {}
