@@ -3,24 +3,6 @@
     Part 2:
     More on Syntax and Semantics
 
-    === Recap from last time ===
-
-    - A programming language is defined by a **syntax**
-      and a **semantics.**
-
-    - Syntax: we can use a Rust enums to describe syntax.
-    We used an example of a (silly/minimal) programming language with only three commands
-
-    - Semantics: we made the following **main point:**
-    describing the meaning
-    of those commands in *English* can be confusing an ambiguous.
-    In fact, even stuff like "Increment the program counter by n"
-    and "Display a string" led to different possible interpretations!
-
-    So what we want is a way to describe the semantics in a more
-    formal, or unambiguous way.
-    (What we will do today.)
-
     === Side note: a Rust & Rust syntax. ===
 
     Rust syntax takes some getting used to!
@@ -72,14 +54,43 @@
             Don't worry! It takes a few weeks before most programmers are able to write Rust code that
             passes the compiler.
 
+            Rust always offers a way to "opt out" of safety abstractions
+
+                e.g.: clone()
+                e.g.: Rc in the standard library
+                    &usize -> Rc::RefCell<usize>
+
+            If you know the proper incantation, you can sidestep Rust
+            safety features that you're not interested in.
+
     - We're using Rust mainly for some of its features (especially static types), which are useful when
     building programming language tools.
     However, along the way, I hope that some of the features we see in Rust will also give us
     some opportunities to learn about programming language design as a case study in their own right.
+
+    === Recap from last time ===
+
+    - A programming language is defined by a **syntax**
+      and a **semantics.**
+
+    - Syntax: we can use a Rust enums to describe syntax.
+    We used an example of a (silly/minimal) programming language with only three commands
+
+    - Semantics: we made the following **main point:**
+    describing the meaning
+    of those commands in *English* can be confusing an ambiguous.
+    In fact, even stuff like "Increment the program counter by n"
+    and "Display a string" led to different possible interpretations!
+
+    So what we want is a way to describe the semantics in a more
+    formal, or unambiguous way.
+    (What we will do today.)
 */
 
 /*
     === Poll ===
+
+    Building on last time's poll.
 
     Recall (informal): **Syntax** defines the set of valid programs. (We used a Rust enum)
     **Semantics** is a convention where we all agree on what those programs mean and how they should
@@ -189,7 +200,7 @@ fn test_nqas_interpreter() {
 }
 
 /*
-    Exercise: demonstrate the problem from last time's poll.
+    Exercise: demonstrate one of the problems from last time's (or today's) poll.
 */
 
 // fn interpreter_1() {}

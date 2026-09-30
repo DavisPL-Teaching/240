@@ -38,6 +38,10 @@ Reminders:
 
 - HW0 due Monday (Oct 5)
 
+    + My OH: today 4:15p, ASB 2085
+
+    + TA OH: Friday 2pm (after class)
+
 Plan:
 
 - Questions about HW0
