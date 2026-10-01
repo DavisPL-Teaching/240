@@ -88,7 +88,7 @@
 */
 
 /*
-    === Poll ===
+    === Poll (Sep 30) ===
 
     Building on last time's poll.
 
@@ -113,6 +113,44 @@
     .
     .
     .
+
+    === Addendum: why Rust? ===
+
+    re: why Rust?
+
+    - Piazza post: https://piazza.com/class/ms5m7g95gq1tr/post/16
+
+    - Google news: https://www.reddit.com/r/rust/comments/1wukyos/google_is_doing_large_scale_codebase_migrations/
+
+    TL;DR:
+
+    - Increasingly used for safe and secure systems software (including tools relevant to
+      this class like compilers & optimizers!)
+
+    - Ties into a point from Lecture 0 (last Wed.):
+    Recall Python/C++ examples
+    **Programming language design decisions* affect whether or not it is easy to accidentally
+    write bugs.
+
+    === Poll (Oct 2) ===
+
+    (Note: poll answers will be shared with the lecture notes! I plan to keep this updated after the end of each week.)
+    (From this point on, polls will generally have a "right" answer, and can be used to help
+    study for the exams.)
+
+    Which of the following most likely reflects the design philosophy of Rust, from a programming language design syntax?
+
+    - Make syntax unnecessarily difficult, so that it takes a long time to write programs
+
+    - Restrict the syntax of the language so that it is more difficult to write erroneous programs
+
+    - Allow many different syntaxes for the same thing ("There's more than one way to do it")
+
+    - Restrict the semantics of the language as much as possible, so that it is not ambiguous
+
+    - Adopt a semantics that tightly couples the syntax of a program with its performance when executed
+
+    https://forms.gle/7BWi5EDCzAhec6s89
 */
 
 /*

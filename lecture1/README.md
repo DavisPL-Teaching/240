@@ -51,3 +51,19 @@ Plan:
     + starting with: a side note about Rust & Rust syntax, then, today's poll.
 
 Questions about HW0 or Rust?
+
+## Friday, Oct 2
+
+Reminders:
+
+- HW0 due Monday (Oct 5)
+
+- TA OH after class
+
+Plan:
+
+- Questions about HW0
+
+- addendum re: Why Rust? And today's poll
+
+- Continue Part 2
