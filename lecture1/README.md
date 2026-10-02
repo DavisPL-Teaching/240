@@ -64,6 +64,8 @@ Plan:
 
 - Questions about HW0
 
-- addendum re: Why Rust? And today's poll
+- Short addendum from last time (+ Piazza post)
+
+- Start with the poll
 
 - Continue Part 2

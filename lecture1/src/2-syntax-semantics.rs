@@ -113,14 +113,22 @@
     .
     .
     .
+    .
+    .
 
-    === Addendum: why Rust? ===
+    --------------------------------------------------
 
-    re: why Rust?
+    (Continuing here for Oct 2)
 
-    - Piazza post: https://piazza.com/class/ms5m7g95gq1tr/post/16
+    === Addendum from last time ===
+
+    Last time, there was a lot of discussion about, "why Rust?"
+    (Apologies for taking a lot of class time on this!)
+    Just want to add a few things:
 
     - Google news: https://www.reddit.com/r/rust/comments/1wukyos/google_is_doing_large_scale_codebase_migrations/
+
+    - Piazza post: https://piazza.com/class/ms5m7g95gq1tr/post/16
 
     TL;DR:
 
@@ -128,17 +136,21 @@
       this class like compilers & optimizers!)
 
     - Ties into a point from Lecture 0 (last Wed.):
-    Recall Python/C++ examples
+    Recall Python/C++ examples:
+
+        + default list example in Python
+        + vector push_back example in C++ (vector moves, causing read/write to arbitrary memory)
+
     **Programming language design decisions* affect whether or not it is easy to accidentally
     write bugs.
 
     === Poll (Oct 2) ===
 
-    (Note: poll answers will be shared with the lecture notes! I plan to keep this updated after the end of each week.)
-    (From this point on, polls will generally have a "right" answer, and can be used to help
-    study for the exams.)
+    (Note: From this point on:
+    - poll answers will be shared with the lecture notes! I plan to keep this updated after the end of each week.
+    - polls will generally have a "right" answer, and can be used to help study for the exams.)
 
-    Which of the following most likely reflects the design philosophy of Rust, from a programming language design syntax?
+    Which of the following most likely reflects the design philosophy of Rust, from a programming language design standpoint?
 
     - Make syntax unnecessarily difficult, so that it takes a long time to write programs
 
@@ -148,16 +160,16 @@
 
     - Restrict the semantics of the language as much as possible, so that it is not ambiguous
 
-    - Adopt a semantics that tightly couples the syntax of a program with its performance when executed
+    - Adopt a semantics that tightly couples the syntax of a program with its performance and memory usage characteristics
 
     https://forms.gle/7BWi5EDCzAhec6s89
 */
 
 /*
-    === Continuing our example ===
+    === Continuing our example language ===
 
     Before we describe the semantics in a more formal way,
-    let's generalize our language to fill in a few missing things.
+    let's generalize/fix our language to fill in a few missing things.
 */
 
 // Language: NQAS
@@ -197,8 +209,9 @@ enum NotQuiteAsSilly {
     .
     .
 
-    Exercise: generalize our language to include
-    a more realistic subset of programs.
+    Exercise:
+    - generalize our language to include a more realistic subset of programs.
+    - (you may fix/modify the existing syntax if needed)
 */
 
 #[derive(Debug, PartialEq, Eq)]
@@ -209,11 +222,42 @@ enum NotQuiteAsSillyV2 {
                       // add here ...
 }
 
+// TODO: Let's write a simple example program using the new syntax
+
+fn example_program() -> NotQuiteAsSillyV2 {
+    unimplemented!()
+}
+
 /*
     Semantics:
 
-    How can we give a more formal semantics for our programs?
+    Recall: We saw that the semantics is so far described "informally" in English, but this can lead to
+    ambiguity (previous polls)
+    We need *formal semantics* for our programs.
 
+    So, someone has written a program in our language. We're getting
+    some adoption, great! After a while, we have a small handful of users.
+
+    But a debate begins between two of our users about whether a particular program
+    is correct (or how it behaves).
+
+    How would you settle the debate?
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
     .
     .
     .
@@ -289,21 +333,71 @@ fn test_nqas_interpreter() {
 /*
     *Semantics.*
 
+    Reference interpreters or reference implementations are great, but they aren't
+    fully general for all languages.
+
     There are many ways to define semantics.
 
     Most common:
+
+    - Def. **Operational semantics.**
+
+        + Small-step semantics:
+
+        + Big-step semantics:
+
+    - Def. **Denotational semantics.**
 */
 
 /*
-    Questions:
+    === Revising the poll on first day of class: Is it a programming language? ===
 
-    1.
+    Expanding our intuition about what a programming language is
+
+    Point: Syntax/semantics is very broad. It doesn't just include things like C and Python.
+    Some examples:
+
+    - Nondeterministic programming
+      https://en.wikipedia.org/wiki/Nondeterministic_programming
+
+    - Logic programming languages
+      https://en.wikipedia.org/wiki/Logic_programming
+      https://en.wikipedia.org/wiki/Datalog
+
+    - Turing machines
+      https://en.wikipedia.org/wiki/Turing_machine
+
+    - Hardware description languages
+      https://en.wikipedia.org/wiki/Verilog
+
+    - Lambda calculus
+      https://en.wikipedia.org/wiki/Lambda_calculus
+
+    As far as we are concerned:
+    - All of these are ways of giving instructions to computers to execute
+    - All of these can be described by a formal syntax and formal semantics
+    - All are valid programming languages.
+
+    Revisiting the Lecture 0 poll:
+
+    .
+    .
+
+    (Exercise: pick one and sketch below.)
+*/
+
+/*
+    === Discussion questions ===
+
+    1. Why separate syntax and semantics?
 
     2. What is semantics good for?
 
     3. How do syntax and semantics play into the development of...
 
         compilers?
+
+        interpreters?
 
         static analysis tools?
 */
