@@ -69,3 +69,15 @@ Plan:
 - Start with the poll
 
 - Continue Part 2
+
+HW0 question:
+
+    `-> ()`
+
+If Clippy doesn't like your code after solving an exercise:
+1. make the fix
+2. Clippy will give you the code of the warning
+    ```
+    #[allow(clippy::warning_code)]
+    fn () ...
+    ```

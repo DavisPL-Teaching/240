@@ -147,20 +147,22 @@
     === Poll (Oct 2) ===
 
     (Note: From this point on:
+    - polls will generally have a "right" answer, and can be used to help study for the exams
     - poll answers will be shared with the lecture notes! I plan to keep this updated after the end of each week.
-    - polls will generally have a "right" answer, and can be used to help study for the exams.)
+    )
 
     Which of the following most likely reflects the design philosophy of Rust, from a programming language design standpoint?
+    (Select all that apply)
 
-    - Make syntax unnecessarily difficult, so that it takes a long time to write programs
+    A. Make syntax unnecessarily difficult, so that it takes a long time to write programs
 
-    - Restrict the syntax of the language so that it is more difficult to write erroneous programs
+    B. Restrict the syntax of the language so that it is more difficult to write erroneous programs
 
-    - Allow many different syntaxes for the same thing ("There's more than one way to do it")
+    C. Allow many different syntaxes for the same thing ("There's more than one way to do it")
 
-    - Restrict the semantics of the language as much as possible, so that it is not ambiguous
+    D. Restrict the semantics of the language as much as possible, so that it is not ambiguous
 
-    - Adopt a semantics that tightly couples the syntax of a program with its performance and memory usage characteristics
+    E. Adopt a semantics that tightly couples the syntax of a program with its performance and memory usage characteristics
 
     https://forms.gle/7BWi5EDCzAhec6s89
 */
@@ -182,7 +184,72 @@ enum NotQuiteAsSilly {
 
 /*
     What's missing from the above?
+    - Ways to execute the code?
+    - No syntax for variables!
+    - Control flow -- jump or goto? loops?
+        - Return statement?
+    - Operations? Such as addition, ors, nots (basic ops on basic data types like integers/booleans)
+    - Primitive data types
+    - Expressions?
+    - Entrypoint to the program?
+    - What is the program counter?
+    - Way of compiling the code?
+    - Semantics unclear
 
+    A way of combining programs?
+    - If? sequencing programs -- loops came up
+
+    could we:
+        - one command --> newline or semicolon --> another command
+        --> end of program token
+
+    infamously bad one? every time the font changes, that's a new statement
+
+    sequencing the program: how things are structured in memory?
+
+    Can we have a pipe | which is accepting an input and giving output
+*/
+
+// // Language: NQAS
+// #[derive(Debug, PartialEq, Eq)]
+// enum ProgramV2 {
+//     Increment(usize), // Increment the program counter by n
+//     Print(String),    // Display a string
+//     HaltIf(usize),    // Halt if program counter is at least n
+//     Sequence(Box<ProgramV2>, Box<ProgramV2>), // sequence of two programs!
+//     IfThen(Condition, Box<ProgramV2>, Box<ProgramV2>), // if condition then program1 else program2
+//     Loop(Condition, Box<ProgramV2>), // loop
+// }
+// Box? Just a pointer to the heap.
+// // Rust will give us 2 errors here:
+// 1. we haven't defined Condition
+// struct Condition {
+//     BooleanExpression,
+//     Operator,
+//     BooleanExpression,
+// }
+// struct BooleanExpression {
+
+// }
+
+/*
+    Quick Recap:
+
+    - We talked a little more about Rust motivation (Rust language design and
+      why it is the way it is), including in today's poll, that also ties back
+      into Lecture 0 and syntax + semantics
+    - We brainstormed how to generalize our language -- we need at least, a way
+      of *combining* programs, and maybe some other features such as variables,
+      basic data types, ...
+    - We saw one way to allow combining programs: giving a recursive data types
+        spoiler: this is what's called an Abstract Syntax Tree (AST)
+    - We'll see at least one other way to model programs where you can combine
+      multiple statements next time.
+
+      -----------------------------------
+*/
+
+/*
     .
     .
     .
@@ -214,19 +281,19 @@ enum NotQuiteAsSilly {
     - (you may fix/modify the existing syntax if needed)
 */
 
-#[derive(Debug, PartialEq, Eq)]
-enum NotQuiteAsSillyV2 {
-    Increment(usize), // Increment the program counter by n
-    Print(String),    // Display a string
-    HaltIf(usize),    // Halt if program counter is at least n
-                      // add here ...
-}
+// #[derive(Debug, PartialEq, Eq)]
+// enum NotQuiteAsSillyV2 {
+//     Increment(usize), // Increment the program counter by n
+//     Print(String),    // Display a string
+//     HaltIf(usize),    // Halt if program counter is at least n
+//                       // add here ...
+// }
 
 // TODO: Let's write a simple example program using the new syntax
 
-fn example_program() -> NotQuiteAsSillyV2 {
-    unimplemented!()
-}
+// fn example_program() -> NotQuiteAsSillyV2 {
+//     unimplemented!()
+// }
 
 /*
     Semantics:
