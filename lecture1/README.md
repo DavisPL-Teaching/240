@@ -81,3 +81,17 @@ If Clippy doesn't like your code after solving an exercise:
     #[allow(clippy::warning_code)]
     fn () ...
     ```
+
+## Monday, Oct 5
+
+Announcements/reminders:
+
+- HW0 due today
+
+- **No class** this Friday, Oct 9 (I will be away at a conference)
+
+Plan:
+
+- Continue syntax & semantics with our toy language
+
+- Do the poll.

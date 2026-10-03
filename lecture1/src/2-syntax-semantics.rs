@@ -247,6 +247,8 @@ enum NotQuiteAsSilly {
       multiple statements next time.
 
       -----------------------------------
+
+      (starting here for Monday, Oct 5)
 */
 
 /*
