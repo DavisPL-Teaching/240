@@ -265,7 +265,7 @@ enum ProgramV2 {
     Increment(usize),                         // Increment the program counter by n
     Print(String),                            // Display a string
     HaltIf(usize),                            // Halt if program counter is at least n
-    Sequence(Box<ProgramV2>, Box<ProgramV2>), // sequence of two programs!
+    Sequence(Box<ProgramV2>, Box<ProgramV2>), // sequence of two programs! --> Like a semicolon, prog1; prog2
     IfThen(Condition, Box<ProgramV2>, Box<ProgramV2>), // if condition then program1 else program2
     Loop(Condition, Box<ProgramV2>),          // loop
 }
@@ -276,15 +276,33 @@ struct Condition(BooleanExp);
 
 #[derive(Debug, PartialEq, Eq)]
 enum BooleanExp {
-    Eq(IntExp, IntExp),
-    LessThan(IntExp, IntExp),
-    LessThanEq(IntExp, IntExp),
+    Eq(IntExpr, IntExpr),
+    LessThan(IntExpr, IntExpr),
+    LessThanEq(IntExpr, IntExpr),
+    // Would usually be recursive
+    // Or(Box<BooleanExp>, Box<BooleanExp>),
+    // And(Box<BooleanExp>, Box<BooleanExp>),
+    // Xor(Box<BooleanExp>, Box<BooleanExp>),
 }
 
 // TODO: fill in this
 #[derive(Debug, PartialEq, Eq)]
-enum IntExp {
-    // fill in here ...
+enum IntExpr {
+    NumberLiteral(isize),
+    Add(Box<IntExpr>, Box<IntExpr>), // Recursive!
+    // We don't only want to be able to do (x + y), we also want to be able to
+    // do (x + (y + z)), x + (y * z) + u + v, etc.
+    Mult(Box<IntExpr>, Box<IntExpr>),
+    LeftShift(Box<IntExpr>, Box<IntExpr>),
+    // TBD: What's missing
+    // Modulo
+    // Size of integers? and how we're storing them?
+
+    // isize::MAX
+    // NumberLiteral(isize::MAX) + NumberLiteral(isize::MAX) <-- ???
+
+    // Variables <-- most important missing thing right now.
+    // (we'll put a pin in it for now)
 }
 
 /*
@@ -327,14 +345,10 @@ enum IntExp {
     .
 */
 
-// TODO: Let's write a simple example program using the new syntax
-
-// fn example_program() -> ProgramV2 {
-//     unimplemented!()
-// }
-
 /*
     We can also have mutually recursive datatypes.
+
+    Example of "mutually recursive datatypes":
 */
 
 enum Test1 {
@@ -346,6 +360,18 @@ enum Test2 {
     Case1(String),
     Case2(Box<Test1>),
 }
+
+// We could do the same thing with IntExpr and BooleanExpr if we were to allow for example
+// Boolean grammar:
+// - Eq(IntExpr, IntExpr)
+// Integer expression grammar:
+// - BoolToInt(BExpr)
+
+// TODO: Let's write a simple example program using the new syntax
+
+// fn example_program() -> ProgramV2 {
+//     unimplemented!()
+// }
 
 /*
     Is the recursive approach the only way to represent programs?
@@ -362,7 +388,7 @@ enum Test2 {
 
         enum Program {
             Empty,
-            Sequence(Instruction, Box<Program>)
+            NonEmpty(Instruction, Box<Program>)
         }
 
     Example (Do if time or skip)
@@ -388,7 +414,60 @@ enum Test2 {
     But a debate begins between two of our users about whether a particular program
     is correct (or how it behaves).
 
+    User1 defines a Fibonacci program
+        fib1
+
+    User2 defines a Fibonacci program
+        fib2
+
+    They disagree on whether fib1 or fib2 correctly calculates the Fibonacci numbers.
+
     How would you settle the debate?
+
+    Majority vote?
+        --> Democracy?
+        --> Everything is arbitrary ?
+
+    Give an expected answer!
+
+    Let's say that we run the programs:
+
+        fib1: 1, 1, 2, 3, 5, 8, ...
+
+        fib2: 7, 7, 7, 7, 7, 7, ...
+
+        User2: "That's just a bug in your compiler, my program is actually correct"
+
+    Unit tests!
+
+        User2: "Your unit tests are wrong, my program is correct"
+
+    -> Some notion of what programs *ought to mean*
+    -> Some *arbiter* of what is actually correct
+    -> A glorious benevolent dictator for life decides the semantics
+
+    We need an *oracle* for what the programs behavior should actually be, given their syntax.
+
+    What form might that oracle have?
+
+        Input: some program, some input to that program, and some candidate output
+
+        Oracle should say: Yes or No.
+
+        ^^^^^^^^ This is essentially program semantics.
+        There are different ways of defining this oracle that we'll get to next.
+
+    *One* way to define an oracle:
+
+        - Give an "officially sanctioned" compiler that everyone agrees is the correct compiler.
+
+            (Known as a *reference compiler*)
+
+        This is not the only way to agree on semantics
+
+    We'll pick up this discussion on Wednesday.
+
+    ----------
 
     .
     .

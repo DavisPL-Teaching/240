@@ -17,3 +17,7 @@ B and C
 (A and D are examples of ambiguous syntax)
 
 Oct 2: B and E
+
+Oct 5:
+    A and E
+    D would often be recursive too, for another language, but not for this one.

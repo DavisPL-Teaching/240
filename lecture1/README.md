@@ -88,7 +88,17 @@ Announcements/reminders:
 
 - HW0 due today
 
+    + Please ignore autograder" output!
+      We will configure the autograder following the assignment.
+
+    + Check that `cargo build`, `cargo test`, `cargo clippy`, `cargo fmt` are happy with your code.
+      Can also run: `cargo check`
+
+      (No warnings! or errors)
+
 - There will be **no class this Friday, Oct 9** (I will be away at a conference)
+
+    No OH but happy to schedule separately
 
 - Poll answers file now available: see `exam/poll_answers.md`
 
