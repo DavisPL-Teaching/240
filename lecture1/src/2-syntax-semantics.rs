@@ -246,58 +246,118 @@ enum NotQuiteAsSilly {
     - We'll see at least one other way to model programs where you can combine
       multiple statements next time.
 
-      -----------------------------------
+    -----------------------------------
 
-      (starting here for Monday, Oct 5)
-*/
+    (starting here for Monday, Oct 5)
 
-/*
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
+    Last time, we began this exercise:
 
     Exercise:
     - generalize our language to include a more realistic subset of programs.
-    - (you may fix/modify the existing syntax if needed)
+    - (OK to modify the existing syntax if needed)
+
+    Here is our language so far:
+    I've filled in a grammar for Conditions.
 */
 
-// #[derive(Debug, PartialEq, Eq)]
-// enum NotQuiteAsSillyV2 {
-//     Increment(usize), // Increment the program counter by n
-//     Print(String),    // Display a string
-//     HaltIf(usize),    // Halt if program counter is at least n
-//                       // add here ...
-// }
+#[derive(Debug, PartialEq, Eq)]
+enum ProgramV2 {
+    Increment(usize),                         // Increment the program counter by n
+    Print(String),                            // Display a string
+    HaltIf(usize),                            // Halt if program counter is at least n
+    Sequence(Box<ProgramV2>, Box<ProgramV2>), // sequence of two programs!
+    IfThen(Condition, Box<ProgramV2>, Box<ProgramV2>), // if condition then program1 else program2
+    Loop(Condition, Box<ProgramV2>),          // loop
+}
+
+#[derive(Debug, PartialEq, Eq)]
+struct Condition(BooleanExp);
+// ^^ what's the point of this?
+
+#[derive(Debug, PartialEq, Eq)]
+enum BooleanExp {
+    Eq(IntExp, IntExp),
+    LessThan(IntExp, IntExp),
+    LessThanEq(IntExp, IntExp),
+}
+
+// TODO: fill in this
+#[derive(Debug, PartialEq, Eq)]
+enum IntExp {
+    // fill in here ...
+}
+
+/*
+    We saw that in order to build a programming language, we need a way of
+    **combining** programs into bigger ones.
+    In general, the syntax of a programming language is given this way, recursively:
+
+    - Syntax is given by a **formal grammar** (more on this below, for now, think of it
+      as a recursive datatype)
+
+    - We are currently using Rust to represent the grammar. That makes it easy
+      to work with the syntax and we don't need to worry about how statements are represented,
+      for now (e.g., statements ending with a semicolon, lines separated by newlines/spaces/tabs)
+
+    - This is what gives rise to something called the abstract syntax tree (AST).
+      Traditional view is that a **parser** takes your source program and turns it into an AST,
+      by following the grammar.
+
+    POLL:
+    Considering our toy language so far.
+    Which of the following is an example of a recursive datatype?
+
+    A. ProgramV2
+    B. HaltIf
+    C. Condition
+    D. BooleanExp
+    E. IntExp
+
+    https://forms.gle/4rA9Hu38xYDuSigF9
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+*/
 
 // TODO: Let's write a simple example program using the new syntax
 
-// fn example_program() -> NotQuiteAsSillyV2 {
+// fn example_program() -> ProgramV2 {
 //     unimplemented!()
 // }
 
 /*
+    Is the recursive approach below the only way to represent programs?
+        Sequence(Box<ProgramV2>, Box<ProgramV2>)
+
+    Other ways to represent:
+        We could use a vector of instructions
+
+        Equivalent representation that can be useful is a singly-linked list:
+
+        enum Program {
+            Empty,
+            Sequence(Instruction, Box<Program>)
+        }
+
+    Example (Do if time or skip)
+*/
+
+/*
+    Several of you said last time that our language was missing
+    a way to *run* programs - a way to *compile* programs, etc.
+
+    Program execution and program semantics are not quite the same thing.
+    However they are related.
+    We start with semantics:
+
     Semantics:
 
     Recall: We saw that the semantics is so far described "informally" in English, but this can lead to
@@ -341,17 +401,18 @@ enum NotQuiteAsSilly {
 */
 
 // Uncomment to implement
-// fn nqas_interpeter() {
+// fn progv2_interpeter() {
 // }
 
 // Uncomment to implement/run
 // #[test]
-fn test_nqas_interpreter() {
+fn test_progv2_interpreter() {
     todo!()
 }
 
 /*
-    Exercise: demonstrate one of the problems from last time's (or today's) poll.
+    Exercise: demonstrate one of the problems from one of the polls
+    last week on ambiguous semantics.
 */
 
 // fn interpreter_1() {}
@@ -361,6 +422,112 @@ fn test_nqas_interpreter() {
 // with formal semantics: we can tell which of interpreter 1 or 2 is **wrong**, and which is right.
 
 /*
+    === Ambiguous versus nondeterministic semantics ===
+
+    Ambiguity is not the same as nondeterminism!
+
+    https://en.wikipedia.org/wiki/Nondeterministic_programming
+
+    Here is an example language with two interpreters:
+*/
+
+#[derive(Debug, PartialEq, Eq)]
+enum NondeterministicEx {
+    Print(String),                                            // print a string
+    StoreVar(String, usize), // store an integer value to a variable
+    CopyVar(String, String), // copy one variable to another
+    PrintVar(String),        // print the contents of a variable
+    Choose(Box<NondeterministicEx>, Box<NondeterministicEx>), // ???
+}
+
+fn nondeterministic_interpreter(prog: &NondeterministicEx) {
+    match prog {
+        NondeterministicEx::Print(s) => {
+            println!("{s}");
+        }
+        NondeterministicEx::StoreVar(s, n) => {
+            // TODO: fill in a few of these
+            todo!()
+        }
+        NondeterministicEx::CopyVar(s1, s2) => {
+            todo!()
+        }
+        NondeterministicEx::PrintVar(s) => {
+            todo!()
+        }
+        NondeterministicEx::Choose(p1, p2) => {
+            // TODO
+            // Different choices here
+            // All allowed by the semantics!
+            unimplemented!()
+        }
+    }
+}
+
+/*
+    Key point:
+    - Ambiguous semantics:
+      The language specification ...
+
+    - Nondeterministic semantics:
+      The language specification ...
+
+    This is a valid semantics! But the tools we have so far aren't enough to describe
+    its semantics.
+    Formal semantics via a reference interpreter is not enough.
+
+    .
+
+    Other examples of ambiguity?
+
+    We need to allow multiple ways of executing programs! Otherwise, often, program optimization wouldn't
+    be possible.
+
+    .
+    .
+    .
+    .
+    .
+
+    === Revising the poll on first day of class: Is it a programming language? ===
+
+    Expanding our intuition about what a programming language is
+
+    Point: Syntax/semantics is very broad. It doesn't just include things like C and Python.
+    Some examples:
+
+    - Nondeterministic programming
+      https://en.wikipedia.org/wiki/Nondeterministic_programming
+
+    - Logic programming languages
+      https://en.wikipedia.org/wiki/Logic_programming
+      https://en.wikipedia.org/wiki/Datalog
+
+    - Turing machines
+      https://en.wikipedia.org/wiki/Turing_machine
+
+    - Hardware description languages
+      https://en.wikipedia.org/wiki/Verilog
+
+    - Lambda calculus
+      https://en.wikipedia.org/wiki/Lambda_calculus
+
+    As far as we are concerned:
+    - All of these are ways of giving instructions to computers to execute
+    - All of these can be described by a formal syntax and formal semantics
+    - All are valid programming languages.
+
+    Revisiting the Lecture 0 poll:
+
+    .
+    .
+
+    (Exercise: pick one and sketch below.)
+*/
+
+/*
+    Things you can do with semantics.
+
     === Program equivalence ===
 
     Once we have a semantics, we can talk about interesting things such as:
@@ -368,12 +535,15 @@ fn test_nqas_interpreter() {
     - Two programs, P1 and P2 are **equivalent** if:
 
     Example of two programs that are equivalent?
+
+    This is the foundation of program optimization!
+
+    This is why compilers are able to optimize your code.
+    Without this, no optimization would ever be possible.
 */
 
 /*
-    Some theory
-
-    === Formal definitions ===
+    === Theoretical foundations ===
 
     **Syntax.**
 
@@ -416,43 +586,6 @@ fn test_nqas_interpreter() {
         + Big-step semantics:
 
     - Def. **Denotational semantics.**
-*/
-
-/*
-    === Revising the poll on first day of class: Is it a programming language? ===
-
-    Expanding our intuition about what a programming language is
-
-    Point: Syntax/semantics is very broad. It doesn't just include things like C and Python.
-    Some examples:
-
-    - Nondeterministic programming
-      https://en.wikipedia.org/wiki/Nondeterministic_programming
-
-    - Logic programming languages
-      https://en.wikipedia.org/wiki/Logic_programming
-      https://en.wikipedia.org/wiki/Datalog
-
-    - Turing machines
-      https://en.wikipedia.org/wiki/Turing_machine
-
-    - Hardware description languages
-      https://en.wikipedia.org/wiki/Verilog
-
-    - Lambda calculus
-      https://en.wikipedia.org/wiki/Lambda_calculus
-
-    As far as we are concerned:
-    - All of these are ways of giving instructions to computers to execute
-    - All of these can be described by a formal syntax and formal semantics
-    - All are valid programming languages.
-
-    Revisiting the Lecture 0 poll:
-
-    .
-    .
-
-    (Exercise: pick one and sketch below.)
 */
 
 /*

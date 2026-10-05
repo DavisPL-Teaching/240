@@ -88,10 +88,14 @@ Announcements/reminders:
 
 - HW0 due today
 
-- **No class** this Friday, Oct 9 (I will be away at a conference)
+- There will be **no class this Friday, Oct 9** (I will be away at a conference)
+
+- Poll answers file now available: see `exam/poll_answers.md`
 
 Plan:
 
 - Continue syntax & semantics with our toy language
 
 - Do the poll.
+
+Questions?
