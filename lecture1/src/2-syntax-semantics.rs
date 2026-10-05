@@ -334,10 +334,28 @@ enum IntExp {
 // }
 
 /*
-    Is the recursive approach below the only way to represent programs?
+    We can also have mutually recursive datatypes.
+*/
+
+enum Test1 {
+    Case1(usize),
+    Case2(Test2), // (Why is Box not needed here?)
+}
+
+enum Test2 {
+    Case1(String),
+    Case2(Box<Test1>),
+}
+
+/*
+    Is the recursive approach the only way to represent programs?
+
+    In particular, sequencing?
+
         Sequence(Box<ProgramV2>, Box<ProgramV2>)
 
     Other ways to represent:
+
         We could use a vector of instructions
 
         Equivalent representation that can be useful is a singly-linked list:
@@ -351,7 +369,7 @@ enum IntExp {
 */
 
 /*
-    Several of you said last time that our language was missing
+    Several of you observed last time that our language was missing
     a way to *run* programs - a way to *compile* programs, etc.
 
     Program execution and program semantics are not quite the same thing.
