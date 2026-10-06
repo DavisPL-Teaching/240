@@ -1,6 +1,8 @@
 /*
     Lecture 1
-    Part 3: Simple Imperative Programs
+
+    Extended exercise:
+    Simple Imperative Programs
 
     Task: Define a syntax and semantics for IMP.
     Then, define a reference interpreter and show that it

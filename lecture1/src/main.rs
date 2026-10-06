@@ -10,12 +10,18 @@
 // Modules
 // Note: the #[path =] annotation is not normally needed. It's needed here because
 // I wanted to start the filenames with numbers, which is not otherwise allowed.
-#[path = "3-imp.rs"]
-mod imp;
+#[rustfmt::skip]
 #[path = "1-intro.rs"]
 mod intro;
-#[path = "2-syntax-semantics.rs"]
-mod syntax_semantics;
+#[rustfmt::skip]
+#[path = "2-syntax.rs"]
+mod syntax;
+#[rustfmt::skip]
+#[path = "3-semantics.rs"]
+mod semantics;
+// #[rustfmt::skip]
+// #[path = "4-imp.rs"]
+// mod imp;
 
 fn main() {
     println!("Hello, ECS 240!");

@@ -98,8 +98,6 @@ Announcements/reminders:
 
 - There will be **no class this Friday, Oct 9** (I will be away at a conference)
 
-    No OH but happy to schedule separately
-
 - Poll answers file now available: see `exam/poll_answers.md`
 
 Plan:
@@ -107,5 +105,22 @@ Plan:
 - Continue syntax & semantics with our toy language
 
 - Do the poll.
+
+Questions?
+
+## Wednesday, October 7
+
+Reminders:
+
+- No class on Friday
+
+    Last time, I erroneously said I would not hold office hours,
+    but my OH are on Wednesday! I will still hold OH.
+
+    TA OH:
+
+Plan:
+
+    Semantics.
 
 Questions?
