@@ -10,16 +10,15 @@
 // Modules
 // Note: the #[path =] annotation is not normally needed. It's needed here because
 // I wanted to start the filenames with numbers, which is not otherwise allowed.
-#[rustfmt::skip]
 #[path = "1-intro.rs"]
-mod intro;
-#[rustfmt::skip]
+pub mod intro;
+
 #[path = "2-syntax.rs"]
-mod syntax;
-#[rustfmt::skip]
+pub mod syntax;
+
 #[path = "3-semantics.rs"]
-mod semantics;
-// #[rustfmt::skip]
+pub mod semantics;
+
 // #[path = "4-imp.rs"]
 // mod imp;
 

@@ -6,15 +6,36 @@
     on what programs mean.
     This is formal semantics.
 
-    Formal semantics is an **oracle** that allows or does not allow any example
+    Syntax is given as a **formal grammar** that tells us the set of valid programs.
+    (for now, we think of formal grammar == Rust enums and structs defining an
+    abstract data type)
+
+    We may define formal semantics as an **oracle** that allows or does not allow any example
     of the form
 
         (INPUT, program, OUTPUT).
 
-    (More generally: have to generalize this to include printed terminal output,
-     file access, etc.)
+    "INPUT" and "OUTPUT" should be considered general here.
+    They can be any input or any output mechanisms (user input, terminal or
+    command line arguments, file access, and any other relevant "external"
+    program behavior, etc.)
 
-    There are several approaches.
+    Example:
+
+        (INPUT, "print x", OUTPUT)
+
+        is valid only if OUTPUT consists only of printing the contents of x to the terminal (and no other behaviors).
+
+    Why "oracle"?
+
+    Note that semantics is defined over **all** programs, not just one specific program.
+
+        Aside: Semantics is like a true/false property over *all possible* programs and program behaviors.
+        (Maybe helpful for those who took ECS 261)
+
+        Yes/No -- did this program execute correctly?
+
+    There are several approaches to define formal semantics.
     We noted last time that one simple approach is
     to just define a "bespoke" compiler or interpreter that defines
     the correct semantics.
@@ -29,18 +50,13 @@
         - A **reference interpreter** is ...
 
         - A **compiler** is ...
+
+        - A **reference compiler** is ...
+
+    How do we derive a true/false "oracle" from these definitions?
+
+
 */
-
-// Uncomment to implement
-// fn progv2_interpeter() {
-// }
-
-// Uncomment to implement/run
-// #[test]
-fn test_progv2_interpreter() {
-    todo!()
-}
-
 /*
     ===== Poll =====
 
@@ -48,43 +64,79 @@ fn test_progv2_interpreter() {
     or does not accept any example
         (INPUT, program, OUTPUT).
 
-    "INPUT" and "OUTPUT" should be considered general here.
-    They can be any input or any output mechanisms (user input, terminal or
-    command line arguments, etc.)
-
-    Consider the following toy language:
-    enum ProgramV3 {
-        GetUserInput(String),
-        SetVar(String, IntExpr),
-        PrintOutput(IntExpr),
-        Sequence(Box<ProgramV3>, Box<ProgramV3>)
-    }
-
-    // Assume Box<> is added below (we would have to add Box<> in Rust)
-    enum IntExpr {
-        Literal(isize),
-        Plus(IntExpr, IntExpr),
-        Mult(IntExpr, IntExpr),
-        VarName(String),
-    }
-    .
-    .
-    .
-
     Which of the following are valid semantics according to this definition?
+    (For the purposes of this question, imagine your favorite programming language,
+     say, Python or C++.)
+
+    Select all that apply.
 
     A) All programs must take input 5 and return 7.
-    B) Every program that runs "Print 5" followed by "Print 6" should print 5 and then 7.
-    C)
-    D)
-    E)
+    B) Every program that is of the form "Print x; Print y;" should print x and then y to the terminal, separated by newlines.
+    C) Every program that is of the form "Print x; Print y;" should print x and y to the terminal, in either order, and these may or may not be separated by newlines.
+    D) Every program must run in at most 5 seconds.
+    E) On input x = 5, if the program is a function of the form "f(x): x += 1; return x", it should return either 6 or "integer overflow error". (Similarly for any other program of this form for any other integer variable.)
 
+    https://forms.gle/49jg6n7XxCCRrUBm8
+
+    .
+    .
+    .
+    .
+    .
     .
     .
     .
     .
     .
 */
+
+/*
+    Let's implement a semantics for our language via a reference interpreter.
+
+    This will also help us see how representing programs as an abstract data type is useful
+    when writing compilers and interpreters.
+*/
+// We could import these ...
+// use super::syntax::{ProgramV2, IntExpr, ...} etc.
+// Redefining below, slightly cleaned up
+
+#[derive(Debug, PartialEq, Eq)]
+enum Program {
+    Increment(usize),                             // Increment the program counter by n
+    Print(String),                                // Display a string
+    HaltIf(usize),                                // Halt if program counter is at least n
+    Sequence(Box<Program>, Box<Program>),         // sequence of two programs - prog1; prog2
+    IfThen(BoolExpr, Box<Program>, Box<Program>), // if condition then program1 else program2
+    Loop(BoolExpr, Box<Program>),                 // loop
+}
+
+#[derive(Debug, PartialEq, Eq)]
+enum BoolExpr {
+    Eq(IntExpr, IntExpr),
+    LessThan(IntExpr, IntExpr),
+    LessThanEq(IntExpr, IntExpr),
+    // Would usually be recursive
+    // Or(Box<BooleanExp>, Box<BooleanExp>),
+    // And(Box<BooleanExp>, Box<BooleanExp>),
+}
+
+#[derive(Debug, PartialEq, Eq)]
+enum IntExpr {
+    NumberLiteral(isize),
+    Add(Box<IntExpr>, Box<IntExpr>), // Recursive!
+    Mult(Box<IntExpr>, Box<IntExpr>),
+    LeftShift(Box<IntExpr>, Box<IntExpr>),
+}
+
+// Uncomment to implement
+// fn prog_interpeter() {
+// }
+
+// Uncomment to implement/run
+// #[test]
+fn test_prog_interpreter() {
+    todo!()
+}
 
 /*
     Exercise: demonstrate one of the problems from one of the polls
@@ -141,7 +193,7 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
 }
 
 /*
-    Key point:
+    Key difference:
     - Ambiguous semantics:
       The language specification ...
 
