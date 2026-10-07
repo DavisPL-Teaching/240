@@ -2,13 +2,13 @@
     Lecture 1
     Part 3: Formal Semantics
 
-    We said last time we need a way for everyone to agree
-    on what programs mean.
-    This is formal semantics.
-
     Syntax is given as a **formal grammar** that tells us the set of valid programs.
     (for now, we think of formal grammar == Rust enums and structs defining an
     abstract data type)
+
+    We said last time we need a way for everyone to agree
+    on what programs mean.
+    This is formal semantics.
 
     We may define formal semantics as an **oracle** that allows or does not allow any example
     of the form
@@ -22,11 +22,9 @@
 
     Example:
 
-        (INPUT, "print x", OUTPUT)
+        (INPUT, "print <expr>", OUTPUT)
 
-        is valid only if OUTPUT consists only of printing the contents of x to the terminal (and no other behaviors).
-
-    Why "oracle"?
+        is valid only if OUTPUT consists only of printing the contents of <expr> to the terminal (and no other behaviors).
 
     Note that semantics is defined over **all** programs, not just one specific program.
 
@@ -35,32 +33,65 @@
 
         Yes/No -- did this program execute correctly?
 
+    Why "oracle"?
+    - Spoiler: in general, we won't want this oracle to
+      necessarily be an executable program
+      More commonly: it will be some mathematical definition
+      of whether a particular program behavior is consistent
+      with the formal semantics.
+
     There are several approaches to define formal semantics.
     We noted last time that one simple approach is
-    to just define a "bespoke" compiler or interpreter that defines
+    to just define a "bespoke" correct version of a
+    compiler or interpreter that defines
     the correct semantics.
 
     (This is actually not a good approach in general, but we will
-     discuss the limitations with this later on.)
+     discuss the limitations with this later on. Why?
+        1. compiler version could change!
+        2. who watches the watcher?
+        3. could be platform-dependent behavior
+        4. compiler could have bugs
+        5. ...
+     )
+
+    That being said, giving a correct/bespoke correct version
+    of a compiler/interpreter is a valid way of defining
+    formal semantics, because it gives one possible definition
+    of the "oracle" I mentioned above.
 
     Potentially relevant definitions:
 
-        - An **interpreter** is ...
+        - An **interpreter** is
+            a program that takes as input source code,
+            (perhaps producing some intermediate byte code or other
+            intermediate representation),
+            and an input,
+            and directly evaluates it producing output.
 
-        - A **reference interpreter** is ...
+        - A **compiler** is a program
+            which takes as input source code and produces
+            output executable machine
+            code which can be run on a target platform
+            on any input(s).
 
-        - A **compiler** is ...
+        - A **reference interpreter** is
+            an interpreter which is taken as the "oracle"
+            to define the formal semantics for some language.
 
-        - A **reference compiler** is ...
+        - A **reference compiler** is
+            a compiler which is taken as the "oracle" to
+            define the formal semantics for some language.
 
     How do we derive a true/false "oracle" from these definitions?
-
-
+    (Revisit)
 */
+
 /*
     ===== Poll =====
 
-    Last time, we defined semantics as an "oracle" that accepts
+    Last time, we defined formal semantics as an
+    "oracle" that accepts
     or does not accept any example
         (INPUT, program, OUTPUT).
 
@@ -129,14 +160,67 @@ enum IntExpr {
 }
 
 // Uncomment to implement
-// fn prog_interpeter() {
-// }
+fn prog_interpreter(prog: &Program, prog_counter: usize) {
+    let mut prog_counter = prog_counter;
+    // use Program::*;
+    match prog {
+        Program::Increment(u) => {
+            prog_counter += u;
+        }
+        Program::Print(s) => {
+            print!("{}", s);
+        }
+        Program::HaltIf(u) => {
+            if prog_counter >= *u {
+                // TBD:
+                // Clippy wants us to do nothing
+                // return;
+            }
+        }
+        Program::Sequence(prog1, prog2) => {
+            prog_interpreter(prog1, prog_counter);
+            prog_interpreter(prog2, prog_counter);
+            // ^^ TBD: how to update prog_counter
+        }
+        Program::IfThen(b, prog1, prog2) => {
+            todo!();
+        }
+        Program::Loop(b, prog) => {
+            todo!();
+        }
+    }
+}
 
 // Uncomment to implement/run
 // #[test]
 fn test_prog_interpreter() {
     todo!()
 }
+
+/*
+    Quick recap:
+
+    *Formal* program semantics may be given by defining **any**
+    yes/no oracle for whether any example program and example behavior
+    (INPUT, prog, OUTPUT) is allowed
+
+    Program semantics need not be deterministic - there may be
+    multiple possible outputs for the same input
+
+    The oracle need not be executable
+
+    - However, if we want to give an executable oracle, there
+      are ways to do this, for example
+      define a reference interpreter or a reference compiler
+      for the language
+
+    - We started defining a reference interpreter for our
+      simple toy language, which worked by recursively
+      evaluating on the syntax of toy programs, and evaluating
+      each case.
+
+      ----------------------------------------
+*/
 
 /*
     Exercise: demonstrate one of the problems from one of the polls

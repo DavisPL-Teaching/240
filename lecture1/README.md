@@ -118,6 +118,7 @@ Reminders:
     but my OH are on Wednesday! I will still hold OH.
 
     TA OH:
+    Office hours remotely via Zoom (2-3pm Fri)
 
 Plan:
 
