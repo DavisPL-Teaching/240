@@ -125,3 +125,23 @@ Plan:
     Semantics.
 
 Questions?
+
+## Monday, October 12
+
+Announcements:
+
+-
+
+Plan for today:
+
+- Poll
+
+- Continue semantics.
+
+    + Ambiguous vs. nondeterministic semantics
+
+    + Why we don't want semantics to be deterministic
+
+    + How semantics enables program properties: program equivalence, program optimization.
+
+- If time: Formal def.s surrounding syntax and semantics.
