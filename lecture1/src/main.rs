@@ -19,8 +19,14 @@ pub mod syntax;
 #[path = "3-semantics.rs"]
 pub mod semantics;
 
-// #[path = "4-imp.rs"]
-// mod imp;
+// #[path = "4-theory.rs"]
+// pub mod theory;
+
+// #[path = "5-imp.rs"]
+// pub mod imp;
+
+// Utility functions
+pub mod util;
 
 fn main() {
     println!("Hello, ECS 240!");
@@ -30,4 +36,6 @@ fn main() {
 
     // Uncomment to run Part 1
     // intro::main();
+
+    // ... Add your own commands here ...
 }

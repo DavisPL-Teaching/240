@@ -223,15 +223,305 @@ fn test_prog_interpreter() {
 */
 
 /*
-    Exercise: demonstrate one of the problems from one of the polls
-    last week on ambiguous semantics.
+    Oct 12
+
+    Recall:
+
+        *Formal* program semantics may be given by defining **any**
+        yes/no oracle (or *set*) for whether any example program and example behavior
+        (INPUT, prog, OUTPUT) is allowed.
+
+        Often will be given mathematically, not necessarily an executable function.
+
+    === Determinism ===
+
+    Def. A semantics -- set of
+
+        (INPUT, prog, OUTPUT)
+
+    is
+
+        - **deterministic** if for every INPUT and prog, there is at most one possible OUTPUT.
+
+    we will not use the following definition much, but it is worth knowing:
+
+        - **total** if for every INPUT and prog, there is at least one possible output.
+
+    Why is semantics not always deterministic?
+
+    We will start with a trivial/toy example of one "obvious" reason,
+    then less obvious reasons.
+
+    Example 1:
+    Here is a language that now incorporates variables (but only boolean variables):
 */
 
-// fn interpreter_1() {}
+enum RandProg {
+    /* Some basic variable operations */
+    SetVar(Variable, bool),
+    CopyVar(Variable, Variable),
+    // Random number generation
+    FlipCoin(Variable),
+    // Input and output
+    Input(Variable),
+    Output(Variable), // e.g., print to terminal
+    // Control flow
+    Seq(Box<RandProg>, Box<RandProg>),
+    If(Variable, Box<RandProg>, Box<RandProg>),
+}
 
-// fn interpreter_2() {}
+// To model variables, we can use Rust strings
+struct Variable(String);
+// ^^^^^ This is called a newtype pattern
 
-// with formal semantics: we can tell which of interpreter 1 or 2 is **wrong**, and which is right.
+// To evaluate programs, we need some kind of variable store.
+// We can use a HashMap in Rust
+use std::collections::HashMap;
+struct VariableStore(HashMap<String, bool>);
+
+// Useful utility functions
+use super::util;
+
+// Reference interpreter
+// Implemented as a method on Variable Store
+// (Methods are like classes / object oriented programming style)
+// Impl block syntax:
+impl VariableStore {
+    fn new() -> Self {
+        // Self = VariableStore
+        VariableStore(HashMap::new())
+    }
+    // Syntax for a Rust method
+    fn interpret(&mut self, prog: &RandProg) {
+        match prog {
+            RandProg::SetVar(v, b) => {
+                // Note the .clone() here
+                // Makes Rust memory/borrow checker happy (why?)
+                self.0.insert(v.0.clone(), *b);
+
+                // ^^^ We could use the entry API here
+            }
+            RandProg::CopyVar(v1, v2) => {
+                // NB: Rust helps us avoid a bug here
+                self.0
+                    .insert(v1.0.clone(), self.0.get(&v2.0).copied().unwrap_or(false));
+            }
+            RandProg::FlipCoin(v) => {
+                // TODO: Implement this case
+                // util provides util::rand_bool()
+                unimplemented!()
+            }
+            RandProg::Input(v) => {
+                // Utility function
+                // see util.rs
+                self.0.insert(v.0.clone(), util::get_bool_input());
+            }
+            RandProg::Output(v) => {
+                print!("{}", self.0.get(&v.0).copied().unwrap_or(false))
+            }
+            RandProg::Seq(prog1, prog2) => {
+                // Run both programs in sequence
+                self.interpret(prog1);
+                self.interpret(prog2);
+            }
+            RandProg::If(b, prog1, prog2) => {
+                // TODO: implement this case
+                unimplemented!()
+            }
+        }
+    }
+}
+
+// ex: how to write an AND statement in this language?
+// Get two user inputs and AND them?
+
+fn and_program() -> RandProg {
+    unimplemented!()
+}
+
+// Try running our program
+
+/*
+    Q1. Why is the semantics not deterministic? (Give a specific example)
+*/
+
+/*
+    ===== Poll =====
+
+    Consider the definition of semantics, and the program in this RandProg language
+
+        FlipCoin(x)
+        FlipCoin(y)
+        Output(x)
+        Output(y)
+
+    Note: to define it in our Rust grammar it would be
+
+        let x = "x".to_string();
+        let y = "y".to_string();
+        Seq(
+            FlipCoin(x),
+            Seq(
+                FlipCoin(y),
+                Seq(
+                    Output(x),
+                    Output(y)
+                )
+            )
+        )
+
+    You may assume our formal semantics requires that each Output() statement corresponds to exactly one output
+    Boolean to the terminal (t or f).
+
+    1. What are all possible outputs of this program that are possible according to our reference interpreter?
+
+    2. Can we our reference interpreter to define the formal semantics of RandProg programs?
+
+    3. Can we use any **deterministic** reference interpreter to define the semantics of RandProg programs?
+
+    Briefly - Why or why not? (For Questions 2 and 3)
+
+    https://forms.gle/P6wSBogP1JukWE2d7
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+    But this is not the only reason we might not want our semantics to be deterministic!
+*/
+
+/*
+    Q2. Let's say we remove the FlipCoin case. *then* do we want the semantics to be
+    deterministic?
+*/
+
+/*
+    Example 2:
+    (We will not completely fill out this one)
+
+    Here is a more complicated toy language with a heap:
+*/
+
+enum HeapProg {
+    /* Some basic variable operations */
+    // Now int instead of boolean
+    SetVar(Variable, usize),
+    CopyVar(Variable, Variable),
+    // More variable operations
+    IncVar(Variable),
+    DecVar(Variable),
+    // Input and output
+    Input(Variable),
+    Output(Variable),
+    /* Memory operations */
+    // Allocate a byte on the heap, store a pointer to it in the variable
+    NewAlloc(Variable),
+    // Read a byte from memory
+    // x = *y;
+    ReadMem(Variable, Variable),
+    // Write a byte to memory
+    // *x = y;
+    WriteMem(Variable, Variable),
+    // Control flow
+    Seq(Box<HeapProg>, Box<HeapProg>),
+    IfEq(Variable, Variable, Box<HeapProg>, Box<HeapProg>),
+}
+
+// // We can model a memory location as a Rust usize
+struct Location(usize);
+
+/*
+    Exercise:
+    What is the state of our program?
+    What do we need instead of a memory store?
+*/
+
+// TODO
+// struct HeapState {
+// }
+
+// // Reference interpreter
+// impl HeapState {
+//     fn new() -> Self {
+//         unimplemented!()
+//     }
+//     fn interpret(&mut self, prog: &HeapProg) {
+//         unimplemented!()
+//     }
+// }
+
+/*
+    EXAMPLE:
+
+    NewAlloc(x)
+    NewAlloc(y)
+
+    SetVar()
+
+
+    Another example in a more C-like setting:
+
+        int *x = new pointer;
+        int *y = new pointer
+        *x = 3;
+        // some operations on *y
+        *y = *y + 1
+        // back to x
+        print(x)
+
+        Can we optimize this to this?
+
+        int *y = new pointer
+        *y = *y + 1
+        print(3)
+
+        (This is known as constant propagation)
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+    Some overall points:
+
+    Any semantics given by a deterministic reference interpreter
+    is deterministic. (why?)
+
+    Why do we not want this in the above cases?
+*/
 
 /*
     === Ambiguous versus nondeterministic semantics ===
@@ -240,7 +530,23 @@ fn test_prog_interpreter() {
 
     https://en.wikipedia.org/wiki/Nondeterministic_programming
 
-    Here is an example language with two interpreters:
+    Key definitions:
+    - Ambiguous semantics:
+      The language semantics ...
+
+    - Nondeterministic semantics:
+      The language semantics ...
+
+    Exercise: demonstrate one of the problems from one of the polls
+    last week on ambiguous semantics.
+*/
+
+// fn interpreter_1() {}
+
+// fn interpreter_2() {}
+
+/*
+    Another example of nondeterministic semantics:
 */
 
 #[derive(Debug, PartialEq, Eq)]
@@ -277,20 +583,13 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
 }
 
 /*
-    Key difference:
-    - Ambiguous semantics:
-      The language specification ...
-
-    - Nondeterministic semantics:
-      The language specification ...
-
     This is a valid semantics! But the tools we have so far aren't enough to describe
     its semantics.
     Formal semantics via a reference interpreter is not enough.
 
     .
 
-    Other examples of ambiguity?
+    Other examples of nondeterminism?
 
     We need to allow multiple ways of executing programs! Otherwise, often, program optimization wouldn't
     be possible.
@@ -300,7 +599,32 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     .
     .
     .
+*/
 
+/*
+    Things you can do with semantics.
+
+    === Program equivalence ===
+
+    Once we have a semantics, we can talk about interesting things such as:
+
+    - Two programs, P1 and P2 are **equivalent** if:
+
+    Example of two programs that are equivalent?
+
+    In our RandProg language?
+
+    This is the foundation of program optimization!
+
+    This is why compilers are able to optimize your code.
+    Without this, no optimization would ever be possible.
+
+    Another definition:
+
+    - Program P1 is a **refinement** of program P2 if:
+*/
+
+/*
     === Revising the poll on first day of class: Is it a programming language? ===
 
     Expanding our intuition about what a programming language is
@@ -329,89 +653,10 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     - All of these can be described by a formal syntax and formal semantics
     - All are valid programming languages.
 
-    Revisiting the Lecture 0 poll:
+    From the Lecture 0 poll:
 
     .
     .
 
     (Exercise: pick one and sketch below.)
-*/
-
-/*
-    Things you can do with semantics.
-
-    === Program equivalence ===
-
-    Once we have a semantics, we can talk about interesting things such as:
-
-    - Two programs, P1 and P2 are **equivalent** if:
-
-    Example of two programs that are equivalent?
-
-    This is the foundation of program optimization!
-
-    This is why compilers are able to optimize your code.
-    Without this, no optimization would ever be possible.
-*/
-
-/*
-    === Theoretical foundations ===
-
-    **Syntax.**
-
-    Syntax defines a *set* of valid programs.
-    It's a formal language (a subset of all strings over an alphabet.)
-
-        *Note:* what is the alphabet? traditionally ASCII. But modern programming
-        languages usually allow Unicode :-)
-
-    Syntax is almost always given as a formal grammar.
-
-    Each program element is given in terms of
-
-        <Number> ::= 0 | 1 | <Number> + <Number>
-
-    What's the formal grammar for our language above?
-
-    *Note:*
-    We can think of our Rust enum as a formal grammar.
-    It doesn't match exactly (in fact, we are assuming the program
-    has already been *parsed* via that grammar -- more on this soon),
-    but it is convenient to work with. We're not worried right now
-    about how programs in our language are represented.
-*/
-
-/*
-    *Semantics.*
-
-    Reference interpreters or reference implementations are great, but they aren't
-    fully general for all languages.
-
-    There are many ways to define semantics.
-
-    Most common:
-
-    - Def. **Operational semantics.**
-
-        + Small-step semantics:
-
-        + Big-step semantics:
-
-    - Def. **Denotational semantics.**
-*/
-
-/*
-    === Discussion questions ===
-
-    1. Why separate syntax and semantics?
-
-    2. What is semantics good for?
-
-    3. How do syntax and semantics play into the development of...
-
-        compilers?
-
-        interpreters?
-
-        static analysis tools?
 */

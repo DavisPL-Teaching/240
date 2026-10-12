@@ -1,7 +1,7 @@
 /*
     Lecture 1
 
-    Extended exercise:
+    Extended programming exercise:
     Simple Imperative Programs
 
     Task: Define a syntax and semantics for IMP.

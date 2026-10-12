@@ -130,7 +130,9 @@ Questions?
 
 Announcements:
 
--
+- HW0 grades are ready and will be released shortly
+
+- I am working on HW1; I hope to release this soon
 
 Plan for today:
 
@@ -138,10 +140,15 @@ Plan for today:
 
 - Continue semantics.
 
-    + Ambiguous vs. nondeterministic semantics
+    + Determinism.
+        * Examples
+        * Why semantics may not be deterministic
+        * Why we don't want semantics to be deterministic
 
-    + Why we don't want semantics to be deterministic
+    + Poll
+
+    + Ambiguous vs. nondeterministic semantics
 
     + How semantics enables program properties: program equivalence, program optimization.
 
-- If time: Formal def.s surrounding syntax and semantics.
+    + Revising the poll from Lecture 0.
