@@ -136,8 +136,6 @@ Announcements:
 
 Plan for today:
 
-- Poll
-
 - Continue semantics.
 
     + Determinism.

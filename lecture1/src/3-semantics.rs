@@ -258,21 +258,23 @@ fn test_prog_interpreter() {
 
 enum RandProg {
     /* Some basic variable operations */
-    SetVar(Variable, bool),
-    CopyVar(Variable, Variable),
+    SetVar(Variable, bool),      // x = true or x = false
+    CopyVar(Variable, Variable), // x = y
     // Random number generation
-    FlipCoin(Variable),
+    FlipCoin(Variable), // x = flip_coin()
     // Input and output
-    Input(Variable),
-    Output(Variable), // e.g., print to terminal
+    Input(Variable),  // x = get_input()
+    Output(Variable), // e.g., print to terminal print(x)
     // Control flow
-    Seq(Box<RandProg>, Box<RandProg>),
-    If(Variable, Box<RandProg>, Box<RandProg>),
+    Seq(Box<RandProg>, Box<RandProg>),          // prog1; prog2;
+    If(Variable, Box<RandProg>, Box<RandProg>), // if x { prog1 } else { prog2 }
 }
 
 // To model variables, we can use Rust strings
 struct Variable(String);
 // ^^^^^ This is called a newtype pattern
+// var = Variable("hello".to_string())
+// var.0 // get the string inside
 
 // To evaluate programs, we need some kind of variable store.
 // We can use a HashMap in Rust
@@ -292,6 +294,8 @@ impl VariableStore {
         VariableStore(HashMap::new())
     }
     // Syntax for a Rust method
+    // let mut store = VariableStore::new();
+    // store.interpret(program);
     fn interpret(&mut self, prog: &RandProg) {
         match prog {
             RandProg::SetVar(v, b) => {
@@ -302,14 +306,16 @@ impl VariableStore {
                 // ^^^ We could use the entry API here
             }
             RandProg::CopyVar(v1, v2) => {
-                // NB: Rust helps us avoid a bug here
+                // ex.: programmer wrote x = y, y is not yet defined
                 self.0
                     .insert(v1.0.clone(), self.0.get(&v2.0).copied().unwrap_or(false));
             }
             RandProg::FlipCoin(v) => {
+                // v = flip_coin()
                 // TODO: Implement this case
                 // util provides util::rand_bool()
-                unimplemented!()
+                // set value of v in my variable store
+                self.0.insert(v.0.clone(), util::rand_bool());
             }
             RandProg::Input(v) => {
                 // Utility function
@@ -320,13 +326,20 @@ impl VariableStore {
                 print!("{}", self.0.get(&v.0).copied().unwrap_or(false))
             }
             RandProg::Seq(prog1, prog2) => {
+                // prog1; prog2
                 // Run both programs in sequence
                 self.interpret(prog1);
                 self.interpret(prog2);
             }
             RandProg::If(b, prog1, prog2) => {
                 // TODO: implement this case
-                unimplemented!()
+                // get the value of b from the store
+                let b_val = self.0.get(&b.0).copied().unwrap_or(false);
+                if b_val {
+                    self.interpret(prog1);
+                } else {
+                    self.interpret(prog2);
+                }
             }
         }
     }
@@ -334,31 +347,38 @@ impl VariableStore {
 
 // ex: how to write an AND statement in this language?
 // Get two user inputs and AND them?
+// Output the result
 
 fn and_program() -> RandProg {
+    // take two inputs
+    // Input(x)
+    // Input(y)
+    // check if both are true
+    // if yes, output a variable corresponding to true
+    // if not, output a variable corresponding to false
+    // If(x,
+    //      If(y, Output(x), Output(y)),
+    //      Output(x)
+    // )
     unimplemented!()
 }
 
-// Try running our program
-
-/*
-    Q1. Why is the semantics not deterministic? (Give a specific example)
-*/
+// (SKIP: Try running our interpreter on this example)
 
 /*
     ===== Poll =====
 
     Consider the definition of semantics, and the program in this RandProg language
 
-        FlipCoin(x)
-        FlipCoin(y)
-        Output(x)
+        FlipCoin(x);
+        FlipCoin(y);
+        Output(x);
         Output(y)
 
     Note: to define it in our Rust grammar it would be
 
-        let x = "x".to_string();
-        let y = "y".to_string();
+        let x = Variable("x".to_string());
+        let y = Variable("y".to_string());
         Seq(
             FlipCoin(x),
             Seq(
@@ -375,7 +395,7 @@ fn and_program() -> RandProg {
 
     1. What are all possible outputs of this program that are possible according to our reference interpreter?
 
-    2. Can we our reference interpreter to define the formal semantics of RandProg programs?
+    2. Can we use our reference interpreter to define the formal semantics of RandProg programs?
 
     3. Can we use any **deterministic** reference interpreter to define the semantics of RandProg programs?
 
@@ -388,6 +408,23 @@ fn and_program() -> RandProg {
     .
     .
     .
+
+    1. tt, tf, ft, ff
+
+    2. we can define ANY possible (INPUT, prog, OUTPUT) ...
+    ...
+    branch on all possible program behaviors?
+
+    How would you define the possible (INPUT, prog, OUTPUT) triples?
+
+    Let's define that
+
+        (INPUT, prog, OUTPUT)
+
+    is valid if there is **at least one* execution of our reference interpreter
+    on input INPUT that returns OUTPUT.
+    ^^^
+
     .
     .
     .
@@ -415,6 +452,17 @@ fn and_program() -> RandProg {
     .
 
     But this is not the only reason we might not want our semantics to be deterministic!
+
+    Even if we remove FlipCoin from our language, I argue that we *still* may benefit from
+    allowing our semantics to be deterministic.
+    We will discuss this more next time.
+
+    ------------------------------
+
+*/
+
+/*
+    Q1. Why is the semantics not deterministic? (Give a specific example)
 */
 
 /*
