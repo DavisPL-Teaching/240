@@ -150,3 +150,22 @@ Plan for today:
     + How semantics enables program properties: program equivalence, program optimization.
 
     + Revising the poll from Lecture 0.
+
+## Wednesday, October 14
+
+Announcements:
+
+- HW0
+
+- HW1
+
+Plan:
+    + Poll
+
+    + Finish discussion on why nondeterminism is useful
+
+    + Ambiguous vs. nondeterministic semantics
+
+    + How semantics enables program properties: program equivalence, program optimization.
+
+    + Revising the poll from Lecture 0.

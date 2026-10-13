@@ -37,3 +37,7 @@ Note that I updated the wording of Q3 to the following:
 "Can we use any deterministic formal semantics to define the semantics of RandProg programs in a way that agrees with our reference interpreter?"
 
 The point here is that any deterministic semantics -- or deterministic reference interpreter (used as the semantics directly) -- will not work because it allows only one output.
+
+Oct 14:
+
+Oct 16:

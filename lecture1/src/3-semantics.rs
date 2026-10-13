@@ -462,7 +462,39 @@ fn and_program() -> RandProg {
 */
 
 /*
-    Q1. Why is the semantics not deterministic? (Give a specific example)
+    Oct 14
+
+    Poll:
+    Which of the following is possible for RandProg programs:
+    (Select all that apply)
+    A) Two different inputs, for the same program, produce the same output
+    B) Two different programs are equivalent (produce the exact same output
+       or set of possible outputs on every input)
+    C) A program is deterministic for all inputs: for all inputs, for that particular
+       program, there is exactly one output
+    D) A program is nondeterministic for all inputs: for all inputs, for that particular
+       program, there are at least two possible outputs
+
+    https://forms.gle/ZFQK3un1WM72axPe8
+*/
+
+/*
+    Last time, we defined a grammar for a language called RandProg.
+    We also gave it a full formal semantics in the following sense:
+
+        (INPUT, prog, OUTPUT) is allowed if and only if OUTPUT is the output
+        of the reference interpreter on **at least** one program execution.
+
+    So for the first time in the class, we have defined a programming language!
+
+        PL = Syntax + Semantics
+
+    We have given it a formal syntax (via Rust enum) and a formal semantics (via the above definition).
+
+    Questions:
+    Q1. Why is the semantics not deterministic?
+
+    A: There are four possible outputs in last time's poll.
 */
 
 /*
@@ -515,7 +547,10 @@ struct Location(usize);
 // struct HeapState {
 // }
 
-// // Reference interpreter
+// Reference interpreter
+// You could imagine defining an interpreter for our heap language.
+// You can do that if you like on your own time.
+// (SKIP)
 // impl HeapState {
 //     fn new() -> Self {
 //         unimplemented!()
@@ -565,10 +600,22 @@ struct Location(usize);
 
     Some overall points:
 
-    Any semantics given by a deterministic reference interpreter
-    is deterministic. (why?)
+    - Nondeterminism = more than one output per input
 
-    Why do we not want this in the above cases?
+    - Any semantics given by a deterministic reference interpreter
+      is deterministic. (why?)
+
+    - Nondeterminism is useful for modeling inherently nondeterministic programs
+
+    - AND nondeterminism is useful for leaving semantics under-specified, even
+      when programs are inherently deterministic, in order to allow for program
+      optimization, efficient execution and memory layout, etc.
+
+    - Finally, nondeterminism is useful in cases where the language designers
+      want to allow different interpretations to exist and leave some choices
+      up to compiler/interpreter designers or particular platforms.
+
+        ==> Example: ending print statements with a LF vs. CR;LF.
 */
 
 /*
