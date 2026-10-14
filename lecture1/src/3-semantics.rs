@@ -465,7 +465,15 @@ fn and_program() -> RandProg {
     Oct 14
 
     Poll:
-    Which of the following is possible for RandProg programs:
+    Which of the following is possible for some RandProg program or programs,
+    with semantics as defined above using our reference interpreter?
+
+    Reminder:
+        (INPUT, prog, OUTPUT)
+
+    is valid if there is **at least one* execution of our reference interpreter
+    on input INPUT that returns OUTPUT.
+
     (Select all that apply)
     A) Two different inputs, for the same program, produce the same output
     B) Two different programs are equivalent (produce the exact same output
@@ -476,6 +484,27 @@ fn and_program() -> RandProg {
        program, there are at least two possible outputs
 
     https://forms.gle/ZFQK3un1WM72axPe8
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
 */
 
 /*
@@ -605,9 +634,11 @@ struct Location(usize);
     - Any semantics given by a deterministic reference interpreter
       is deterministic. (why?)
 
-    - Nondeterminism is useful for modeling inherently nondeterministic programs
+    Nondeterminism is useful in at least 3 cases:
 
-    - AND nondeterminism is useful for leaving semantics under-specified, even
+    - For modeling inherently nondeterministic programs
+
+    - AND, nondeterminism is useful for leaving semantics under-specified, even
       when programs are inherently deterministic, in order to allow for program
       optimization, efficient execution and memory layout, etc.
 

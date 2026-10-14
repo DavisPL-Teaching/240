@@ -155,17 +155,25 @@ Plan for today:
 
 Announcements:
 
-- HW0
+- HW0 graded
 
-- HW1
+    Please take a look at your scores - regrade requests open for one week, until Tuesday
+
+    Reminder to run `cargo clippy` and `cargo fmt` before submitting
+
+- HW1:
+
+    Still in progress! I am still working on it and will release soon, apologies for the delay.
 
 Plan:
     + Poll
 
-    + Finish discussion on why nondeterminism is useful
+    + Finish discussion on nondeterminism: why nondeterministic semantics is useful
 
-    + Ambiguous vs. nondeterministic semantics
+    + Ambiguity vs. nondeterminism
 
     + How semantics enables program properties: program equivalence, program optimization.
 
     + Revising the poll from Lecture 0.
+
+If extra time: we can start Part 4.
