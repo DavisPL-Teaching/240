@@ -309,6 +309,22 @@ impl VariableStore {
                 // ex.: programmer wrote x = y, y is not yet defined
                 self.0
                     .insert(v1.0.clone(), self.0.get(&v2.0).copied().unwrap_or(false));
+
+                // CopyVar(v1, v2) is like a C program
+                //     v1 := v2;
+                // unwrap_or?
+                //     we're saying that if v2 is not defined (uninitialized variable!)
+                //     then, we are just going to set v1 = false.
+                //     one reason is it false or is it missing?
+                //     this is Python's reason!
+                //     C's reason?
+                //     C assumes you know what you're doing, and that you're doing some kind
+                //     of clever memory manipulation
+                //     C's main reason: efficiency!
+                //     if every time v1 := v2, and v2 is not defined, I have to set v1 = false,
+                //     then, in a C compiler, I would need to initialize all memory to false!
+                //     and this is additional runtime overhead!
+                //     According to C, unnecessary runtime overhead is always a bad thing.
             }
             RandProg::FlipCoin(v) => {
                 // v = flip_coin()
@@ -332,9 +348,31 @@ impl VariableStore {
                 self.interpret(prog2);
             }
             RandProg::If(b, prog1, prog2) => {
-                // TODO: implement this case
+                // if b then prog1 else prog2
                 // get the value of b from the store
-                let b_val = self.0.get(&b.0).copied().unwrap_or(false);
+                let b_val = self.0.get(&b.0).cloned().unwrap_or(false);
+
+                // .get() returns us a reference: Option<&Value>
+                // no entry in variable store => None
+                // is an entry in the variable store => Some(&t)
+                // Some(t)
+                // .copied(): Some(&t) => Some(t)
+                // .cloned(): same thing
+                // .unwrap(): Some(x) => x, None => crash your program (panic)
+                // .unwrap_or(y): Some(x) => x, None => y
+
+                // .clone() copy => ways to turn a pointer into a value
+                // .copied() .cloned() => special operations on Option<&T>
+
+                /*
+                    Simple rule:
+                    If you have an Option<&T> => use .cloned() or .copied()
+                    If you have a &T => use .clone()
+
+                    null ptr from other languages => None
+                    regular (non-null) pointer => &T and &mut T
+                */
+
                 if b_val {
                     self.interpret(prog1);
                 } else {
@@ -529,6 +567,23 @@ fn and_program() -> RandProg {
 /*
     Q2. Let's say we remove the FlipCoin case. *then* do we want the semantics to be
     deterministic?
+
+    A: There is a case for not!
+
+        For our three operations that used
+
+            .unwrap_or(false)
+
+        (these are cases where a Boolean var was uninitialized)
+
+        we may want to treat these the same as FlipCoin!
+
+        Why?
+        - Uninitialized memory is not initialized! --> could be anything
+        - If we insist that it is interpreted as false, then any correct interpreter/compiler
+          for our language will have to initialize all memory to 0 (or all uninit variables to false)
+        - This is slower than simply allowing the memory to be whatever it was when the program began.
+
 */
 
 /*
@@ -552,6 +607,8 @@ enum HeapProg {
     /* Memory operations */
     // Allocate a byte on the heap, store a pointer to it in the variable
     NewAlloc(Variable),
+    // like doing: x = new int()
+    // or x = alloc(int, 1);
     // Read a byte from memory
     // x = *y;
     ReadMem(Variable, Variable),
@@ -563,18 +620,25 @@ enum HeapProg {
     IfEq(Variable, Variable, Box<HeapProg>, Box<HeapProg>),
 }
 
-// // We can model a memory location as a Rust usize
-struct Location(usize);
-
 /*
     Exercise:
     What is the state of our program?
     What do we need instead of a memory store?
+
+    - A linkedlist?
+    - A queue?
+
+    // what is a heap?
+    // giant array of bytes
+    heap: Vec<bytes>
+    heap: Vec<usize> // usize = 4 bytes
 */
 
 // TODO
-// struct HeapState {
-// }
+struct HeapState {
+    var_store: HashMap<Variable, usize>, // map from var names to unsigned ints
+    heap: Vec<usize>,                    // giant array of ints.
+}
 
 // Reference interpreter
 // You could imagine defining an interpreter for our heap language.
@@ -585,9 +649,27 @@ struct Location(usize);
 //         unimplemented!()
 //     }
 //     fn interpret(&mut self, prog: &HeapProg) {
-//         unimplemented!()
+//         match prog {
+//             // ...
+//         }
 //     }
 // }
+
+/*
+    Quick recap:
+
+    - Rust question: .clone() (create a copy of some arbtrary data type),
+                     .cloned(), .copied() special methods on Option<&T> that create an Option<T>
+
+    - On the poll: applying a def. of semantics to example programs
+                    (using your intuition for C/Python like language can be helpful)
+
+    - We saw that in addition to modeling outright nondeterminism in programs, nondeterministic
+      semantics is additionally useful for operations in our language that may be underdefined
+      or explicitly undefined, in order to model different possible behaviors at runtime.
+
+    --------------------------------------------------
+*/
 
 /*
     EXAMPLE:
