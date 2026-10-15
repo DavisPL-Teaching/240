@@ -669,6 +669,35 @@ struct HeapState {
       or explicitly undefined, in order to model different possible behaviors at runtime.
 
     --------------------------------------------------
+
+    Oct 16
+
+    Poll:
+
+
+
+    https://forms.gle/YUG5xP5FG8RJadw4A
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
 */
 
 /*

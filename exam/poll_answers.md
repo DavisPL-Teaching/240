@@ -39,5 +39,6 @@ Note that I updated the wording of Q3 to the following:
 The point here is that any deterministic semantics -- or deterministic reference interpreter (used as the semantics directly) -- will not work because it allows only one output.
 
 Oct 14:
+All four options are possible.
 
 Oct 16:

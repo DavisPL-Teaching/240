@@ -177,3 +177,24 @@ Plan:
     + Revising the poll from Lecture 0.
 
 If extra time: we can start Part 4.
+
+## Friday, October 16
+
+Announcements:
+
+- HW1 available -- due Friday, October 23, 11:59pm
+
+    This homework is a problem set
+
+    May be challenging! Please start early
+
+    https://github.com/DavisPL-Teaching/240-hw1
+
+Plan:
+    + Ambiguity vs. nondeterminism
+
+    + How semantics enables program properties: program equivalence, program optimization.
+
+    + Revising the poll from Lecture 0.
+
+If extra time: we can start Part 4.

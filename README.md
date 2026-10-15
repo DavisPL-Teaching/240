@@ -16,7 +16,7 @@
 Welcome!
 
 - **Instructor:** [Caleb Stanford](https://web.cs.ucdavis.edu/~cdstanford/)
-- **CRN:** 47528
+- **TA:** Carlos Anguiano
 - **Units:** 4
 - **Lectures:** MWF 1:10-2pm in Olson Hall 158
 - **Final exam:** Tue, Dec 8 3:30-5:30pm -- please note that this time is not yet listed in schedulebuilder, but it is the official time for our course slot listed by the registrar.
