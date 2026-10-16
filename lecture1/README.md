@@ -202,3 +202,5 @@ Plan:
     + Revising the poll from Lecture 0.
 
 If extra time: we can start Part 4.
+
+Questions?

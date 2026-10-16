@@ -593,11 +593,12 @@ fn and_program() -> RandProg {
     Here is a more complicated toy language with a heap:
 */
 
+// #[derive(Debug)]
 enum HeapProg {
     /* Some basic variable operations */
     // Now int instead of boolean
     SetVar(Variable, usize),
-    CopyVar(Variable, Variable),
+    CopyVar(Variable, Variable), // x := y
     // More variable operations
     IncVar(Variable),
     DecVar(Variable),
@@ -608,7 +609,7 @@ enum HeapProg {
     // Allocate a byte on the heap, store a pointer to it in the variable
     NewAlloc(Variable),
     // like doing: x = new int()
-    // or x = alloc(int, 1);
+    // or x = malloc(int, 1);
     // Read a byte from memory
     // x = *y;
     ReadMem(Variable, Variable),
@@ -618,6 +619,7 @@ enum HeapProg {
     // Control flow
     Seq(Box<HeapProg>, Box<HeapProg>),
     IfEq(Variable, Variable, Box<HeapProg>, Box<HeapProg>),
+    // Loop <--, While, For, ...
 }
 
 /*
@@ -683,6 +685,17 @@ struct HeapState {
 
     https://forms.gle/YUG5xP5FG8RJadw4A
 
+    How does this relate to this
+
+        (INPUT, prog, OUTPUT) ?
+
+    In order to have nondeterminism, remember we need two outputs for the same INPUT and prog
+
+        (INPUT, prog, OUTPUT1)
+        (INPUT, prog, OUTPUT2)
+
+    are BOTH allowed by the semantics (yes/no oracle).
+
     .
     .
     .
@@ -708,13 +721,35 @@ struct HeapState {
 /*
     EXAMPLE:
 
-        NewAlloc(x)
-        NewAlloc(y)
+        NewAlloc(x) // int *x = new int()
+        NewAlloc(y) // int *y = new int()
 
-        Inc(x)
-        SetVar(a, 2)
-        WriteMem(x, a) // *x = a
-                    // what happens?
+        // set *y = 0
+        SetVar(a, 0)
+        WriteMem(y, a)
+
+        // Inc(x) // x ++
+        // SetVar(a, 2)
+        // WriteMem(x, a) // *x = 2
+        //             // what happens?
+
+        ReadMem(z, y) // z = *y
+        Output(z) // print(z)
+
+        // Why is this nondeterministic?
+        // We don't know where x and y are allocated.
+        // I'll argue that we don't want to force x and y to be allocated
+        // in a particular spot.
+
+        // 1. This program is (intuitively) nondeterministic
+        // 2. We want it to be nondeterministic, not because we want programmers to write
+              this code, but because we want the compiler to be able to be flexible with where
+              memory is allocated
+        // 3. This actually enables important program optimizations.
+
+            ==> Program optimization is usually  not possible for programs like this one (that modify
+                memory) without assuming some nondeterminism in the semantics of how memory is laid
+                out.
 
     Even simpler:
 
@@ -754,7 +789,7 @@ struct HeapState {
 
     === Summary and overall points ===
 
-    - Nondeterminism = more than one output per input
+    - Nondeterminism = more than one output per (INPUT, prog) (for the same program and input)
 
     - Any semantics given by a deterministic reference interpreter
       is deterministic. (why?)
@@ -783,17 +818,21 @@ struct HeapState {
 
     Ambiguity is not the same as nondeterminism!
 
-    https://en.wikipedia.org/wiki/Nondeterministic_programming
-
     Key definitions:
     - Ambiguous semantics:
-      The language semantics ...
+      The language semantics is not clear or not clearly specified:
+      e.g., it's written in English; no one has agreed on what it should be;
+      or, it's not written down at all
 
     - Nondeterministic semantics:
-      The language semantics ...
+      The language semantics is clearly specified, and agreed upon,
+      and written down (or even written down formally), AND that semantics
+      explicitly allows for multiple possible behaviors.
 
     Exercise: demonstrate one of the problems from one of the polls
     last week on ambiguous semantics.
+
+    (SKIP)
 */
 
 // fn interpreter_1() {}
@@ -802,6 +841,8 @@ struct HeapState {
 
 /*
     Another example of nondeterministic semantics:
+
+    https://en.wikipedia.org/wiki/Nondeterministic_programming
 */
 
 #[derive(Debug, PartialEq, Eq)]
@@ -838,11 +879,13 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
 }
 
 /*
-    This is a valid semantics! But the tools we have so far aren't enough to describe
-    its semantics.
-    Formal semantics via a reference interpreter is not enough.
+    This is a valid semantics!
+    But formal semantics via a reference interpreter is not enough.
 
     .
+
+    [Where we ended for Oct 16]
+    -------------------------------------------------------
 
     Other examples of nondeterminism?
 

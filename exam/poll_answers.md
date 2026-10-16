@@ -42,3 +42,6 @@ Oct 14:
 All four options are possible.
 
 Oct 16:
+A, B, D, E. (all except C)
+For C: "To prevent interpreters or compilers from having too many different behaviors", nondeterministic
+semantics has the opposite effect, it allows behaviors rather than restricting them.
