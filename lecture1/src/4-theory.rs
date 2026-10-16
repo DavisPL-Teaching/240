@@ -1,4 +1,3 @@
-
 /*
     === Theoretical foundations ===
 
@@ -27,7 +26,25 @@
 */
 
 /*
-    *Semantics.*
+    **Semantics** def from before:
+
+*/
+
+/*
+    Some definitions.
+
+    An interpreter implements (or satisfies) the semantics if ...
+
+    A compiler implements (or satisfies) the semantics if ...
+
+    **Backwards compatibility:**
+    A semantics S2 is backwards compatible with S1 if ...
+
+
+*/
+
+/*
+    *Types of Semantics.*
 
     Reference interpreters or reference implementations are great, but they aren't
     fully general for all languages.

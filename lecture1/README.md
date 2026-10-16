@@ -191,6 +191,10 @@ Announcements:
     https://github.com/DavisPL-Teaching/240-hw1
 
 Plan:
+    + Poll
+
+    + Finish memory layout (allocation language) example
+
     + Ambiguity vs. nondeterminism
 
     + How semantics enables program properties: program equivalence, program optimization.

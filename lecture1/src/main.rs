@@ -19,8 +19,8 @@ pub mod syntax;
 #[path = "3-semantics.rs"]
 pub mod semantics;
 
-// #[path = "4-theory.rs"]
-// pub mod theory;
+#[path = "4-theory.rs"]
+pub mod theory;
 
 // #[path = "5-imp.rs"]
 // pub mod imp;

@@ -673,8 +673,13 @@ struct HeapState {
     Oct 16
 
     Poll:
+    Which of the following are good reasons to use nondeterministic semantics in practice?
 
-
+    A) To model inherently nondeterministic operations, such as random number generation
+    B) To model (currently) deterministic operations that might be made nondeterministic later on
+    C) To prevent interpreters or compilers from having too many different behaviors
+    D) To allow different interpreters or compilers to make different choices about the implementation of an operation
+    E) To allow for program optimization or program rewrites which lead to more efficient code
 
     https://forms.gle/YUG5xP5FG8RJadw4A
 
@@ -703,11 +708,20 @@ struct HeapState {
 /*
     EXAMPLE:
 
-    NewAlloc(x)
-    NewAlloc(y)
+        NewAlloc(x)
+        NewAlloc(y)
 
-    SetVar()
+        Inc(x)
+        SetVar(a, 2)
+        WriteMem(x, a) // *x = a
+                    // what happens?
 
+    Even simpler:
+
+        NewAlloc(x)
+        Output(x) // print x -- nondeterministic behavior
+
+    Why do compilers want some control over when/where memory is allocated?
 
     Another example in a more C-like setting:
 
@@ -738,14 +752,14 @@ struct HeapState {
     .
     .
 
-    Some overall points:
+    === Summary and overall points ===
 
     - Nondeterminism = more than one output per input
 
     - Any semantics given by a deterministic reference interpreter
       is deterministic. (why?)
 
-    Nondeterminism is useful in at least 3 cases:
+    Nondeterminism is useful in at least 3 cases (See poll):
 
     - For modeling inherently nondeterministic programs
 
@@ -756,8 +770,12 @@ struct HeapState {
     - Finally, nondeterminism is useful in cases where the language designers
       want to allow different interpretations to exist and leave some choices
       up to compiler/interpreter designers or particular platforms.
+      Or, they want to leave it open to change/specify the behavior later.
 
         ==> Example: ending print statements with a LF vs. CR;LF.
+
+        ==> This also includes when languages might want to reserve certain keywords
+            or behaviors for specifying what they do later.
 */
 
 /*
