@@ -204,3 +204,42 @@ Plan:
 If extra time: we can start Part 4.
 
 Questions?
+
+## Monday, October 19
+
+Announcements/reminders:
+
+- HW1 due Friday
+
+- Plan for final projects:
+
+    Registration is now about stable; we have 50 students.
+
+    To cover final projects in the last 5 days of class, that would make 10 students per day
+
+    ---> If avg group size is 2, that means 5 mins per presentation + 5 min Q+A/transition (not a lot)
+
+    ---> If avg group size is 3, that means we get more like 10 mins per presentation + 5 min Q+A/transition
+
+    **I will allow groups of size 2-4**, group of size 1 is allowed only on specific request
+
+        + The main exception I will make to the group size is, for example, if you are doing research towards
+          a PhD or MS thesis, and you want the project to become part of your thesis.
+
+    Project proposal will be due: Friday, November 13
+
+    Final project presentations: Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
+
+    Final exam: Dec 8
+
+    Final project report will be due: Last day of finals period (Dec 11).
+
+        (I can make it Dec 10 if preferred by the majority.)
+
+----
+
+Plan:
+
+- Loose ends from Part 3: Semantics
+
+- Cover some theory.

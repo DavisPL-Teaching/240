@@ -1,4 +1,14 @@
 /*
+    Part 4:
+    Theoretical foundations
+    4-theory.rs
+
+    === Poll ===
+
+
+
+
+
     === Theoretical foundations ===
 
     **Syntax.**
@@ -60,6 +70,12 @@
         + Big-step semantics:
 
     - Def. **Denotational semantics.**
+*/
+
+/*
+    Other topics
+
+    Undefined behavior.
 */
 
 /*
