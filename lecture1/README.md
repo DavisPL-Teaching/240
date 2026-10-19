@@ -207,13 +207,23 @@ Questions?
 
 ## Monday, October 19
 
+Today's class is on Zoom - I am not feeling well.
+Hope to be back in person Wednesday, will keep you posted.
+
 Announcements/reminders:
 
 - HW1 due Friday
 
-- Plan for final projects:
+- Poll scores for w1-w4 were synced to Canvas over the weekend.
 
-    Registration is now about stable; we have 50 students.
+- Some details for final projects:
+
+    I will share more about the project topics soon!
+    (Probably later this week or next Monday)
+
+    Some about the project structure and so you can begin forming your groups:
+
+    Registration is now roughly stable; we have 50 students.
 
     To cover final projects in the last 5 days of class, that would make 10 students per day
 
@@ -226,15 +236,19 @@ Announcements/reminders:
         + The main exception I will make to the group size is, for example, if you are doing research towards
           a PhD or MS thesis, and you want the project to become part of your thesis.
 
-    Project proposal will be due: Friday, November 13
+    + TL;DR:
 
-    Final project presentations: Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
+        Groups size 2-4, if you want a group of size 1, please send me an email request
 
-    Final exam: Dec 8
+        Project proposal will be due: Friday, November 13
 
-    Final project report will be due: Last day of finals period (Dec 11).
+        Final project presentations: Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
 
-        (I can make it Dec 10 if preferred by the majority.)
+        Final exam: Dec 8
+
+        Final project report will be due: Last day of finals period (Dec 11).
+
+            (I can make it Dec 10 if preferred by the majority.)
 
 ----
 
@@ -242,4 +256,6 @@ Plan:
 
 - Loose ends from Part 3: Semantics
 
-- Cover some theory.
+- Poll
+
+- Theoretical foundations.

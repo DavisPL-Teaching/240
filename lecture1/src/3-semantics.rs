@@ -886,20 +886,11 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
 
     [Where we ended for Oct 16]
     -------------------------------------------------------
-
-    Other examples of nondeterminism?
-
-    We need to allow multiple ways of executing programs! Otherwise, often, program optimization wouldn't
-    be possible.
-
-    .
-    .
-    .
-    .
-    .
 */
 
 /*
+    Finishing loose ends (Oct 19)
+
     Things you can do with semantics.
 
     === Program equivalence ===
@@ -907,6 +898,7 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     Once we have a semantics, we can talk about interesting things such as:
 
     - Two programs, P1 and P2 are **equivalent** if:
+
 
     Example of two programs that are equivalent?
 
@@ -920,6 +912,9 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     Another definition:
 
     - Program P1 is a **refinement** of program P2 if:
+
+    How this relates to optimization.
+
 */
 
 /*
@@ -956,5 +951,6 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     .
     .
 
-    (Exercise: pick one and sketch below.)
+    Exercise (SKIP):
+    Pick one and sketch the syntax/semantics below.
 */
