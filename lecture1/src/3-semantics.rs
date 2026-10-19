@@ -897,10 +897,27 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
 
     Once we have a semantics, we can talk about interesting things such as:
 
-    - Two programs, P1 and P2 are **equivalent** if:
+    - Two programs, P1 and P2 are **equivalent** if
+      for ALL values of INPUT and OUTPUT,
 
+        (INPUT, P1, OUTPUT) is valid ( ∈ Semantics)
+
+        if and only if
+
+        (INPUT, P2, OUTPUT) is valid ( ∈ Semantics)
 
     Example of two programs that are equivalent?
+
+        y = input();
+        y := y + 1;
+        y := y + 1;
+        print(y)
+
+    equivalent to:
+
+        y = input();
+        y := y + 2;
+        print(y)
 
     In our RandProg language?
 
@@ -910,11 +927,31 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     Without this, no optimization would ever be possible.
 
     Another definition:
+    To be fully precise, what we need for program optimization
+    is not necessarily equivalence, but refinement:
 
     - Program P1 is a **refinement** of program P2 if:
 
+        for all INPUT and for all OUTPUT:
+        IF:
+
+            (INPUT, P1, OUTPUT) is valid ( ∈ Semantics)
+
+        THEN:
+
+            (INPUT, P2, OUTPUT) is valid ( ∈ Semantics)
+
     How this relates to optimization.
 
+    What a program optimizer needs to ensure: when optimizing a program
+    P, I may return a refinement of that program, that is, I may restrict
+    the possible behaviors, but I should not
+    add any additional behaviors that were not part of the user program.
+
+    This isn't quite enough for cases with inherent nondeterminism
+    (like flipping a coin).
+    We have ways of dealing with this by extending the semantics,
+    but we won't worry about this for now.
 */
 
 /*
@@ -947,9 +984,7 @@ fn nondeterministic_interpreter(prog: &NondeterministicEx) {
     - All are valid programming languages.
 
     From the Lecture 0 poll:
-
-    .
-    .
+    See exam/poll_answers.md
 
     Exercise (SKIP):
     Pick one and sketch the syntax/semantics below.

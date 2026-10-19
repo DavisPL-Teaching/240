@@ -216,6 +216,10 @@ Announcements/reminders:
 
 - Poll scores for w1-w4 were synced to Canvas over the weekend.
 
+    + If you are missing any polls, go back and complete them!
+
+    + If you have a 0 on all polls, probably missing the first poll
+
 - Some details for final projects:
 
     I will share more about the project topics soon!
@@ -223,7 +227,7 @@ Announcements/reminders:
 
     Some about the project structure and so you can begin forming your groups:
 
-    Registration is now roughly stable; we have 50 students.
+    Registration is now roughly stable; we have 51 students.
 
     To cover final projects in the last 5 days of class, that would make 10 students per day
 
@@ -240,7 +244,10 @@ Announcements/reminders:
 
         Groups size 2-4, if you want a group of size 1, please send me an email request
 
+            I'll enable group formation on Piazza
+
         Project proposal will be due: Friday, November 13
+            More details forthcoming
 
         Final project presentations: Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
 
@@ -256,6 +263,20 @@ Plan:
 
 - Loose ends from Part 3: Semantics
 
-- Poll
+- Part 4: theoretical foundations.
 
-- Theoretical foundations.
+    + Starting with the poll
+
+Questions?
+
+BF interpreter (refer to the PDF):
+
+    impl BFInterpreter {
+        // option 1
+        fn interpret(&mut self, prog: &BFProg) {
+        }
+
+        // option 2
+        fn interpret(&mut self, prog: &BFProg, output: impl Writer) {
+        }
+    }
