@@ -280,3 +280,21 @@ BF interpreter (refer to the PDF):
         fn interpret(&mut self, prog: &BFProg, output: impl Writer) {
         }
     }
+
+## Wednesday, October 21
+
+Reminders:
+
+- HW1 due Friday
+
+- Please start forming your project groups
+
+- My OH: today 4:30-5:30pm (in person), + 5:30-6 on Zoom
+
+Plan:
+
+- Go over poll from last time.
+
+- Part 4: theoretical foundations.
+
+- Along the way: Today's poll.

@@ -63,6 +63,10 @@
     .
     .
 
+    ------------------------------------------------------------
+
+    Oct 21
+
     === Theoretical foundations ===
 
     A programming language is given formally by:
@@ -178,6 +182,38 @@
 
 
 */
+
+/*
+    ===== Poll =====
+
+
+
+
+
+    https://forms.gle/izvWYuq2bMW7AioB8
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+*/
+
 
 /*
     ===== Types of formal semantics =====
