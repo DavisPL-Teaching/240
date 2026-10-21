@@ -14,7 +14,7 @@ not clear if program counter is an int or a float
 
 Sep 30:
 B and C
-(A and D are examples of ambiguous syntax)
+(A and D are examples of ill-defined syntax)
 
 Oct 2: B and E
 

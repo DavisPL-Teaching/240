@@ -67,6 +67,36 @@
 
     Oct 21
 
+    Some selected answers to last time's poll.
+
+    1. WHY do some languages allow undefined behavior?
+
+        Performance is one reason but it may also allow for compiler developers to make decisions and allow for more optimizations.
+
+        I think some languages allow undefined behavior because it gives the compiler more freedom to make programs run faster.
+
+        I think some languages allow undefined behaviors for the sake of efficiency and to offload the responsibility of unsafe code onto the code developers instead of the language developers.
+
+        Undefined behavior lets the compiler assume these situations never happen, so it can skip runtime checks (null, bounds, races) and optimize aggressively.
+
+        To let compiler skip safety checks and optimize the code faster
+
+        ... giving the programmer the ability to do unforseen(and potentially destructive) things.
+
+    2. What risk does this pose to programmers?
+
+        It risks the developers making mistakes while programming/puts the burden on the developer (i.e. dereferencing a null pointer)
+
+        UB is the worst case scenario. Your program *runs*, but can do *anything*, something you may never accounted for.
+
+        It needs programmer to be extra cautious about the programs they wrote to avoid the undefined behavior
+
+        It poses security vulnerabilities if, for example, undefined behavior allows a program to access and/or modify data it shouldn't.
+
+        They may put security risks on accident into their code. It may also cause crashes, and any other unexpected behavior when it is not properly accounted for
+
+        A program with undefined behavior may crash or silently produce wrong results, often without any warning.
+
     === Theoretical foundations ===
 
     A programming language is given formally by:
@@ -95,32 +125,41 @@
 
         <Number> ::= 0 | 1 | <Number> + <Number>
 
+        The grammar generates expressions such as:
+
     - Formal grammar for Integer expressions:
 
         <IntExp> ::=
+
+        The grammar generates expressions such as:
 
     - Formal grammar for Boolean expressions:
 
         <IntExp> ::=
 
+        The grammar generates expressions such as:
+
     - Formal grammar for RandProg programs:
 
-        (Copy paste the)
+        (Copy paste the Rust enum from Part 3 here, and modify)
 
+        The grammar generates expressions such as:
 
-    Set of strings defined by a grammar:
+    A grammar defines a **set of strings**
+    (you can think of simply, strings in ASCII or Unicode) that match
+    the grammar.
 
-    Formal language:
+    A **formal language** is a set of strings.
 
     Chomsky hierarchy:
     https://en.wikipedia.org/wiki/Chomsky_hierarchy
 
     Context free languages are rather poorly behaved in practice.
     (I can talk about this more if we have time.)
-    Could be considered a mistake to view it this way.
+    Could be considered a historical mistake to view PL syntax this way.
 
     Programming languages are formal languages.
-    (But not only -- that's only the syntax part.)
+    (But not only! -- that's only the syntax part.)
 
     ===== Parse trees and AST =====
 
@@ -133,6 +172,89 @@
     A **parse tree** or **abstract syntax tree** (AST) is ...
 
     Example:
+
+
+
+    ===== Ambiguous grammars =====
+
+    **Not to be confused with:** ambiguous semantics!
+
+    A topic that came up on Piazza is that a formal grammar can be ambiguous.
+
+    (https://piazza.com/class/ms5m7g95gq1tr/post/32)
+
+    What does that mean?
+
+
+
+    Example:
+
+
+*/
+
+/*
+    ===== Poll =====
+
+    Which of the following formal grammars are ambiguous?
+
+    1. <Int> ::= 0 | 1 | -1 | <Int> + <Int> | <Int> * <Int>
+
+    2. <Int> ::= 0 | 1 | -1 | 1 + <Int> | -1 + <Int>
+
+    3. <Int> ::= 1 + <Int> | -1 + <Int> | <Int> + <Int> | <Int> * <Int>
+
+    4. <Int> ::= 0 | 1 | -1 | (<Int> + <Int>) | (<Int> * <Int>)
+
+    5: <Int> ::= 1 | <Int>1 | <Int>0
+
+    (Select all that apply)
+
+    https://forms.gle/izvWYuq2bMW7AioB8
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+    Points:
+
+    - Any grammar can be made unambiguous by simply adding parentheses
+
+    - In practice ambiguous grammars are usually undesirable.
+
+    One solution that is a nice treatment of this issue:
+    Visibly pushdown languages and nested words:
+    - https://www.cis.upenn.edu/~alur/Stoc04.pdf
+    - https://en.wikipedia.org/wiki/Nested_word
+
+    (We will probably not get to this in class, but we could discuss
+    it as a potential advanced topic.)
 */
 
 /*
@@ -184,38 +306,6 @@
 */
 
 /*
-    ===== Poll =====
-
-
-
-
-
-    https://forms.gle/izvWYuq2bMW7AioB8
-
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-*/
-
-
-/*
     ===== Types of formal semantics =====
 
     Reference interpreters or reference implementations are great, but they aren't
@@ -244,21 +334,6 @@
 
     How does UB show up in operational semantics?
     In denotational semantics?
-
-    ===== Ambiguous grammars =====
-
-    **Not to be confused with:** ambiguous semantics
-
-    A topic that came up on Piazza is that a formal grammar can be ambiguous.
-
-    Example?
-
-    In practice this is usually undesirable.
-
-    One solution that is a nice treatment of this issue:
-    Visibly pushdown languages and nested words:
-    - https://www.cis.upenn.edu/~alur/Stoc04.pdf
-    - https://en.wikipedia.org/wiki/Nested_word
 
     ===== Lexing and parsing =====
 

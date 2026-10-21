@@ -283,13 +283,16 @@ BF interpreter (refer to the PDF):
 
 ## Wednesday, October 21
 
-Reminders:
+Announcements/reminders:
 
 - HW1 due Friday
 
 - Please start forming your project groups
 
-- My OH: today 4:30-5:30pm (in person), + 5:30-6 on Zoom
+    + "Find teammates" feature has been enabled on Piazza
+
+- OH today: moved entirely to Zoom (4:30-6pm)
+    --> as announced on Piazza.
 
 Plan:
 
@@ -297,4 +300,4 @@ Plan:
 
 - Part 4: theoretical foundations.
 
-- Along the way: Today's poll.
+    + Along the way: Today's poll.
