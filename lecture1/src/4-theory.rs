@@ -97,6 +97,12 @@
 
         A program with undefined behavior may crash or silently produce wrong results, often without any warning.
 
+    Q: Compiler bugs?
+
+    Compiler bugs mean the compiler does NOT conform to the formal semantics
+
+    Reading: "Reflections on Trusting Trust", Ken Thompson.
+
     === Theoretical foundations ===
 
     A programming language is given formally by:
@@ -110,14 +116,16 @@
     ===== Syntax =====
 
     Syntax defines a *set* of valid programs.
-    It's a formal language (a subset of all strings over an alphabet.)
+    Syntax is almost always given as a formal grammar.
+
+    This will define a formal language (a subset of all strings over an alphabet.)
 
         *Note:* what is the alphabet? traditionally ASCII. But modern programming
         languages usually allow Unicode :-)
 
-    Syntax is almost always given as a formal grammar.
-
-    Each program element is given in terms of
+    Each syntax element is given in terms of finitely many
+    other syntax elements.
+    The cases can be recursive.
 
     Examples of formal grammar:
 
@@ -127,13 +135,52 @@
 
         The grammar generates expressions such as:
 
+        Example:
+        8 can be written as:
+
+            1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
+
+        or:
+
+            1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 0 + 0
+
     - Formal grammar for Integer expressions:
 
-        <IntExp> ::=
+        <IntExp> ::= 0 | 1 | <IntExp> + <IntExp> | <IntExp> * <IntExp> | <Variable>
+        <Variable> ::= x | y | z
 
         The grammar generates expressions such as:
 
+            x + 1 * x + y * x
+
+        WHY is this expression in the grammar?
+
+            <IntExp>
+            <IntExp> + <IntExp>
+            <IntExp> + <IntExp> * <IntExp>
+            <IntExp> + <IntExp> * <IntExp> + <IntExp>
+            <IntExp> + <IntExp> * <IntExp> + <IntExp> * <IntExp>
+            x + <IntExp> * x + <IntExp> * x
+            x + 1 * x + y * x
+
+        This is like a Rust enum, each case is one of the cases of our Rust enum,
+        but with a bit of a problem, we don't have parentheses.
+
+    - Formal grammar for Integer expressions with parens:
+
+        <IntExp> ::= 0 | 1 | <IntExp> + <IntExp> | <IntExp> * <IntExp> | <Variable> | (<IntExpr>)
+        <Variable> ::= x | y | z
+
+        to express:
+
+            x + 3 * x + 4 * x
+
+        we can generate:
+
+            x + (1 + 1 + 1) * x + (1 + 1 + 1 + 1) * x
+
     - Formal grammar for Boolean expressions:
+      (SKIP)
 
         <IntExp> ::=
 
@@ -143,6 +190,20 @@
 
         (Copy paste the Rust enum from Part 3 here, and modify)
 
+        <RandProg> ::=
+
+            SetVar(<Variable>, <Bool>)
+            | CopyVar(<Variable>, <Variable>)
+            | FlipCoin(<Variable>)
+            | Input(<Variable>)
+            | Output(<Variable>)
+            | Seq(<RandProg>, <RandProg>)
+            | If(<Variable>, <RandProg>, <RandProg>)
+
+        <Variable> ::= x | y | z
+
+        <Bool> ::= True | False
+
         The grammar generates expressions such as:
 
     A grammar defines a **set of strings**
@@ -151,6 +212,16 @@
 
     A **formal language** is a set of strings.
 
+    That's the formal def of syntax!
+
+        Syntax = formal grammar = formal language given by a formal grammar
+
+        earlier: Syntax = defines the set of valid program
+
+    More specifically:
+
+        A formal grammar gives rise to a context-free language
+
     Chomsky hierarchy:
     https://en.wikipedia.org/wiki/Chomsky_hierarchy
 
@@ -158,7 +229,9 @@
     (I can talk about this more if we have time.)
     Could be considered a historical mistake to view PL syntax this way.
 
-    Programming languages are formal languages.
+        Traditional theory: a PL syntax defines a context free
+
+    Programming languages are context-free languages.
     (But not only! -- that's only the syntax part.)
 
     ===== Parse trees and AST =====
@@ -168,12 +241,39 @@
     has already been *parsed* via that grammar.
     What is parsing?
 
-    **Definition:**
-    A **parse tree** or **abstract syntax tree** (AST) is ...
-
     Example:
 
+        x + y * x
 
+    was that derived from the grammar as
+
+        <IntExpr>
+        <IntExpr> + <IntExpr>
+        <IntExpr> + <IntExpr> * <IntExpr>
+        x + y * x
+    OR
+        <IntExpr>
+        <IntExpr> * <IntExpr>
+        <IntExpr> + <IntExpr> * <IntExpr>
+        x + y * x
+
+    ?
+
+    **Definition:**
+    A **parse tree** or **abstract syntax tree** (AST) is
+
+        a tree where each node in the tree is a partially evaluated expression
+        which shows the formal derivation from the grammar
+
+    Example:
+    The second derivation above corresponds to
+    the following parse tree:
+
+                 *
+              /      \
+              +       x
+           /   \
+           x    y
 
     ===== Ambiguous grammars =====
 
@@ -185,11 +285,22 @@
 
     What does that mean?
 
+        Exactly as in the example above
 
+        There exists a string (expression)
+        - that can be derived from the grammar in two inherently different ways
+        - i.e. two different possible parse trees.
 
-    Example:
+        This is kind of annoying for PL design
 
+        The "parser" is a component of any PL that takes the source program
+        (string written by the user)
+        and converts into the formal grammar of that PL.
 
+        If the grammar is ambiguous, there may be cases where
+        multiple parsed programs are possible.
+
+    Parse tree AKA "Abstract Syntax Tree" (AST).
 */
 
 /*

@@ -243,6 +243,10 @@ fn test_prog_interpreter() {
 
         - **deterministic** if for every INPUT and prog, there is at most one possible OUTPUT.
 
+    Nondeterministic is the opposite:
+
+        - There exists at least one INPUT and prog, such that there are at least two possible OUTPUTs.
+
     we will not use the following definition much, but it is worth knowing:
 
         - **total** if for every INPUT and prog, there is at least one possible output.

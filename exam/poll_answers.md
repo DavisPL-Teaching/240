@@ -47,7 +47,15 @@ For C: "To prevent interpreters or compilers from having too many different beha
 semantics has the opposite effect, it allows behaviors rather than restricting them.
 
 Oct 19:
+1) Valid answers include:
+    For performance; to allow the compiler to optimize more aggressively; allows the programmer
+    to perform more destructive/dangerous operations, but puts the burden of ensuring they
+    do it correctly on them
+
+2) Valid answers include:
+    Introduces security risks; program could silently perform arbitrarily bad behavior at runtime; program could segfault (best case scenario) or have a memory error or security vulnerability (worst case scenario); etc.
 
 Oct 21:
+A only (Grammar #1 is ambiguous). The rest are unambiguous.
 
 Oct 23:

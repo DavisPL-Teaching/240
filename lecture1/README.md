@@ -291,6 +291,8 @@ Announcements/reminders:
 
     + "Find teammates" feature has been enabled on Piazza
 
+    + 2-4 people
+
 - OH today: moved entirely to Zoom (4:30-6pm)
     --> as announced on Piazza.
 
@@ -301,3 +303,5 @@ Plan:
 - Part 4: theoretical foundations.
 
     + Along the way: Today's poll.
+
+Questions?
