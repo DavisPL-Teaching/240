@@ -353,11 +353,16 @@
     .
     .
 
+    --------------------------------
+
+    Continuing here for Oct 23
+
     Points:
 
     - Any grammar can be made unambiguous by simply adding parentheses
 
-    - In practice ambiguous grammars are usually undesirable.
+    - In practice ambiguous grammars are usually undesirable. So we
+      prefer to just ensure our grammar is unambiguous.
 
     One solution that is a nice treatment of this issue:
     Visibly pushdown languages and nested words:
@@ -369,8 +374,10 @@
 */
 
 /*
+
     ===== Semantics =====
 
+    As we have covered:
     A **formal semantics** for a language is a set of triples
 
         (INPUT, PROG, OUTPUT)
@@ -379,20 +386,7 @@
      not a program, can be defined purely mathematically)
 
     This is the same definition from before - but now we know what
-    PROG is.
-
-    - INPUT
-
-    - PROG
-
-    - OUTPUT
-
-    There are many specific ways of giving formal semantics.
-    We have seen: reference interpreters / reference compilers
-    and that they are NOT really a good way
-
-    More below.
-
+    PROG is. INPUT and OUTPUT we still have to define.
 */
 
 /*
@@ -413,16 +407,54 @@
     **Backwards compatibility:**
     A semantics S2 is backwards compatible with S1 if ...
 
+    Let's do a proof:
+
+    Prove or disprove:
+    - If S2 is backwards compatible with S1, and a compiler C1 implements S1, then C1 implements S2.
+    - If S2 is backwards compatible with S1, and a compiler C2 implements S2, then C2 implements S1.
+
+    Before we prove/disprove:
+    Let's do these as a True/False exercise
+
+    https://forms.gle/ny2HH6cV41qzFQMT8
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+    Prove or disprove.
+
+    - If S2 is backwards compatible with S1, and a compiler C1 implements S1, then C1 implements S2.
+
+    PROOF:
+
+
+    - If S2 is backwards compatible with S1, and a compiler C2 implements S2, then C2 implements S1.
+
+    PROOF:
 
 */
 
 /*
     ===== Types of formal semantics =====
 
-    Reference interpreters or reference implementations are great, but they aren't
-    fully general for all languages.
+    There are many specific ways of giving formal semantics.
+    We have seen: reference interpreters / reference compilers
+    and that they are NOT really a good way.
 
-    There are many ways to define semantics.
+    Here are some other ways to define semantics.
 
     Most common:
 

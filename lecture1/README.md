@@ -305,3 +305,24 @@ Plan:
     + Along the way: Today's poll.
 
 Questions?
+
+## Friday, October 23
+
+Announcements/reminders:
+
+- HW1 due today!
+
+- If you haven't yet, please form your project groups
+    (due with project proposal)
+
+    More details on project proposal soon, probably on Monday.
+
+Plan:
+
+- Go over poll
+
+- Semantics: relation to interpreters and compilers, backwards compatibility
+
+- Today's poll -- and do a proof exercise
+
+- Types of formal semantics.
