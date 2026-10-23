@@ -315,14 +315,15 @@ Announcements/reminders:
 - If you haven't yet, please form your project groups
     (due with project proposal)
 
-    More details on project proposal soon, probably on Monday.
+    More details on project proposal soon
 
 Plan:
 
 - Go over poll
 
-- Semantics: relation to interpreters and compilers, backwards compatibility
+- Closing the loop:
+  relation to interpreters and compilers, backwards compatibility
 
 - Today's poll -- and do a proof exercise
 
-- Types of formal semantics.
+- Types of formal semantics (Cursory overview).

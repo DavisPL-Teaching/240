@@ -357,6 +357,17 @@
 
     Continuing here for Oct 23
 
+    Poll results
+
+    Correct answers:
+
+        Grammar 1 only!
+
+        Grammar 3 is actually unambiguous.
+        It's a bit of a trick question.
+        It does not generate any strings, therefore there can be no
+        example with two different parse trees.
+
     Points:
 
     - Any grammar can be made unambiguous by simply adding parentheses
@@ -369,52 +380,50 @@
     - https://www.cis.upenn.edu/~alur/Stoc04.pdf
     - https://en.wikipedia.org/wiki/Nested_word
 
-    (We will probably not get to this in class, but we could discuss
-    it as a potential advanced topic.)
-*/
+    In a "visibly pushdown" language, in contrast to context-free languages,
+    the grammar has to explicitly indicate when it goes into a recursive
+    case (for example by adding parentheses).
+    This is typically done in practice anyway.
 
-/*
-
-    ===== Semantics =====
-
-    As we have covered:
-    A **formal semantics** for a language is a set of triples
-
-        (INPUT, PROG, OUTPUT)
-
-    (remember: it is a set! like an abstract oracle,
-     not a program, can be defined purely mathematically)
-
-    This is the same definition from before - but now we know what
-    PROG is. INPUT and OUTPUT we still have to define.
+    We will probably not get to this in class, but we could discuss
+    it as a potential advanced topic.
 */
 
 /*
     ===== Relation to Interpreters and Compilers =====
 
-    We've been hinting all along that formal semantics is the foundation of
+    We've been hinting that formal semantics is the foundation of
     building interpreters and compilers
-    ("everyone should agree" on what programs should do!)
+    ("everyone should agree on what programs should do")
 
     But we have not spelled out the relationship explicitly.
 
-    Some definitions.
+    How might we define the following?
 
     An interpreter implements (or satisfies) the semantics if ...
 
+    (SKIP)
+    We can give a similar definition for compilers.
     A compiler implements (or satisfies) the semantics if ...
+*/
 
+/*
     **Backwards compatibility:**
+    Recall: a semantics S can be thought of as a **set** of triples
+
+        (INPUT, PROG, OUTPUT)
+
     A semantics S2 is backwards compatible with S1 if ...
 
-    Let's do a proof:
+    Let's do a proof.
 
-    Prove or disprove:
-    - If S2 is backwards compatible with S1, and a compiler C1 implements S1, then C1 implements S2.
-    - If S2 is backwards compatible with S1, and a compiler C2 implements S2, then C2 implements S1.
+    We will prove or disprove the following:
+
+    - If S2 is backwards compatible with S1, and an interpreter I1 implements S1, then I1 implements S2.
+    - If S2 is backwards compatible with S1, and an interpreter I2 implements S2, then I2 implements S1.
 
     Before we prove/disprove:
-    Let's do these as a True/False exercise
+    Let's do these first as a True/False exercise.
 
     https://forms.gle/ny2HH6cV41qzFQMT8
 
@@ -436,15 +445,44 @@
 
     Prove or disprove.
 
-    - If S2 is backwards compatible with S1, and a compiler C1 implements S1, then C1 implements S2.
+    - If S2 is backwards compatible with S1, and a interpreter I1 implements S1, then I1 implements S2.
 
     PROOF:
 
 
-    - If S2 is backwards compatible with S1, and a compiler C2 implements S2, then C2 implements S1.
+    - If S2 is backwards compatible with S1, and a interpreter I2 implements S2, then I2 implements S1.
 
     PROOF:
 
+*/
+
+/*
+    ===== Semantics =====
+
+    As we have defined:
+    A **formal semantics** is a **set** of triples
+
+        (INPUT, PROG, OUTPUT)
+
+    where INPUT is an input behavior, OUTPUT is an example output behavior,
+    and PROG is a program.
+
+    We now know that PROG should be an element of the formal grammar G.
+
+    INPUT and OUTPUT we have to define sets for.
+
+        Easiest model:
+        I = set of all sequences of input symbols or input actions
+        O = set of all sequences of output symbols or output actions
+                            (e.g., error, crash, etc.)
+
+        INPUT ∈ I
+        OUTPUT ∈ O.
+
+    We know that syntax (denoting the set of valid programs)
+    can be given more specifically as a grammar G.
+
+    But how do we give the semantics in a more specific way?
 */
 
 /*
@@ -468,12 +506,12 @@
 */
 
 /*
-    Other topics
-    (Selection of topics or skip for time)
+    Selection of other topics
+    (Or skip for time)
 
     ===== Undefined behavior =====
 
-    Undefined behavior (UB) - see today's poll
+    Undefined behavior (UB) - see earlier poll
 
     How does UB show up in operational semantics?
     In denotational semantics?
@@ -483,12 +521,11 @@
     We defined parsing and parse trees above.
 
     In traditional compiler parlance, parsing your source code (e.g., .c or .rs file)
-    is actually split into two stages:
-
-    Lexing:
-
-    Parsing:
-
+    is split into two stages, lexing and parsing.
+    The "lexing" part uses a regular finite-state machine rather than
+    a grammar.
+    The parsing part uses a grammar and converts your code into the
+    parse tree (AST).
 */
 
 /*
@@ -513,3 +550,9 @@
 
         static analysis tools?
 */
+
+// ----------------------------
+
+fn main() {
+    println!("This is a theory part. It does not have any code.");
+}

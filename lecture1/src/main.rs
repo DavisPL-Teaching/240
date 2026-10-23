@@ -22,8 +22,8 @@ pub mod semantics;
 #[path = "4-theory.rs"]
 pub mod theory;
 
-// #[path = "5-imp.rs"]
-// pub mod imp;
+#[path = "5-imp.rs"]
+pub mod imp;
 
 // Utility functions
 pub mod util;
