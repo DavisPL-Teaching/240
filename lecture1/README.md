@@ -317,6 +317,10 @@ Announcements/reminders:
 
     More details on project proposal soon
 
+News:
+
+- PHP hack, vulnerability in PL due to memory bugs (announced Wed.)
+
 Plan:
 
 - Go over poll
@@ -327,3 +331,5 @@ Plan:
 - Today's poll -- and do a proof exercise
 
 - Types of formal semantics (Cursory overview).
+
+Questions?

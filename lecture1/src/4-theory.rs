@@ -400,7 +400,32 @@
 
     How might we define the following?
 
-    An interpreter implements (or satisfies) the semantics if ...
+    We need a meta-language: Let's say we define a meta-language,
+    whose semantics M is a set of triples
+
+        (INPUT, PROG, OUTPUT)
+
+    *such that* our INPUT set allows for ordered pairs.
+
+    An interpreter I will be a program in the meta-language (PROG above)
+    that takes input pairs:
+
+        (INPUT, P)
+
+    Finally, let's say we have a langauge whose semantics we want to implement,
+    where the semantics S is a set of triples
+
+        (INPUT, PROG, OUTPUT)
+
+    An interpreter I implements (or satisfies) the semantics S if
+
+        for any INPUT and any program P, and any OUTPUT, if
+
+            ((INPUT, P), I, OUTPUT) is in M
+
+        THEN
+
+            (INPUT, P, OUTPUT) is in S.
 
     (SKIP)
     We can give a similar definition for compilers.
@@ -413,7 +438,11 @@
 
         (INPUT, PROG, OUTPUT)
 
-    A semantics S2 is backwards compatible with S1 if ...
+    A semantics S2 is backwards compatible with S1 if
+
+        S2 ⊆ S1
+
+    i.e.: all behaviors allowed by the new semantics are also allowed by the old semantics.
 
     Let's do a proof.
 
@@ -447,16 +476,20 @@
 
     - If S2 is backwards compatible with S1, and a interpreter I1 implements S1, then I1 implements S2.
 
-    PROOF:
-
+    False.
+    DISPROOF: Skipped.
 
     - If S2 is backwards compatible with S1, and a interpreter I2 implements S2, then I2 implements S1.
 
+    True.
     PROOF:
+    See PROOF.md.
 
 */
 
 /*
+    ----- Picking up for Monday, Oct 26 -----
+
     ===== Semantics =====
 
     As we have defined:

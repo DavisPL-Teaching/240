@@ -57,5 +57,8 @@ Oct 19:
 
 Oct 21:
 A only (Grammar #1 is ambiguous). The rest are unambiguous.
+Note: Grammar #3 does not generate any strings. It is trivially unambiguous.
 
 Oct 23:
+1. False
+2. True
