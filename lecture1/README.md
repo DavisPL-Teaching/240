@@ -333,3 +333,17 @@ Plan:
 - Types of formal semantics (Cursory overview).
 
 Questions?
+
+## Monday, October 26
+
+Announcements:
+
+- Details on the project proposal
+
+- HW2
+
+Plan:
+
+- Types of formal semantics (Cursory overview).
+
+- Move on to Lecture 2 on Compilers and Static Analysis.

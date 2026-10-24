@@ -1,5 +1,5 @@
 [package]
-name = "lecture1"
+name = "ecs240-lecture1"
 version = "0.1.0"
 edition = "2024"
 

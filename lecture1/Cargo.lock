@@ -29,6 +29,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "ecs240-lecture1"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -38,13 +45,6 @@ dependencies = [
  "libc",
  "r-efi",
  "rand_core",
-]
-
-[[package]]
-name = "lecture1"
-version = "0.1.0"
-dependencies = [
- "rand",
 ]
 
 [[package]]
