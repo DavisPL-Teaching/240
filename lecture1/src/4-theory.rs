@@ -489,8 +489,11 @@
 
 /*
     ----- Picking up for Monday, Oct 26 -----
+*/
 
-    ===== Semantics =====
+/*
+    ===== Semantics - Recap =====
+    (SKIP)
 
     As we have defined:
     A **formal semantics** is a **set** of triples
@@ -539,8 +542,13 @@
 */
 
 /*
-    Selection of other topics
-    (Or skip for time)
+    Operational semantics for RandProg
+*/
+
+
+/*
+    === Selection of other topics ===
+    (SKIP for time)
 
     ===== Undefined behavior =====
 
@@ -548,6 +556,11 @@
 
     How does UB show up in operational semantics?
     In denotational semantics?
+
+    LLVM Poison:
+    https://llvm.org/docs/UndefinedBehavior.html
+
+    (and several related categories - it gets more complicated than just "this program has UB")
 
     ===== Lexing and parsing =====
 
@@ -562,7 +575,20 @@
 */
 
 /*
+    Poll:
+
+    https://forms.gle/wW9x4NonQkYPjHzq6
+
+    .
+    .
+    .
+    .
+    .
+*/
+
+/*
     === Exercises and discussion questions ===
+    (SKIP)
 
     1. Give a small-step operational semantics and a big-step operational semantics
        for
