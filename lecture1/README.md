@@ -336,13 +336,26 @@ Questions?
 
 ## Monday, October 26
 
-This will be the last day on Lecture 1.
-After today, we will move on to Lecture 2 on Compilers and Static Analysis.
+This will be the last day on Lecture 1!
+(After today, we will move on to Lecture 2 on Compilers and Static Analysis.)
 
-Announcements:
+Reminders:
 
-- Details on the project proposal
+- Project proposal due **Friday, November 13**
 
 Plan:
 
-- Types of formal semantics.
+- Details on the project proposal
+
+- Types (or "styles") of semantics
+
+    Major styles are operational semantics, denotational semantics, axiomatic semantics.
+
+    Program semantics is a much deeper topic! Although we will only have time to
+    see this at a high level (and with a few simpler examples),
+    I do want to make sure we cover this,
+    since it will be important for your final projects.
+
+If we have extra time:
+
+- Move on to Lecture 2: compilers & static analysis.
