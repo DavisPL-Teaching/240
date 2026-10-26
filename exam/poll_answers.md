@@ -62,3 +62,7 @@ Note: Grammar #3 does not generate any strings. It is trivially unambiguous.
 Oct 23:
 1. False
 2. True
+
+Oct 26:
+1. N/A
+2. A, B, C, and E.

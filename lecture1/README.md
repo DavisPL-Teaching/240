@@ -359,3 +359,5 @@ Plan:
 If we have extra time:
 
 - Move on to Lecture 2: compilers & static analysis.
+
+Questions?

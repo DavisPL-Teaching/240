@@ -1,4 +1,4 @@
-# ECS 261 Project Overview
+# ECS 240 Project Overview
 
 The goal of the project will be to build a programming language-based tool for a toy constructed language of your choosing; or for a small (bug significant) subset of an existing language.
 You will also be asked to draft the formal syntax and semantics of your language on paper as part of your
@@ -6,7 +6,11 @@ final report.
 
 Tool options:
 
+- Interpreter,
+    (careful - there should be some complexity beyond just "run the program")
+
 - Compiler,
+    (or Transpiler)
 
 - Static analysis tool,
 
@@ -48,8 +52,7 @@ Some ideas:
 - Networking and distributed systems: Network primitives? Concensus protocols as part of your langauge?
   Fault tolerance as part of your semantics?
 
-- Theory: primitives for algorithmic complexity tracking? for: termination proofs, interactive proofs,
-  cryptography?
+- Theory: primitives for algorithmic complexity tracking? for: termination proofs, interactive proofs, zero knowledge proofs, cryptography?
 
 - ML: primitives for training? gradient descent? (Talk to me about differentiable programming)
   For statistical sampling, probabilistic programming, etc.?
@@ -61,13 +64,11 @@ Some ideas:
 - Databases: Logic programming constructs? Primitives for data invariants (like functional dependencies,
   cardinality constraints). Type systems are a good fit here.
 
-- Software engineering: Language features: OOP, inheritance, software design patterns, privacy, modules, etc.
+- Software engineering: Language features: OOP, inheritance, software design patterns, encapsulation/privacy, modules, etc.
 
-- HCI: user interfaces as programming constructs; display and markup languages, scientific experiments
-  as programs, etc.
+- HCI: user interfaces as programming constructs; display and markup languages, scientific experiments as programs, etc.
 
-- Security: Primitives for access control, cryptographic primitives, data integrity/privacy, availability,
-  etc.
+- Security: Primitives for access control, cryptographic primitives, data integrity/privacy, availability, etc.
 
 ## Timeline
 

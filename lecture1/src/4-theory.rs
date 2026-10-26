@@ -484,7 +484,7 @@
 
     False.
     DISPROOF:
-    <Fill in>
+    SKIP
 
     - If S2 is backwards compatible with S1, and a interpreter I2 implements S2, then I2 implements S1.
 
@@ -534,16 +534,56 @@
     Example grammar:
 
         <Variable> ::= x | y | z
-        <IntExp> ::= 0 | 1 | <IntExp> + <IntExp> | <Variable>
+        <IntExp> ::= 0 | 1 | (<IntExp> + <IntExp>) | <Variable>
         <Program> ::= set <Variable> = <IntExp> | return <IntExp> | <Program>; <Program>
+                    // x = e
 
     Most common:
 
     - Def. **Operational semantics.**
 
+        We define a relation between two programs or program states
+        called "evaluates to": we define when one program or program state
+        evaluates to another.
+
+        For BF:
+
+            Configuration = define the working tape, program, the head (where we
+            currently are on the working tape), program counter (where we are in
+            the program)
+
         + Small-step semantics:
 
+            We give a definition like:
+            A configuration c1 *steps to* c2 if we can take one step in the program
+            (reading one symbol; moving by one on the input tape, etc.)
+            to get from c1 to c2.
+
+            Notation:
+
+                Define when:
+
+                c1 ---> c2
+
+            From this we can describe (INPUT, prog, OUTPUT) as something like:
+
+            - There exists a sequence of configurations c1, c2, c3, ..., cn
+
+                where c1 is an empty input tape starting with the program
+                counter at 0
+
+                and cn has the program counter at the end of the program
+
+                and OUTPUT is the final output on the working tape.
+
         + Big-step semantics:
+
+            Do all of this in one step!
+
+            We would define what it means for a configuration c1 to evaluate to cn directly.
+
+            Sometimes that is possible without defining all the individual intermediate
+            steps c2, c3, ...
 
     - **Denotational semantics.**
 
@@ -580,9 +620,18 @@
         Evaluation rules:
         Using x to denote any integer expression, v to denote value
 
-            0 + e ---> TODO
+        How to evaluate +:
+        Strategy: evaluate LHS into a value, then evaluate RHS into a value
 
-            (1 + v) + e --> TODO
+            First rule: if LHS is not yet a value:
+                IF e1 ---> e1'
+                THEN (e1 + e2) ---> (e1' + e2)
+
+            Once LHS is a value:
+
+                0 + e ---> e
+
+                (1 + v) + e -->
 
             0 * e ---> TODO
 
