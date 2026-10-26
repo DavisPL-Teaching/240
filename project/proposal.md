@@ -11,32 +11,53 @@ Do not change the font, margins or do other spacing tricks to fit within the pag
 **Deadline:**
 Friday, November 13 at 11:59pm.
 
-## Title and group members
+## Disclaimer about ML-based tools
+
+I will have to issue a warning up front about ML-based tools, as I anticipate some projects
+looking to use ML as a core component of their project.
+**Using machine learning as a core component of your static analysis, compiler, dynamic analysis tool, or type system, etc. is likely going to lead to an out-of-scope project.**
+For the purposes of this project, I want you to understand how to design and build traditional programming languages tools with hard-line formal guarantees. LLMs and other ML techniques are a black box which would run contrary to this goal. You can use LLMs or ML components as a piece of a project as long as the overall project can be articulated in terms of concrete guarantees, like formal syntax and semantics, proofs that programs behave the way they are supposed to, etc. If you're not sure, please ask me about your project after class or discuss in office hours.
+
+That doesn't mean you can't do a project about ML! (See: differentiable programming, gradient descent as a language
+primitive, data processing languages like MapReduce, etc.) Talk to me about ideas.
+
+## Sections and subsections
+
+### Title and group members
 
 At the top of your proposal, list the title of your project and all of your group members.
 
 Please form groups of size 2-4 (and encourage group sizes of 3-4), unless you have received an explicit
 exception from me by email.
 
-## 1. Introduction, problem selection
+### 1. Introduction and motivation
 
 1.1 **Problem domain and motivation.**
-State what problem your application is intending to solve, and why it is interesting.
-This should include at least 2 papers related to your chosen research area or domain.
+State your application domain. What problem or set of problems is
+your project intending to solve, and why it is interesting?
+This should include at least 3 citations, including at least 2 research papers related
+to your chosen research area or domain
+(see related work, below).
 
-1.2. **Project option.** Please include one of the following 5
-options: compiler, static analysis tool, dynamic analysis tool, type system, or verification tool.
-What is the input and output to your tool?
-How will a user interact with it?
-
-1.3. **Programming language.**
+1.2. **Programming language selection.**
 Explain whether you will design your own toy language, or a limited but significant subset of an existing language.
 If you chose your own language, explain what it will contain and what it will do.
 If you choose an existing language, explain what subset of keyword(s) and feature(s) you will select or what part of the language you will focus on.
 
-1.4. **Scope and related work.** Is the solution to the problem already known? (ideally not - but this is not srictly required). Are there any existing tools that solve a similar problem?
+1.3. **Tool selection.** Please include one of the following 4
+options: compiler, static analysis tool, dynamic analysis tool, or type system.
+(If you have another idea, please talk to me about it to get approval.)
+Please include the following also:
 
-## 2. Goals
+- What is the input and output to your tool?
+
+- How will a user interact with it?
+
+1.4. **Scope and related work.** Is the solution to the problem already known and built?
+(Ideally not! However, I will not make this a strict requirement.)
+Are there any existing tools that solve a similar problem?
+
+### 2. Goals
 
 What are the high-level goals of the project? What do you hope to have working by the end of the project?
 Please divide your goals into three categories:
@@ -49,53 +70,57 @@ Please divide your goals into three categories:
 
 These should be described at a high level. The specific component(s) that are included in each goal may refer to the following section and should be described in more detail below.
 
-## 3. Syntax and Semantics
+### 3. Theory part: Syntax and Semantics
 
-For part of your project report, you will develop a draft of the formal syntax and semantics for your language
-or subset.
-Give a sketch here of how that will go.
+In a short paragraph or two, give a rough sketch of the syntax and semantics of your toy language.
+This doesn't have to be a complete description; I want to see that you have thought
+about what the syntax and semantics might look like.
+You will be asked to provide a complete syntax and semantics (on paper) for the final report.
 
-## 4. Implementation plan
+### 4. Implementation plan
 
-Your implementation plan should address the following:
+2.1. **Tool and language selection.** What tools and languages will you use to develop your project?
 
-2.1. **Tool and language selection.** What tools and languages will you use for your project?
-If your project will involve porting or interacting with another code base, describe that code base.
+2.2 **Incorporating existing tools.**
+Will your project be developed from scratch, or will it
+require using or interacting with any existing software or already developed code bases?
+If the latter - please describe these and give justification for why you need each existing tool.
 
-2.2. **Architecture of your code.**
-Lay out an expected architecture for how your tool will work. What component(s) are there and how do they interact? Consider drawing a diagram. This can be tenative at this stage!
+2.3. **Architecture of your code.**
+Lay out an expected architecture for how your tool will work. What component(s) are there and how do they interact? Consider drawing a diagram. This can be tentative at this stage!
 
-2.3. **Development effort.** Which functions, components, or modules will you need to develop to achieve the above components?
+2.4. **Development effort.** Which functions, components, or modules will you need to develop to achieve the above components?
 
 - It may help to refer to your architecture diagram from above.
 
 - Is there anything or any additional components or features that are specifically *out of scope* for your project?
 
-2.4. **Challenges.** Do you foresee any challenges coming up during the project? What could go wrong when attempting to build the above components? What do you plan to do if either of these steps becomes difficult?
+2.5. **Challenges.** Do you foresee any challenges coming up during the project? What could go wrong when attempting to build the above components? What do you plan to do if any of these steps becomes difficult?
 
-### 5. Collaboration plan and timeline
+#### 5. Collaboration plan
 
 State your plan to collaborate to develop the project.
 
-- If you are working in a team, how will you divide into different components that can be developed separately?
+- How will you divide different components among your team members that can each be developed separately?
 
-- Please include your plans for group meetings.
-  Will you be meeting once a week to discuss the project? Twice a week? What platform will you use to communicate with your group?
+- What are your plans for group meetings?
+  I suggest meeting at least twice a week.
+  What platform will you use to communicate with your group?
 
-- **Timeline:** Give a specific weekly timeline with which components will be developed in each week. This timeline can just be "expected", I won't be holding you to these deadlines, but I want to see that you are thinking about what components need to be worked on and how the pieces fit together.
+- **Timeline:** Give a specific weekly timeline with which components will be developed in each week. This timeline can just be "expected": I won't be holding you to these deadlines, but I want to see that you are thinking about what components need to be worked on and how the pieces fit together.
 
-- **Commitment statement:** Lastly, In addition to the group members, please list a statement that each person commits to work and contribute equally to the project. The following statement should be included once, for each group member: "I commit to work and contribute equally to this project" with the group member's name signed.
+- **Commitment statement:** Lastly, please list a statement for each group member that each person commits to work and contribute equally to the project. The following statement should be included once, for each group member: "I commit to work and contribute equally to this project" with the group member's name signed.
 
-The meeting plan and commitment statement are not required for groups of size 1.
+This sectino is not required for groups of size 1.
 
-### 6. Conclusion and questions for feedback
+#### 6. Conclusion and questions for feedback
 
 This section can be short (e.g., 1-2 paragraphs).
 State what will happen if the project is successful. What is exciting about it? What is interesting about it? Why is your application domain important?
 
 Do you have any questions about the project? What are some things you are uncertain about that should be resolved, what would be helpful to get feedback on?
 
-## References cited
+### References cited
 
 References cited is mandatory!
 Include any papers or websites related to what your project is going to do and citations at the bottom of your document. Please include at least 3 citations at a minimum,

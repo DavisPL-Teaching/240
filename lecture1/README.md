@@ -336,14 +336,13 @@ Questions?
 
 ## Monday, October 26
 
+This will be the last day on Lecture 1.
+After today, we will move on to Lecture 2 on Compilers and Static Analysis.
+
 Announcements:
 
 - Details on the project proposal
 
-- HW2
-
 Plan:
 
-- Types of formal semantics (Cursory overview).
-
-- Move on to Lecture 2 on Compilers and Static Analysis.
+- Types of formal semantics.

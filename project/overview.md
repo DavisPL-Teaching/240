@@ -1,40 +1,85 @@
 # ECS 261 Project Overview
 
-Please form groups of size 2-4 for the project.
-I encourage larger groups, 3 or 4 people if possible.
-I will allow a limited number of 1 person groups by request for exception.
-You should send me an email explaining why you want a 1 person group (e.g., if your project
-is related to your MS thesis or PhD thesis work.)
+The goal of the project will be to build a programming language-based tool for a toy constructed language of your choosing; or for a small (bug significant) subset of an existing language.
+You will also be asked to draft the formal syntax and semantics of your language on paper as part of your
+final report.
 
-The goal of the project will be to build a compiler, static analysis tool, dynamic analysis tool, type system, or verification tool for a toy constructed language of your choosing; or for a small (bug significant) subset of an existing language.
-You will need to build all the relevant technology for the project (not using any existing tool).
+Tool options:
+
+- Compiler,
+
+- Static analysis tool,
+
+- Dynamic analysis tool, or
+
+- Type system.
+
+You will need to build all the primary relevant technology for the project,
+though you may incorporate some existing tools if required (these should be detailed in your proposal).
 I recommend (but do not require) that you develop the project in Rust.
 
-An important part of the project will be identifying the toy language or subset that you are interested in working with.
-I recommend choosing something that is relevant to your own interests or research areas.
+## Group size
+
+Please form groups of size 2-4 for the project. I encourage larger groups, 3 or 4 people if possible.
+
+As previously announced,
+I will allow a limited number of 1-person groups by request for exception.
+You should send me an email explaining why you want a 1 person group. The main exception would be
+if you are working on an MS or PhD thesis and your project is directly related to your research project.
 
 ## Deliverables
 
 There are three deliverables for the project: the proposal, the presentation, and the final report.
 Please refer to `proposal.md`, `presentation.md` (forthcoming), and `report.md` (forthcoming) for further details.
 
+## Topics or Applications
+
+Programming languages is a highly versatile field: PL can be defined for any application domain of interest.
+The world is your oyster!
+
+An important part of the project will be identifying the toy language or subset that you are interested in working with.
+I recommend choosing something that is relevant to your own interests or research areas!
+For example, design a simple language but extend it with some primitives relevant to your interests.
+Some ideas:
+
+- Operating systems and architecture: primitives related to specialized CPU/GPU instructions?
+  primitives for OS interaction, syscalls?
+
+- Networking and distributed systems: Network primitives? Concensus protocols as part of your langauge?
+  Fault tolerance as part of your semantics?
+
+- Theory: primitives for algorithmic complexity tracking? for: termination proofs, interactive proofs,
+  cryptography?
+
+- ML: primitives for training? gradient descent? (Talk to me about differentiable programming)
+  For statistical sampling, probabilistic programming, etc.?
+  Data processing languages - MapReduce, dataflow programming (also related to DB below)
+
+  https://en.wikipedia.org/wiki/Differentiable_programming
+  https://en.wikipedia.org/wiki/Probabilistic_programming
+
+- Databases: Logic programming constructs? Primitives for data invariants (like functional dependencies,
+  cardinality constraints). Type systems are a good fit here.
+
+- Software engineering: Language features: OOP, inheritance, software design patterns, privacy, modules, etc.
+
+- HCI: user interfaces as programming constructs; display and markup languages, scientific experiments
+  as programs, etc.
+
+- Security: Primitives for access control, cryptographic primitives, data integrity/privacy, availability,
+  etc.
+
 ## Timeline
 
-Groups size 2-4, if you want a group of size 1, please send me an email request
+All due dates are 11:59pm.
 
-    I'll enable group formation on Piazza
+**Project proposal:** due Friday, November 13
 
-Project proposal will be due: Friday, November 13
+**Final project presentations:**
+In class Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
+(Sign up will be posted after the project proposal)
 
-Final project presentations: Nov 23, Nov 25, Nov 30, Dec 2, Dec 4
+**Final exam:** Tuesday, Dec 8, 3:30-5:30pm.
 
-Final exam: Dec 8
-
-Final project report will be due: Last day of finals period (Dec 11).
-
-    (I can make it Dec 10 if preferred by the majority.)
-
-## Warning about ML tools
-
-I will issue a warning up front that **using machine learning as a core component of your static analysis, compiler, dynamic analysis tool, or type system, etc. is likely going to lead to an out-of-scope project.**
-For the purposes of this project, I want you to understand how to design and build traditional programming languages tools with hard-line formal guarantees. LLMs and other ML techniques are a black box which would run contrary to this goal. You can use LLMs or ML components as a piece of a project as long as the overall project can be articulated in terms of concrete guarantees, like formal syntax and semantics, proofs that programs behave the way they are supposed to, etc. If you're not sure, please ask me about your project after class or discuss in office hours.
+**Final project report:** due last day of finals period (Dec 11)
+(pending poll on Piazza).
