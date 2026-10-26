@@ -629,19 +629,48 @@
 
             Once LHS is a value:
 
-                0 + e ---> e
+                IF e2 ---> e2'
+                THEN (v1 + e2) ---> (v1 + e2')
 
-                (1 + v) + e -->
+            And finally, once both are values:
 
-            0 * e ---> TODO
+                0 + v ---> v
 
-            (1 + v) * e ---> TODO
+                (1 + v) + v' --> v + (1 + v')
+
+        Rules for *:
+
+            IF e1 ---> e1' then
+                (e1 * e2) ---> (e1' * e2)
+
+            IF e2 ---> e2' then
+                (e1 * e2) ---> (e1 * e2')
+
+            Once both are values:
+
+                (0 * v2) ---> 0
+
+                ((1 + v1) * v2) ---> v2 + (v1 * v2)
 
     How do we get semantics from the above?
+
+        (INPUT, iexp, OUTPUT) is valid iff there is a sequence of configurations
+
+            iexp0 ---> iexp1 ---> iexp2 ---> ... ---> iexp_n
+
+        such that
+
+            iexp0 = iexp,
+
+            iexp_n is a value, AND
+
+            OUTPUT = iexp_n.
 
     -----
 
     b) Integer expressions with input and output
+
+        (SKIP)
 
         <IntExp> ::= <Value> | (<IntExp> + <IntExp>) | (<IntExp> * <IntExp>)
             | <Input> | <Output> <IntExp>; <IntExp>
@@ -665,6 +694,8 @@
         .
 
     d) Integer expressions with assignment
+
+        (SKIP)
 
         <IntExp> ::= <Value> | (<IntExp> + <IntExp>) | (<IntExp> * <IntExp>)
             | <Input> | <Output> <IntExp>; <IntExp>
