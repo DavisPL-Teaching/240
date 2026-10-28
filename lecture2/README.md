@@ -53,10 +53,20 @@ Questions?
     + Small-step semantics: We define a relation called "evaluates to": when one program/context
       evaluates to another in a single step.
 
+            e1 ---> e2
+            ^^^^^ e1 evaluates to e2 in one step
+
         EXAMPLE: Evaluation rules for IntExp
         https://piazza.com/class/ms5m7g95gq1tr/post/42
 
     + Why do we define this "small step" relation, how is this different than an interpreter?
+
+      More flexible ---> introduce nondeterminism
+                         by leaving multiple possible rules to
+                         evaluate.
+
+                         flip_coin ---> True
+                         flip_coin ---> False
 
     + How this gives rise to a set of (INPUT, prog, OUTPUT)!
 

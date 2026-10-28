@@ -66,3 +66,10 @@ Oct 23:
 Oct 26:
 1. N/A
 2. A, B, C, and E.
+
+Oct 28:
+1. A (No interpreter implements S)
+2.
+    - All backwards compatible with themselves
+    - B, C backwards compatible with A
+    - D is backwards compatible with A, B, C (but useless! since no interpreter can implement that.)
