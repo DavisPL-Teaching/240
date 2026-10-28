@@ -6,22 +6,65 @@ Reminders:
 
 - Project proposal due **Friday, November 13**
 
-  Review materials in `project/` !
+  Please se materials in `project/` !
 
 Plan:
 
-- Apologies that last time was rushed! A few words about material covered at the end of last time
+- Apologies that last time was rushed!
 
-    + Also, about poll from Wed Oct 21
+  My hope: you were able to get a small taste or "sneak peak"  about some topics
+  in how to define formal semantics.
 
-- Lecture 2:
+  Some points from last time/
+  Things I would like you to know:
 
-    + Compilers
+    + The point of formal semantics: that just like we are able to instantiate the set
+      of valid programs with a formal grammar G, we can instantiate the set of valid triples
+      (INPUT, prog, OUTPUT) by giving a formal semantics relation
 
-    + Example of a compiler
+    + Small-step semantics: We define a relation called "evaluates to": when one program/context
+      evaluates to another in a single step.
 
-    + Poll
+        EXAMPLE: Evaluation rules for IntExp
+        https://piazza.com/class/ms5m7g95gq1tr/post/42
 
-    + Optimizations
+    + Why do we define this "small step" relation, how is this different than an interpreter?
 
-    + Abstract interpretation.
+    + How this gives rise to a set of (INPUT, prog, OUTPUT)!
+
+    + Different styles of formal semantics:
+
+        Operational, axiomatic, and denotational.
+
+        Operational "feels" the most like how real code works, and often
+        the most straightforward to define for your own languages.
+
+- Answer to poll from last time
+
+    75% of you have formed your project groups
+
+    2: A, B, C, E (all except "developers of the underlying hardware")
+
+      --> usually not! usually the other way around.
+
+- Today's poll at the start of class
+  will revisit "backwards compatibility" as there will
+  still some questions about this.
+
+Then:
+
+- Start Lecture 1
+
+  + Compilers; definition of correctness
+
+  + Writing a compiler
+
+  + Syntactic sugar and platform specific code.
+
+  Further topics:
+
+  + Intermediate representation (IR)
+
+  + Compiler optimizations.
+
+Questions?
