@@ -63,9 +63,9 @@ If you are an undergraduate, you should most likely take 140A first.
 
 There is no required textbook. The following textbooks are recommended references. Both are available for free online:
 
-- [**Static Program Analysis**](https://cs.au.dk/~amoeller/spa/spa.pdf). Anders Møller and Michael I. Schwartzbach.
-
 - [**Software foundations.**](https://softwarefoundations.cis.upenn.edu/) Benjamin C. Pierce et. al.
+
+- [**Static Program Analysis**](https://cs.au.dk/~amoeller/spa/spa.pdf). Anders Møller and Michael I. Schwartzbach.
 
 ### Learning Objectives
 
@@ -148,9 +148,9 @@ I will use this to help students who may be on the boundary between two grades a
 
 ### AI Policy
 
-I do allow AI use on homework assignments, but with some discretion.
-You should not use AI to generate entire solutions, but in a targeted way to provide solutions matching your own requirements, and to assist with your own understanding.
-Use your critical thinking skills!
+I do allow AI use on homework assignments and for your project.
+You should use AI carefully and with discretion,
+to assist with (and not to replace) your own understanding.
 Exams are held in-class and closed-book.
 
 ### Collaboration Policy and Academic Integrity
@@ -210,4 +210,4 @@ If you have a question that is more sensitive or unrelated to the course, please
 
 ## Acknowledgment
 
-Thanks to [Aditya Thakur](https://thakur.cs.ucdavis.edu/) for providing some of the course materials from prior iterations of ECS 240, which will be used for certain lectures.
+Thanks to [Aditya Thakur](https://thakur.cs.ucdavis.edu/) for providing some of the course materials from prior iterations of ECS 240, which may be used for certain lectures.
