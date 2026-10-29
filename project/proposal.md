@@ -44,6 +44,10 @@ Explain whether you will design your own toy language, or a limited but signific
 If you chose your own language, explain what it will contain and what it will do.
 If you choose an existing language, explain what subset of keyword(s) and feature(s) you will select or what part of the language you will focus on.
 
+Give us some example syntax! It doesn't have to be complete at this stage.
+Also, you should give a draft of the grammar
+of what commands/programs are allowed - this can go under "Syntax and Semantics" below.
+
 1.3. **Proposed tool.**
 You should describe at least a basic interpreter for your language that can be used
 to run programs, plus one of the following 4
@@ -72,7 +76,12 @@ These should be described at a high level. The specific component(s) that are in
 
 ### 3. Theory part: Syntax and Semantics
 
-In a short paragraph or two, give a rough sketch of the syntax and semantics of your toy language.
+Give us some example syntax! It doesn't have to be complete at this stage.
+Provide a draft of your formal grammar of what commands/programs are allowed.
+This exercise will help push you to be more concrete about your language and what it contains.
+
+In at most a paragraph, give a rough sketch of the how the semantics will go.
+(set of `(INPUT, prog, OUTPUT)` triples).
 This doesn't have to be a complete description; I want to see that you have thought
 about what the syntax and semantics might look like.
 You will be asked to provide a complete syntax and semantics (on paper) for the final report.
