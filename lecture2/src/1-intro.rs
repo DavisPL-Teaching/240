@@ -4,7 +4,8 @@
 //!
 
 /*
-    Poll:
+    Poll (Oct 28)
+
     For these questions, consider a language consisting only of one command: Foo.
 */
 
@@ -35,6 +36,20 @@ enum FooLang {
     .
     .
     .
+    .
+    .
+    .
+    .
+    .
+*/
+
+/*
+    Poll (Oct 30)
+
+    Today's poll is for you to give me a bit of feedback on the pacing of the class so far.
+
+    https://forms.gle/2bfhJpJDAAsT9nFx7
+
     .
     .
     .

@@ -84,3 +84,32 @@ Questions?
   2: A, B, C, E (all except "developers of the underlying hardware")
 
     --> usually not! usually the other way around.
+
+### Friday, October 30
+
+Today: end of week 6!
+After today, we have 3 weeks left (7-9), followed by project presentations (weeks 10-11).
+
+Reminders:
+
+- Project proposal due **Friday, November 13**
+
+Plan:
+
+- Poll
+
+  This poll is for you to give me a bit of feedback on the pacing of the class so far.
+
+- Start Lecture 2
+
+  + Compilers; definition of correctness
+
+  + Writing a compiler
+
+  + Syntactic sugar and platform specific code.
+
+Further topics:
+
+  + Intermediate representation (IR)
+
+  + Compiler optimizations.
