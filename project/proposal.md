@@ -39,23 +39,23 @@ This should include at least 3 citations, including at least 2 research papers r
 to your chosen research area or domain
 (see related work, below).
 
-1.2. **Programming language selection.**
+1.2. **Proposed language.**
 Explain whether you will design your own toy language, or a limited but significant subset of an existing language.
 If you chose your own language, explain what it will contain and what it will do.
 If you choose an existing language, explain what subset of keyword(s) and feature(s) you will select or what part of the language you will focus on.
 
-1.3. **Tool selection.** Please include one of the following 4
+1.3. **Proposed tool.**
+You should describe at least a basic interpreter for your language that can be used
+to run programs, plus one of the following 4
 options: compiler, static analysis tool, dynamic analysis tool, or type system.
 (If you have another idea, please talk to me about it to get approval.)
-Please include the following also:
-
-- What is the input and output to your tool?
-
-- How will a user interact with it?
+Describe:
+What is the input and output to your tool?
+How will a user interact with it?
 
 1.4. **Scope and related work.** Is the solution to the problem already known and built?
-(Ideally not! However, I will not make this a strict requirement.)
-Are there any existing tools that solve a similar problem?
+(Ideally not! However, this is not strictly a requirement.)
+What existing tools are there to solve a similar problem?
 
 ### 2. Goals
 

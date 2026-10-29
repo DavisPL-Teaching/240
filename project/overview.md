@@ -5,9 +5,7 @@ You will also be asked to draft the formal syntax and semantics of your language
 final report.
 
 Tool options:
-
-- Interpreter,
-    (careful - there should be some complexity beyond just "run the program")
+Your project should include at least a basic interpreter for your language, plus at least one of the following:
 
 - Compiler,
     (or Transpiler)
@@ -16,7 +14,7 @@ Tool options:
 
 - Dynamic analysis tool, or
 
-- Type system.
+- Type system (**Not recommended** as this topic will receive limited coverage in class).
 
 You will need to build all the primary relevant technology for the project,
 though you may incorporate some existing tools if required (these should be detailed in your proposal).
