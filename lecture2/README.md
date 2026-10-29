@@ -94,6 +94,25 @@ Reminders:
 
 - Project proposal due **Friday, November 13**
 
+  Some updates after talking to some of you about your projects:
+
+    + **New requirement:** I will require a basic interpreter as a minimum for your project
+    (minimum goal), *plus* one of the other four tool options (compiler, static analysis tool,
+    dynamic analysis tool, or type system).
+
+    + I will recommend steering away from the "type system" choice.
+
+    + Reminder: main point of the project is to design your own language! (or subset of an existing
+      language)
+
+      * Get concrete as soon as possible, by drafting your grammar + example programs.
+        I've also updated the project proposal description a little, in `project/` -
+        Give us some example syntax!
+        It doesn't have to be complete at this stage. It will help force you to make decisions
+        about your language and what it will look like early on.
+
+      * You will need to also define the formal semantics for your final report.
+
 Plan:
 
 - Poll
