@@ -94,11 +94,14 @@ Reminders:
 
 - Project proposal due **Friday, November 13**
 
-  Some updates after talking to some of you about your projects:
+  Some notes and changes to the project - after talking to some of you:
 
     + **New requirement:** I will require a basic interpreter as a minimum for your project
     (minimum goal), *plus* one of the other four tool options (compiler, static analysis tool,
     dynamic analysis tool, or type system).
+
+    + These don't need to be built as part of your proposal.
+      Proposal is a chance to get feedback
 
     + I will recommend steering away from the "type system" choice.
 
@@ -117,18 +120,22 @@ Plan:
 
 - Poll
 
-  This poll is for you to give me a bit of feedback on the pacing of the class so far.
+  Short poll for you to give me a bit of feedback on the pacing of the class so far.
 
 - Start Lecture 2
+
+  Part 1:
 
   + Compilers; definition of correctness
 
   + Writing a compiler
 
-  + Syntactic sugar and platform specific code.
+  Part 2:
 
-Further topics:
+    + Syntactic sugar and platform specific code.
 
-  + Intermediate representation (IR)
+    + How this gives rise to intermediate representations (IR)
+
+Coming up ahead:
 
   + Compiler optimizations.

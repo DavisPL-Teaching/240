@@ -46,7 +46,7 @@ enum FooLang {
 /*
     Poll (Oct 30)
 
-    Today's poll is for you to give me a bit of feedback on the pacing of the class so far.
+    Today's short poll is for you to give me a bit of feedback on the pacing of the class so far.
 
     https://forms.gle/2bfhJpJDAAsT9nFx7
 
@@ -77,6 +77,7 @@ enum FooLang {
     Aside: the Rust compiler is written in Rust. How is this possible? :-)
 
 Definition:
+(SKIP - this will be on your HW HW2)
 
     Let M be the semantics (set of (INPUT, prog, OUTPUT)) for the metalanguage
 
@@ -120,13 +121,12 @@ struct Variable(String);
 */
 
 struct RandProgCompiler {
-    // TODO: fill in here
+    // Do we need any fields?
 }
 
 impl RandProgCompiler {
     fn new() -> Self {
-        // TODO: initialize compiler
-        unimplemented!()
+        Self {}
     }
     fn compile(&mut self, prog: RandProg) -> String {
         // TODO: implement this function.
@@ -225,30 +225,12 @@ impl RandProgCompiler {
     1. We often write a lot of repetitive code.
 
     2. The code we produce as output -- such as for random coin generation or user input
-      -- may involve some "implementation details". Code that makes sense for one
+      -- may involve some "implementation details". In this case, a lot of Rust syntax/details
+      that may be tedious or low-level.
+      Also, code that makes sense for one
       platform/implementation that may not make sense for another.
 
         ---> This is called platform specific code.
 
         ---> Most real world compilers support many platforms and architectures.
-*/
-
-/*
-    ===== Syntactic sugar =====
-
-    Exercise: generalize our RandProg to have a new construct.
-    Compile it out by
-
-    Q: Can any existing constructs be viewed as syntactic sugar?
-*/
-
-/*
-    Def. An *intermediate representation* is ...
-
-    ===== Platform-specific code =====
-
-    Example:
-    We could write different compilers, one which produces output
-    to the terminal; and one which returns output by displaying it in a dialogue box to the
-    user; and yet another which produces output by saving it to a file.
 */

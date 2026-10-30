@@ -10,6 +10,9 @@
 #[path = "1-intro.rs"]
 pub mod intro;
 
+#[path = "2-IR.rs"]
+pub mod ir;
+
 fn main() {
     println!("Lecture 2!");
 }
