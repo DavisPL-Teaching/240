@@ -73,3 +73,6 @@ Oct 28:
     - All backwards compatible with themselves
     - B, C backwards compatible with A
     - D is backwards compatible with A, B, C (but useless! since no interpreter can implement that.)
+
+Oct 30:
+N/A

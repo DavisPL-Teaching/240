@@ -88,7 +88,12 @@ Questions?
 ### Friday, October 30
 
 Today: end of week 6!
-After today, we have 3 weeks left (7-9), followed by project presentations (weeks 10-11).
+After today, we have 3 weeks left (7-9), followed by in-class presentations (weeks 10-11).
+
+Plan:
+  + Roughly this week and next week (week 7) on compilers, optimization
+
+  + Roughly weeks 8-9 on static analysis and dynamic analysis, advanced topics.
 
 Reminders:
 
@@ -120,7 +125,7 @@ Plan:
 
 - Poll
 
-  Short poll for you to give me a bit of feedback on the pacing of the class so far.
+  Quick poll - feedback on the pacing of the class so far.
 
 - Start Lecture 2
 
@@ -139,3 +144,5 @@ Plan:
 Coming up ahead:
 
   + Compiler optimizations.
+
+Questions?
