@@ -13,6 +13,9 @@ pub mod intro;
 #[path = "2-IR.rs"]
 pub mod ir;
 
+// Utility functions
+pub mod util;
+
 fn main() {
     println!("Lecture 2!");
 }
