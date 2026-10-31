@@ -264,16 +264,16 @@ fn test_compile() {
 
     - Each has its own semantics that we have to worry about!
 
-    - We talked about circular dependencies in how compilers are written:
-        + there must have been a "first" compiler (the first compiler = hardware)
+    - We talked about dependencies in how compilers are written:
+        + there must have been a "first" compiler or interpreter (the first compiler = hardware)
 
-        + writing a compiler in its own language: a process called Bootstrapping
+        + writing a compiler in its own language: Bootstrapping
 
         + Advantages/drawbacks of bootstrapping
 
-    - We started implementing a compiler for RandProg in Rust and going through the cases
+    - We started implementing a compiler for RandProg in Rust (one case)
 
-    - We'll see a couple other cases and what problems that emerge as a result of this next time.
+    - Next time: other cases + problems that emerge.
 
     ----------------------------------------
 

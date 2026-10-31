@@ -10,8 +10,8 @@
 #[path = "1-intro.rs"]
 pub mod intro;
 
-#[path = "2-IR.rs"]
-pub mod ir;
+#[path = "2-concepts.rs"]
+pub mod concepts;
 
 // Utility functions
 pub mod util;

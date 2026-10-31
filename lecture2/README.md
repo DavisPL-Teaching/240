@@ -146,3 +146,25 @@ Coming up ahead:
   + Compiler optimizations.
 
 Questions?
+
+### Monday, November 2
+
+Reminders:
+
+- Project proposal due Friday, November 13
+
+Plan:
+
+- Continue on compilers:
+
+  + Finish part 1: Compiler example and some motivation
+
+  + Part 2: Compiler concepts
+
+    * Poll
+
+    * Syntactic sugar, platform specific code
+
+    * Intermediate representations
+
+    * Compiler optimizations.

@@ -1,5 +1,16 @@
 /*
-    Lecture 2, part 2: IRs
+    Lecture 2, part 2:
+    Compiler concepts
+*/
+
+/*
+    === Poll ===
+
+    An interpreter has more information than a compiler: it has a program *and* an intended input on which that program is run. Therefore it could perform more optimizations than a compiler, including optimizing it for that specific input. Therefore, interpreters are more useful than compilers for optimization.
+
+    What is wrong with this reasoning?
+
+    https://forms.gle/bLGhNKSQUWxmRjdH7
 */
 
 /*
