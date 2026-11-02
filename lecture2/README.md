@@ -149,9 +149,11 @@ Questions?
 
 ### Monday, November 2
 
-Reminders:
+Announcements/reminders:
 
 - Project proposal due Friday, November 13
+
+- HW2 release upcoming (probably sometime this week)
 
 Plan:
 

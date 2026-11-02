@@ -162,7 +162,7 @@ pub enum RandProg {
     If(Variable, Box<RandProg>, Box<RandProg>), // if x { prog1 } else { prog2 }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct Variable(String);
 
 // NB: This saves us some boilerplate below
@@ -185,14 +185,19 @@ impl Display for Variable {
     - Let's compile RandProg to Rust.
 */
 
+use std::collections::HashSet;
+
 #[derive(Debug, Default)]
 pub struct RandProgCompiler {
     // Do we need any fields?
+    vars_in_scope: HashSet<Variable>,
 }
 
 impl RandProgCompiler {
     pub fn new() -> Self {
-        Self {}
+        Self {
+            vars_in_scope: HashSet::new()
+        }
     }
     pub fn compile(&mut self, prog: &RandProg) -> String {
         // TODO: implement this function.
@@ -210,10 +215,35 @@ impl RandProgCompiler {
                 // NB:
                 // Can probably do this in one line with the
                 // format!() macro.
-                format!("let {} = {};", v, b)
+                if self.vars_in_scope.contains(v) {
+                    format!("{} = {};", v, b)
+                } else {
+                    self.vars_in_scope.insert(v.clone());
+                    format!("let mut {} = {};", v, b)
+                }
+                // ^^^^ Doesn't quite work
+                // How to fix it:
+                // Easiest way:
+                // compile the program normally with x = y syntax only
+                // at the end: insert a bunch of let statements at the top
+                // at the top of my program:
+                // Vars in scope: x, y, z
+                // Very top of my program:
+                // let mut x: bool;
+                // let mut y: bool;
+                // let mut z: bool;
             }
             RandProg::CopyVar(v1, v2) => {
+                // x = y;
+                // let x = y;
+
+                // when are these different?
+                // let x = 3;
+                // let x = x + 1;
+                // let x = x + 1;
+
                 // Example: with format macro
+                // TODO: fix here
                 format!("let {} = {};", v1, v2)
                 // ^^ Problem with this?
             }
@@ -252,7 +282,7 @@ impl RandProgCompiler {
 #[test]
 fn test_compile() {
     let prog = RandProg::SetVar(Variable("x".to_string()), true);
-    let mut compiler = RandProgCompiler {};
+    let mut compiler = RandProgCompiler::new();
     let compiled_prog = compiler.compile(&prog);
     assert_eq!(compiled_prog, "let x = true;");
 }
@@ -284,6 +314,43 @@ fn test_compile() {
 
     Any problems with this implementation?
 
+    Problems:
+    - Code won't run as is; we need Rust code with a main() function, etc.
+
+    - Copy Var impl is wrong!
+
+        "let x = y" is not the same as "x = y"
+        ^^ declaring a local variable vs.
+            modifying a local variable
+
+        These become different if there are multiple
+        scopes!
+
+        If statement!
+
+        x = true
+        If y {
+            x = false
+        } else {
+            do nothing
+        }
+        print(x)
+
+        will compile to:
+
+        let x = true;
+        if (y) {
+            let x = false;
+        } else {
+            //
+        }
+        println!("{}", x);
+
+    // example of scoping!
+    // our compiler has a bug.
+
+    EXERCISE: write a unit test
+
     (There is one problem with the way we have implemented it, and then two problems
     that are more general.)
 
@@ -292,15 +359,23 @@ fn test_compile() {
     .
     .
     .
-    ,
-    ,
+    .
+    .
+
+    Partially fixed
+
+    TL;DR: Variable scoping is weird.
+
+    We should declare all RandProg variables at global scope in Rust
+    (and declare them as `mut`)
+    in order to be able to modify them throughout the program.
 */
 
 // current failing - see `cargo test`
-#[test]
-fn test_compile_bug() {
-    todo!()
-}
+// #[test]
+// fn test_compile_bug() {
+//     todo!()
+// }
 
 /*
     === After it is working ===

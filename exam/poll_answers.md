@@ -76,3 +76,18 @@ Oct 28:
 
 Oct 30:
 N/A
+
+Nov 2:
+Correct answers include:
+- This would actually lead to a slower interpreter because optimizing the program
+  takes time; it is faster to just directly run the program on the input.
+- Runtime vs. compile time: Compiler performance is measured in terms of two
+  separate stages, compile time vs. runtime. Only the runtime performance matters
+  in case of compiler, so it is allowed to spend more effort on the compile time stage,
+  but interpreters have no such luxury.
+
+Nov 4:
+TBD
+
+Nov 6:
+TBD
