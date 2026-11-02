@@ -190,17 +190,33 @@ use std::collections::HashSet;
 #[derive(Debug, Default)]
 pub struct RandProgCompiler {
     // Do we need any fields?
-    vars_in_scope: HashSet<Variable>,
+    vars_used: HashSet<Variable>,
 }
 
 impl RandProgCompiler {
     pub fn new() -> Self {
         Self {
-            vars_in_scope: HashSet::new()
+            vars_used: HashSet::new(),
         }
     }
     pub fn compile(&mut self, prog: &RandProg) -> String {
-        // TODO: implement this function.
+        let suffix = self.compile_core(prog);
+        let mut prefix = String::new();
+        for var in &self.vars_used {
+            // default all vars to false
+            // NOTE! we could pick any true/false here,
+            // since we are allowed to compile the program to anything
+            // for uninitialized vars (see Lecture 1 Part 3, uninitialized vars)
+            prefix += &format!("let mut {} = true;\n", var);
+        }
+        format!("{}{}", prefix, suffix)
+    }
+    fn ensure_var(&mut self, var: &Variable) {
+        if !self.vars_used.contains(var) {
+            self.vars_used.insert(var.clone());
+        }
+    }
+    fn compile_core(&mut self, prog: &RandProg) -> String {
         match prog {
             RandProg::SetVar(v, b) => {
                 // let v = true;
@@ -215,12 +231,12 @@ impl RandProgCompiler {
                 // NB:
                 // Can probably do this in one line with the
                 // format!() macro.
-                if self.vars_in_scope.contains(v) {
-                    format!("{} = {};", v, b)
-                } else {
-                    self.vars_in_scope.insert(v.clone());
-                    format!("let mut {} = {};", v, b)
-                }
+                // if self.vars_in_scope.contains(v) {
+                //     format!("{} = {};", v, b)
+                // } else {
+                //     self.vars_in_scope.insert(v.clone());
+                //     format!("let mut {} = {};", v, b)
+                // }
                 // ^^^^ Doesn't quite work
                 // How to fix it:
                 // Easiest way:
@@ -232,6 +248,10 @@ impl RandProgCompiler {
                 // let mut x: bool;
                 // let mut y: bool;
                 // let mut z: bool;
+                // FIXED CODE:
+                // see fn ensure_var()
+                self.ensure_var(v);
+                format!("{} = {};", v, b)
             }
             RandProg::CopyVar(v1, v2) => {
                 // x = y;
@@ -244,23 +264,28 @@ impl RandProgCompiler {
 
                 // Example: with format macro
                 // TODO: fix here
-                format!("let {} = {};", v1, v2)
+                self.ensure_var(v1);
+                self.ensure_var(v2);
+                format!("{} = {};", v1, v2)
                 // ^^ Problem with this?
             }
             RandProg::FlipCoin(v) => {
                 // Using util.rs
-                format!("let {} = util::rand_bool();", v)
+                self.ensure_var(v);
+                format!("{} = util::rand_bool();", v)
                 // ^^ Problem with this?
             }
             RandProg::Input(v) => {
                 // Using util.rs
-                format!("let {} = util::get_bool_input();", v)
+                self.ensure_var(v);
+                format!("{} = util::get_bool_input();", v)
                 // ^^ Problem with this?
             }
             RandProg::Output(v) => {
                 // This one is a little weird:
                 // we need to escape the strings
                 // EXAMPLE: want println!("{}", myvar);
+                self.ensure_var(v);
                 format!("println!({{}}, {});", v)
             }
             RandProg::Seq(prog1, prog2) => {
@@ -273,6 +298,7 @@ impl RandProgCompiler {
                 // Recursive case
                 let rs1 = self.compile(prog1);
                 let rs2 = self.compile(prog2);
+                self.ensure_var(b);
                 format!("if ( {} ) {{ {} }} else {{ {} }}", b, rs1, rs2)
             }
         }
@@ -284,7 +310,7 @@ fn test_compile() {
     let prog = RandProg::SetVar(Variable("x".to_string()), true);
     let mut compiler = RandProgCompiler::new();
     let compiled_prog = compiler.compile(&prog);
-    assert_eq!(compiled_prog, "let x = true;");
+    assert_eq!(compiled_prog, "let mut x = true;\nx = true;");
 }
 
 /*
