@@ -157,7 +157,7 @@ Plan:
 
 - Continue on compilers:
 
-  + Finish part 1: Compiler example and some motivation
+  + Finish part 1: Compiler example and some discussion
 
   + Part 2: Compiler concepts
 
@@ -168,3 +168,5 @@ Plan:
     * Intermediate representations
 
     * Compiler optimizations.
+
+Questions?

@@ -148,7 +148,7 @@ Aside: the Rust compiler is written in Rust. How is this possible? :-)
     Here's RandProg again:
 */
 
-enum RandProg {
+pub enum RandProg {
     /* Some basic variable operations */
     SetVar(Variable, bool),      // x = true or x = false
     CopyVar(Variable, Variable), // x = y
@@ -163,7 +163,7 @@ enum RandProg {
 }
 
 #[derive(Debug)]
-struct Variable(String);
+pub struct Variable(String);
 
 // NB: This saves us some boilerplate below
 use std::fmt::{self, Display};
@@ -185,15 +185,16 @@ impl Display for Variable {
     - Let's compile RandProg to Rust.
 */
 
-struct RandProgCompiler {
+#[derive(Debug, Default)]
+pub struct RandProgCompiler {
     // Do we need any fields?
 }
 
 impl RandProgCompiler {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {}
     }
-    fn compile(&mut self, prog: &RandProg) -> String {
+    pub fn compile(&mut self, prog: &RandProg) -> String {
         // TODO: implement this function.
         match prog {
             RandProg::SetVar(v, b) => {
@@ -277,11 +278,33 @@ fn test_compile() {
 
     ----------------------------------------
 
-    Questions:
-    Problems with the above?
+    Nov 2
+
+    Go over full example (above)
+
+    Any problems with this implementation?
+
+    (There is one problem with the way we have implemented it, and then two problems
+    that are more general.)
+
+    === Fixing the bug ===
+
+    .
+    .
+    .
+    ,
+    ,
 */
 
+// current failing - see `cargo test`
+#[test]
+fn test_compile_bug() {
+    todo!()
+}
+
 /*
+    === After it is working ===
+
     We have a compiler!
     But we will likely notice two things:
 

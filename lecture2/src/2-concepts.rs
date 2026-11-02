@@ -17,10 +17,41 @@
     ===== Syntactic sugar =====
 
     Exercise: generalize our RandProg to have a new construct.
-    Compile it out by
+    Compile it out by treating it as syntacitc sugar.
 
     Q: Can any existing constructs be viewed as syntactic sugar?
+*/
 
+// Import
+// TODO: remove after used
+#[allow(unused_imports)]
+use super::intro::{RandProg as RandProgOld, RandProgCompiler as CompilerOld, Variable};
+
+pub enum SyntacticSugar {
+    // what should go here?
+}
+
+#[derive(Debug, Default)]
+pub struct SyntacticSugarCompiler {
+    // what should go here?
+}
+
+impl SyntacticSugarCompiler {
+    pub fn new() -> Self {
+        unimplemented!()
+    }
+    pub fn compile(&mut self, prog: &SyntacticSugar) {
+        // TODO: implement
+        unimplemented!()
+    }
+}
+
+/*
+    What happened? Any interesting observations?
+
+*/
+
+/*
     ===== Platform-specific code =====
 
     Def.:
@@ -35,6 +66,12 @@
 */
 
 /*
+    What happened? Any interesting observations?
+*/
+
+/*
+    ===== IRs, Layers, and Compiler Passes =====
+
     A picture emerges...
 
     see extras/IR_picture.jpg
