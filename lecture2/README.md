@@ -172,3 +172,29 @@ Plan:
     * Compiler optimizations.
 
 Questions?
+
+### Weds., Nov 4
+
+Reminders:
+
+- Project proposal due Friday, November 13
+
+- HW2 release upcoming (probably sometime this week)
+
+Announcements:
+
+- Remaining OH will alternate Zoom and in person
+
+  + Today on Zoom, next week in person, etc.
+
+Plan:
+
+- Fixed compiler from last time.
+
+- Part 2: Compiler concepts
+
+  + Syntactic sugar
+
+  + Platform specific code
+
+  + IRs and how they make optimizations and other passes more efficient.

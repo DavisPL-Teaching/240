@@ -13,6 +13,9 @@ pub mod intro;
 #[path = "2-concepts.rs"]
 pub mod concepts;
 
+#[path = "3-optimization.rs"]
+pub mod optimization;
+
 // Utility functions
 pub mod util;
 
