@@ -179,7 +179,7 @@ Reminders:
 
 - Project proposal due Friday, November 13
 
-- HW2 release upcoming (probably sometime this week)
+- HW2 WIP, release upcoming soon
 
 Announcements:
 
@@ -193,8 +193,14 @@ Plan:
 
 - Part 2: Compiler concepts
 
+  + Note on last time poll
+
+  + Layer based compiler development; IRs
+
   + Syntactic sugar
+
+  + Poll
 
   + Platform specific code
 
-  + IRs and how they make optimizations and other passes more efficient.
+  + How IRs enable optimization passes.
