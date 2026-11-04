@@ -63,6 +63,8 @@
 
         HIGH  .... decreases ....  LOW .... increases .... HIGH
 
+        see extras/IR_picture.jpg
+
     Each intermediate layer I1, I2, I3, is called an **Intermediate Representation** (IR).
 
     IR comes with its own syntax and semantics! Each of these is itself a language.
@@ -245,17 +247,13 @@ impl PlatformSpecificCompiler {
 */
 
 /*
-    ===== IRs and Compiler Passes =====
+    ===== IRs and Compiler Passes (Recap) =====
 
-    IR complexity:
+    For all of the above reasons of a "refactorable"/modular design and to manage complexity -
+    compiler designers define compilers to work in a series of stages,
+    or representations of the program.
 
-        see extras/IR_picture.jpg
-
-    Compiler designers know that such features occur frequently! And so they
-    define compilers to work in a series of stages, or representations
-    of the program.
-
-    Rust has many IRs that it works with. AMong these are:
+    Rust has many IRs that it works with. Among these are:
 
         Source code -> HIR -> MIR -> LLVM IR -> binary
         ^^^High-level                          ^^^^ Low-level

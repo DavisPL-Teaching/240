@@ -206,3 +206,23 @@ Plan:
   + How IRs enable optimization passes.
 
 Questions?
+
+### Fri., Nov 6
+
+Reminders:
+
+- Project proposal due Friday, November 13
+
+- HW2 WIP, release upcoming soon
+
+Plan:
+
+- Platform specific code
+
+- Poll and coding example
+
+- Recap and exercises (SKIP)
+
+- Optimization.
+
+Questions?
