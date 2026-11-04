@@ -87,7 +87,7 @@ Correct answers include:
   but interpreters have no such luxury.
 
 Nov 4:
-TBD
+C, E, F.
 
 Nov 6:
 TBD

@@ -204,3 +204,5 @@ Plan:
   + Platform specific code
 
   + How IRs enable optimization passes.
+
+Questions?

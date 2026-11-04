@@ -148,7 +148,7 @@ Aside: the Rust compiler is written in Rust. How is this possible? :-)
     Here's RandProg again:
 */
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum RandProg {
     /* Some basic variable operations */
     SetVar(Variable, bool),      // x = true or x = false

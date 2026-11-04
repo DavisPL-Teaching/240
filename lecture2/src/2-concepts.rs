@@ -44,6 +44,7 @@
 
         Metalanguage : M
 
+                                    C: M
         Source language:                              Target language and platform:
         S                          ->                 T
 
@@ -97,9 +98,6 @@
     .
     .
     .
-
-    https://forms.gle/36KfMe2QNswg5atG8
-
     .
     .
     .
@@ -108,6 +106,12 @@
     Compile it out by treating it as syntactic sugar.
 
     Q: Can any existing constructs be viewed as syntactic sugar?
+
+    A: Yes,
+            CopyVar(x, y) // x = y
+            could be syntactic sugar for
+
+            If(y, SetVar(x, true), SetVar(x, false))
 
     Below:
     an example of adding syntactic sugar for a SwapVars construct.
@@ -120,32 +124,77 @@
 #[allow(unused_imports)]
 use super::intro::{RandProg, RandProgCompiler, Variable};
 
+// NEW LANGUAGE: RandProg + some Syntactic Sugar
 #[derive(Debug)]
 pub enum SyntacticSugar {
-    SwapVars,
+    SwapVars(Variable, Variable), // in Python: x, y = y, x
     Base(RandProg),
+    // TODO add: Seq, If, etc.
 }
 
 #[derive(Debug, Default)]
 pub struct SyntacticSugarCompiler {
-    // what should go here?
+    core_compiler: RandProgCompiler,
 }
 
 impl SyntacticSugarCompiler {
     pub fn new() -> Self {
-        unimplemented!()
+        Self {
+            core_compiler: RandProgCompiler::new(),
+        }
     }
-    pub fn compile(&mut self, prog: &SyntacticSugar) {
+    pub fn compile(&mut self, prog: &SyntacticSugar) -> String {
         // TODO: what should be the output?
         // what should go here?
         // TODO: implement
-        unimplemented!()
+        let rand_prog = match prog {
+            SyntacticSugar::SwapVars(v1, v2) => {
+                // Idea: compile to RandProg first
+                // Write a RandProg program for swap
+                // idea: if ( v2 ) ( v2 = v1; v1 = true ) else ( v2 = v1; v1 = false )
+                // let v1 = v1.clone();
+                // let v2 = v2.clone();
+                RandProg::If(
+                    v2.clone(),
+                    Box::new(RandProg::Seq(
+                        Box::new(RandProg::CopyVar(v2.clone(), v1.clone())),
+                        Box::new(RandProg::SetVar(v1.clone(), true)),
+                    )),
+                    Box::new(RandProg::Seq(
+                        Box::new(RandProg::CopyVar(v2.clone(), v1.clone())),
+                        Box::new(RandProg::SetVar(v1.clone(), false)),
+                    )),
+                )
+            }
+            SyntacticSugar::Base(b) => b.clone(),
+        }; // return a RandProg
+        self.core_compiler.compile(&rand_prog)
     }
 }
 
 /*
+    It works! (Hopefully)
+
+    Compiler now has three layers:
+
+        SyntacticSugar --> RandProg --> Rust
+
     What happened? Any interesting observations?
 
+    Recap:
+
+    - We defined layered compiler development - and
+        intermediate representatinos (IR), which are a type of language
+        with their own syntax and semantics and each layer
+
+    - Syntactic sugar = syntax that is immediately compiled out at the very first
+      layer and replaced with identical semantics
+
+    - Other end: Platform-specific code which will increase complexity at the back end,
+      or lowest level
+
+    - GOAL: simplify as much as possible the complexity going into the inner layers,
+      so that we can more easily write optimization and analysis passes.
 */
 
 /*
