@@ -213,6 +213,50 @@ impl SyntacticSugarCompiler {
     OR:
     Logic for displaying output to a file changes depending on the platform
     (e.g.: use CRLF on Windows, LF on Linux).
+*/
+
+/*
+    ===== POLL =====
+
+    In some low-level languages, like C and Rust,
+    the number of bits of an integer or pointer can be platform-specific.
+    For example, in Rust, the number of bits in
+
+        usize
+        isize
+
+    is equal to the number of bits needed to index memory addresses on the
+    particular platform.
+
+    Consider the following program (pseudocode):
+
+        x = 0
+        While x < 2^32 :
+            x += 1; // wrapping add
+        print!("Done");
+
+    Suppose that we generate platform-specific code -- optimizing the program
+    in a platform-specific way -- where the number of bits
+    that is used to store x is either 32-bit or 64-bit, depending on the platform.
+
+    a) Give a shorter, simpler program (without loops) that this program could
+       be optimized to on 64-bit platforms.
+
+    b) Give a shorter, simpler program (involving at most one, simpler loop) that
+       this program could be optimized to on 32-bit platforms.
+
+    c) The behavior of the code depends on the platform!
+       Yet, in the source language semantics, we probably need to state what the
+       program should do.
+       How is this not a problem for program semantics?
+       :-)
+
+       How do you think programming languages like C and Rust define the semantics
+       to avoid this issue?
+*/
+
+/*
+    Coding example --
 
     SKETCH:
 */
@@ -268,6 +312,7 @@ impl PlatformSpecificCompiler {
 /*
     === Exercises ===
     (SKIP)
+    (These will appear on the HW2 problem set.)
 
     1. Add syntactic sugar to our language for 4-bit integers.
        Adapt and structure the compiler in such a way that the 4-bit integer logic is

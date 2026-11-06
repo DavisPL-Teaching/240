@@ -209,20 +209,30 @@ Questions?
 
 ### Fri., Nov 6
 
+Announcements:
+
+- HW2 released! Due in 2 weeks, Friday November 20, 11:59pm.
+
 Reminders:
 
 - Project proposal due Friday, November 13
 
-- HW2 WIP, release upcoming soon
-
 Plan:
 
-- Platform specific code
+- Finish Part 2:
 
-- Poll and coding example
+  + Platform specific code
 
-- Recap and exercises (SKIP)
+  + Poll and coding example
 
-- Optimization.
+  + Recap and exercises (SKIP - these appear on your HW)
+
+- Part 3 on Optimization:
+
+  + Some history of program optimizations
+
+  + The WHILE language, constant propagation
+
+  + A proof exercise on the WHILE language.
 
 Questions?
