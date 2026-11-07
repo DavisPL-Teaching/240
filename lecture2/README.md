@@ -236,3 +236,31 @@ Plan:
   + A proof exercise on the WHILE language.
 
 Questions?
+
+### Monday, Nov 9
+
+Announcements:
+
+- No class this Wednesday (Veteran's Day)
+
+Reminders:
+
+- HW2 due Friday November 20, 11:59pm.
+
+- Project proposal due Friday, November 13
+
+Plan:
+
+- Go over poll from last time
+
+- Part 3 on Optimization:
+
+  + Some history of program optimizations
+
+  + The WHILE language, constant propagation
+
+  + Last ~10 min of class: poll on optimization.
+
+  + A proof exercise on the WHILE language.
+
+Questions?
