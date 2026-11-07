@@ -186,7 +186,7 @@ impl SyntacticSugarCompiler {
     Recap:
 
     - We defined layered compiler development - and
-        intermediate representatinos (IR), which are a type of language
+        intermediate representations (IR), which are a type of language
         with their own syntax and semantics and each layer
 
     - Syntactic sugar = syntax that is immediately compiled out at the very first
@@ -216,6 +216,64 @@ impl SyntacticSugarCompiler {
 */
 
 /*
+    Coding example --
+
+    SKETCH:
+
+        SyntacticSugar -> RandProg -> PreRustIR -> Rust
+*/
+
+#[derive(Debug)]
+pub enum PreRustIR {
+    RustCode(String),
+    OutputCommand(Variable),
+    Seq(Box<PreRustIR>, Box<PreRustIR>),
+}
+
+// placeholders
+
+#[derive(Debug, Default)]
+pub struct SyntacticSugarCompiler2();
+
+#[derive(Debug, Default)]
+pub struct RandProgCompiler2();
+
+#[derive(Debug, Default)]
+pub struct CRLFCodeGenerator();
+
+#[derive(Debug, Default)]
+pub struct PlatformSpecificCompiler {
+    // Compiler from SyntacticSugar -> RandProg
+    syntactic_sugar_compiler: SyntacticSugarCompiler2,
+    // Compiler from RandProg -> PreRustIR
+    rand_prog_compiler: RandProgCompiler2,
+    // Compiler from PreRustIR -> CRLFCodeGenerator
+    crlf_code_generator: CRLFCodeGenerator,
+}
+
+impl PlatformSpecificCompiler {
+    pub fn new() -> Self {
+        // what should go here?
+        unimplemented!()
+    }
+    pub fn compile(&mut self, prog: &PreRustIR) -> String {
+        // TODO: what should be the output?
+        // what should go here?
+        // TODO: implement
+        unimplemented!()
+        // prog1 = self.syntactic_sugar_compiler.compile(prog);
+        // prog2 = self.rand_prog_compiler(prog);
+        // ---- can do optimization passes here
+        // prog3 = self.crlf_code_generator(prog2);
+        // prog3
+    }
+}
+
+/*
+    What happened? Any interesting observations?
+*/
+
+/*
     ===== POLL =====
 
     In some low-level languages, like C and Rust,
@@ -233,7 +291,7 @@ impl SyntacticSugarCompiler {
         x = 0
         While x < 2^32 :
             x += 1; // wrapping add
-        print!("Done");
+        print "Done";
 
     Suppose that we generate platform-specific code -- optimizing the program
     in a platform-specific way -- where the number of bits
@@ -245,7 +303,8 @@ impl SyntacticSugarCompiler {
     b) Give a shorter, simpler program (involving at most one, simpler loop) that
        this program could be optimized to on 32-bit platforms.
 
-    c) The behavior of the code depends on the platform!
+    c) (If your answers to part a and b are different)
+       The behavior of the code depends on the platform!
        Yet, in the source language semantics, we probably need to state what the
        program should do.
        How is this not a problem for program semantics?
@@ -267,41 +326,6 @@ impl SyntacticSugarCompiler {
     .
     .
     .
-*/
-
-/*
-    Coding example --
-
-    SKETCH:
-*/
-
-#[derive(Debug)]
-pub enum PreRustIR {
-    RustCode(String),
-    OutputCommand(Variable),
-    Seq(Box<PreRustIR>, Box<PreRustIR>),
-}
-
-#[derive(Debug, Default)]
-pub struct PlatformSpecificCompiler {
-    // what should go here?
-}
-
-impl PlatformSpecificCompiler {
-    pub fn new() -> Self {
-        // what should go here?
-        unimplemented!()
-    }
-    pub fn compile(&mut self, prog: &PreRustIR) {
-        // TODO: what should be the output?
-        // what should go here?
-        // TODO: implement
-        unimplemented!()
-    }
-}
-
-/*
-    What happened? Any interesting observations?
 */
 
 /*
