@@ -3,6 +3,10 @@
 //!
 
 /*
+    Let's talk about compiler optimizations!
+*/
+
+/*
     Some classical compiler optimizations
 
     (A bit of historical context -
@@ -30,7 +34,7 @@
 */
 
 /*
-    Exercise:
+    === The WHILE language ===
 
     The following language, WHILE, is introduced on your HW Problem 5.
 
@@ -44,8 +48,9 @@
                 | If { BoolExpr } Then { Prog } Else { Prog }
                 | While { BoolExpr } Do { Prog }
 
-    Exercise: write a constant propagation algorithm for this language.
+    Some Rust code:
 */
+
 
 // re-use
 pub use super::intro::Variable;
@@ -73,6 +78,49 @@ pub enum WhileProg {
     Seq(Box<WhileProg>, Box<WhileProg>),
     If(BoolExpr, Box<WhileProg>, Box<WhileProg>),
 }
+
+/*
+    Goal: write a constant propagation algorithm for this language.
+
+    Example:
+
+    How do we do this?
+*/
+
+/*
+    POLL
+    https://forms.gle/7H7rQrUfZkPVQxjZA
+
+    Consider the following WHILE program:
+        1. x = 5
+        2. WHILE x != 10
+            3. x += 1
+            4. y += 1
+        5. x += 1
+
+    At which program points is x known to be constant?
+    At which program points is y known to be constant?
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+*/
+
+/*
+    Programming exercise: write a compiler for constant propagation
+*/
 
 #[derive(Debug, Default)]
 pub struct WhileProgCompiler {

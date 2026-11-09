@@ -253,6 +253,8 @@ Plan:
 
 - Go over poll from last time
 
+- Part 2: recap/finishing thoughts
+
 - Part 3 on Optimization:
 
   + Some history of program optimizations
