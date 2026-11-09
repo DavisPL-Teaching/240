@@ -4,6 +4,33 @@
 
 /*
     Let's talk about compiler optimizations!
+
+    In the poll:
+
+        - maybe we want to optimize out code that involves only a single
+          variable (x) and x is not later modified
+
+        - maybe we want to replace a loop with its overall effect.
+
+            x = 0
+            WHILE x < 10:
+                x := x + 1
+
+            ^^ may want to replace this wiith
+
+            x = 10.
+
+    More abstractly:
+
+        - dependencies between pieces of my program:
+
+            How can I tell that one piece of my program, say P1,
+            has no effect on another piece of my program, P2?
+
+        - equivalences between programs:
+
+            How can I replace a part of my program, P1,
+            with another equivalent program P2?
 */
 
 /*
@@ -34,6 +61,41 @@
 */
 
 /*
+    POLL
+    https://forms.gle/7H7rQrUfZkPVQxjZA
+
+    Consider the following WHILE program:
+        1. x = 5
+        2. WHILE x != 10
+            3. x += 1
+            4. y += 1
+        5. x += 1
+        6. output/return (x, y)
+
+    Consider each program point to be **before** that instruction
+    is run.
+
+    At which program points is x known to be constant?
+    At which program points is y known to be constant?
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+*/
+
+/*
     === The WHILE language ===
 
     The following language, WHILE, is introduced on your HW Problem 5.
@@ -50,7 +112,6 @@
 
     Some Rust code:
 */
-
 
 // re-use
 pub use super::intro::Variable;
@@ -83,39 +144,17 @@ pub enum WhileProg {
     Goal: write a constant propagation algorithm for this language.
 
     Example:
-
-    How do we do this?
 */
 
 /*
-    POLL
-    https://forms.gle/7H7rQrUfZkPVQxjZA
+    Follow up example:
 
-    Consider the following WHILE program:
         1. x = 5
-        2. WHILE x != 10
-            3. x += 1
-            4. y += 1
-        5. x += 1
-
-    At which program points is x known to be constant?
-    At which program points is y known to be constant?
-
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
-    .
+        2. y = 5
+        3. WHILE x != 10
+            4. x += 1
+            5. y += 1
+        6. x += 1
 */
 
 /*

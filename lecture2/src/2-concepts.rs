@@ -326,6 +326,44 @@ impl PlatformSpecificCompiler {
     .
     .
     .
+
+    Answers:
+    a) print "Done"
+    b) while True
+
+    Tried it?
+        - gcc with sufficient optimizations removes the loop entirely
+          for both 32 bit and 64 bit platforms
+        - rustc: try with --release and report back.
+
+    Q: why does gcc compile the second one by removing the loop?
+
+        x is not read/written to
+
+        but removing the loop changes the semantics!
+
+        how is this allowed?
+
+        Hint: C semantics is nondeterministic...
+
+        A: The program has undefined behavior
+        So, C is allowed to remove the infinite loop.
+
+        - Integer overflow is UB
+
+        - In some languages, infinite loops are UB.
+
+        (In C, I can actually optimize the loop in both cases.)
+
+        Rust cannot do this because safe Rust is not allowed to have UB.
+
+    c)
+        A: nondeterminism!
+
+        More generally if you see a scenario where:
+        here's a program P and it can be validly compiled in two different ways,
+        probably the answer as to why this is happening is either
+        nondeterminism or UB (a form of nondeterminism).
 */
 
 /*

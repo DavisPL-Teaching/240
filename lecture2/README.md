@@ -261,7 +261,7 @@ Plan:
 
   + The WHILE language, constant propagation
 
-  + Last ~10 min of class: poll on optimization.
+  + During class: poll on optimization.
 
   + A proof exercise on the WHILE language.
 
