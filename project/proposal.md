@@ -1,11 +1,11 @@
 # Project proposal
 
-The project proposal should be 2-4 pages, typed,
+The project proposal should be 2-5 pages, typed,
 following the following sections and subsections.
 I recommend (but do not require) that the proposal be written in LaTeX.
 
 **Report length:**
-Minimum 2 full pages, maximum 4 pages (not including references) -- these are hard cutoffs! If you need more material, you may include it only in an "appendix" after the main document. An appendix may or may not be graded at our discretion.
+Minimum 2 full pages, maximum 5 pages (not including references) -- these are hard cutoffs! If you need more material, you may include it in an "appendix" after the main document. An appendix may or may not be graded at our discretion.
 Do not change the font, margins or do other spacing tricks to fit within the page limit.
 
 **Deadline:**
