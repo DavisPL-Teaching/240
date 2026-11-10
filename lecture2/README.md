@@ -1,4 +1,4 @@
-# Lecture 2: Compilers and Static Analysis
+# Lecture 2: Compilers and Optimization
 
 ### Wednesday, October 28
 
@@ -266,3 +266,19 @@ Plan:
   + A proof exercise on the WHILE language.
 
 Questions?
+
+### Friday, Nov 13
+
+Reminders:
+
+- Project proposal due Today
+
+- HW2 due Friday November 20, 11:59pm.
+
+Plan:
+
+- Compiler optimizations:
+
+  + Go over poll from last time
+
+  + example: constant propagation in the WHILE language.

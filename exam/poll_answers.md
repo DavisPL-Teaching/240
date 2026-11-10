@@ -90,4 +90,13 @@ Nov 4:
 C, E, F.
 
 Nov 6:
-TBD
+a) print "Done"
+b) while True
+c) The semantics has to be nondeterministic.
+    Broader discussion: nondeterminism and UB in infinite loops,
+    how this allows for some optimizations, and
+    how this differs between C and Rust.
+
+Nov 9:
+Note: statement 2 is considered to be executed at each iteration of the loop, and 5 only after exiting.
+5 and 6.
