@@ -291,14 +291,14 @@ impl RandProgCompiler {
             }
             RandProg::Seq(prog1, prog2) => {
                 // Recursive case
-                let rs1 = self.compile(prog1);
-                let rs2 = self.compile(prog2);
+                let rs1 = self.compile_core(prog1);
+                let rs2 = self.compile_core(prog2);
                 format!("{}\n{}", rs1, rs2)
             }
             RandProg::If(b, prog1, prog2) => {
                 // Recursive case
-                let rs1 = self.compile(prog1);
-                let rs2 = self.compile(prog2);
+                let rs1 = self.compile_core(prog1);
+                let rs2 = self.compile_core(prog2);
                 self.ensure_var(b);
                 format!("if ( {} ) {{ {} }} else {{ {} }}", b, rs1, rs2)
             }
