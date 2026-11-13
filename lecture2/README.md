@@ -269,11 +269,19 @@ Questions?
 
 ### Friday, Nov 13
 
-Reminders:
+(Happy Friday the 13th!)
 
-- Project proposal due Today
+Announcements/reminders:
+
+- Project proposal due Today!
 
 - HW2 due Friday November 20, 11:59pm.
+
+- HW1 grades released
+
+- NB: project presentation slots will open up on Monday, along
+  with more details about your presentations
+  (# of presentations per slot, etc.)
 
 Plan:
 
@@ -281,4 +289,18 @@ Plan:
 
   + Go over poll from last time
 
-  + example: constant propagation in the WHILE language.
+  + Challenges in compiler optimization
+    Or, how to build your own optimizer
+
+    * Motivation for static analysis.
+
+  + Example: constant propagation in the WHILE language.
+
+This will be a "very brief" introduction to compiler optimizations.
+I hope to give you a sense of the main principles of how optimizers are built,
+and how to build your own optimizer for your projects.
+
+This will be the last lecture on compilers.
+We will spend next week, the last week, on static analysis,
+which is one of my favorite topics and which I hope to touch on
+using our remaining time.
