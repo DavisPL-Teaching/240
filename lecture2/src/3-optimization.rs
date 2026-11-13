@@ -94,7 +94,7 @@
     .
     .
 
-    ----- Picking up here for 11/3 -----
+    ----- Picking up here for 11/13 -----
 
     Answers to last time's poll:
 
@@ -177,6 +177,8 @@
     Some Rust code:
 */
 
+use std::collections::HashMap;
+
 // re-use
 pub use super::intro::Variable;
 
@@ -206,7 +208,11 @@ pub enum WhileProg {
 }
 
 /*
-    Goal: write a constant propagation algorithm for this language.
+    Extended exercise:
+    write a constant propagation algorithm for this language.
+
+    We will give some code, and a rough sketch of how this works
+    for the rest.
 
     What is constant propagation?
 
@@ -224,25 +230,28 @@ pub enum WhileProg {
     Sketch:
 */
 
-#[derive(Debug, Default)]
-pub struct WhileProgCompiler {
-    // todo
-}
-
 #[derive(Debug, Clone)]
 pub enum CFGNode {
     // Assignment: x := IntExpr
     // Include index of next CFG node to go to
     Assignment(Variable, IntExpr, usize),
-    // Branch: includes indices of other CFG nodes to go to
+    // Branch: includes indices of *both* other CFG nodes to go to
     Branch(BoolExpr, usize, usize),
     // Terminate program
     End,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct CFG {
+    // Graph data structure
+    // Nodes: example [ node0, node1, node2, node3, node4 ]
     nodes: Vec<CFGNode>,
+}
+
+impl CFG {
+    pub fn new() -> Self {
+        Default::default()
+    }
 }
 
 // Side note:
@@ -253,74 +262,183 @@ pub struct CFG {
 // it also helps with error messages,
 // in case you want to report an error by reporting back a line of the original
 // program.
+// We will not worry about this
+
+#[derive(Debug, Default)]
+pub struct WhileProgCompiler {
+    // CFG
+    cfg: CFG,
+
+    // Info for analyzed CFG
+    // Backward edges: 1 <- 0, 2 <- 1, etc.
+    edges_bck: Vec<Vec<usize>>,
+    // Is constant:
+    is_const: Vec<HashMap<Variable, bool>>,
+}
 
 impl WhileProgCompiler {
     pub fn new() -> Self {
-        Self {}
-    }
-    pub fn compile(&mut self, prog: &WhileProg) -> String {
-        // Separated out into stages:
-        let cfg = self.compile_cfg(prog);
-        let mut analyzed = self.analyze_cfg(&cfg);
-        self.optimize_cfg(&mut analyzed);
-        self.compile_bin(&analyzed)
+        Default::default()
     }
 
-    pub fn compile_cfg(&self, prog: &WhileProg) -> CFG {
-        let mut nodes = Vec::new();
-        self.compile_cfg_core(prog, &mut nodes);
-        nodes.push(CFGNode::End);
-        CFG { nodes }
+    pub fn compile(&mut self, prog: &WhileProg) -> String {
+        // Separated out into stages:
+        self.compile_cfg(prog);
+        self.analyze_cfg();
+        self.optimize_cfg();
+        self.compile_bin()
     }
-    pub fn compile_cfg_core(&self, prog: &WhileProg, nodes: &mut Vec<CFGNode>) {
+
+    pub fn compile_cfg(&mut self, prog: &WhileProg) {
+        self.compile_cfg_core(prog);
+        self.cfg.nodes.push(CFGNode::End);
+    }
+
+    // Allow a Clippy lint
+    #[allow(clippy::collapsible_if)]
+    pub fn compile_cfg_core(&mut self, prog: &WhileProg) {
         match prog {
             WhileProg::Assignment(var, expr) => {
-                // TODO
-                unimplemented!()
-                // let node = CFGNode::Assignment(var.clone(), expr.clone());
-                // nodes.push(node);
+                let idx = self.cfg.nodes.len();
+                // NOTE: why idx + 1?
+                let node = CFGNode::Assignment(var.clone(), expr.clone(), idx + 1);
+                self.cfg.nodes.push(node);
             }
             WhileProg::Seq(prog1, prog2) => {
-                self.compile_cfg_core(prog1, nodes);
-                self.compile_cfg_core(prog2, nodes);
+                self.compile_cfg_core(prog1);
+                self.compile_cfg_core(prog2);
             }
             WhileProg::If(cond, prog1, prog2) => {
-                // Interesting case #1
+                // *** Interesting case #1 ***
 
                 // dummy node
                 // will fill in values at the end
-                let cond_idx = nodes.len();
+                let cond_idx = self.cfg.nodes.len();
                 let cond_node = CFGNode::Branch(cond.clone(), 0, 0);
 
                 // compile sub-programs
-                self.compile_cfg_core(prog1, nodes);
-                let mid_index = nodes.len();
-                self.compile_cfg_core(prog2, nodes);
+                self.compile_cfg_core(prog1);
+                let mid_index = self.cfg.nodes.len();
+                self.compile_cfg_core(prog2);
+                let end_index = self.cfg.nodes.len();
+
+                // In prog1: have to fill in any edges to the end of the program that point
+                // to mid_index to point to end_index
+                for node in self.cfg.nodes.iter_mut() {
+                    // Some Rust pattern matching!
+                    if let CFGNode::Assignment(_, _, idx) = node {
+                        if *idx == mid_index {
+                            *idx = end_index;
+                        }
+                    } else if let CFGNode::Branch(_, _, idx) = node {
+                        if *idx == mid_index {
+                            *idx = end_index;
+                        }
+                    }
+                }
 
                 // now, replace dummy node
-                nodes[cond_idx] = CFGNode::Branch(cond.clone(), cond_idx + 1, mid_index);
+                let new_node = CFGNode::Branch(cond.clone(), cond_idx + 1, mid_index);
+                self.cfg.nodes[cond_idx] = new_node;
             }
             WhileProg::While(cond, prog1) => {
-                // Interesting case #2
+                // *** Interesting case #2 ***
 
-                // TODO: complete
-                unimplemented!()
+                // dummy node
+                let start_idx = self.cfg.nodes.len();
+                let cond_node = CFGNode::Branch(cond.clone(), 0, 0);
+
+                // compile sub-program
+                self.compile_cfg_core(prog);
+                let end_idx = self.cfg.nodes.len();
+
+                // In prog1: have to fill in any edges to the end of the program that point
+                // to end_index to point to start_index
+                for node in self.cfg.nodes.iter_mut() {
+                    // Rust pattern matching again
+                    if let CFGNode::Assignment(_, _, idx) = node {
+                        if *idx == end_idx {
+                            *idx = start_idx;
+                        }
+                    } else if let CFGNode::Branch(_, _, idx) = node {
+                        if *idx == end_idx {
+                            *idx = start_idx;
+                        }
+                    }
+                }
+
+                // Replace dummy node
+                let new_node = CFGNode::Branch(cond.clone(), start_idx + 1, end_idx);
+                self.cfg.nodes[start_idx] = new_node;
             }
         }
     }
 
-    pub fn analyze_cfg(&self, cfg: &CFG) -> CFG {
+    pub fn analyze_cfg(&self) -> CFG {
+        /*
+            SKETCH:
+
+            - First, compute back-edges for each forward edge in the CFG.
+            So, if we have a transition
+                node1 --> node2
+
+            We should add an entry to self.bck_edges for
+                node2 --> node1.
+
+            - Second, we iterate over the nodes in the CFG:
+
+                1. For each variable, if it is constant along all back edges, it remains constant
+
+                2. After an assignment, if all variables involved in the integer expression
+                   are constant, the result is constant.
+
+                3. After a branch, in case of a condition of the form
+
+                    Var == IntExpr
+
+                    where IntExpr is Constant,
+
+                    Var is now constant.
+        */
         unimplemented!()
     }
 
-    pub fn optimize_cfg(&self, cfg: &mut CFG) {
+    pub fn optimize_cfg(&self) {
+        /*
+            SKETCH:
+
+            Now go through each node in the CFG and **replace** any occurrences
+            of all variables in:
+
+                Var := IntExpr
+
+            or IntExpr inside Boolean expressions with their constant equivalents.
+        */
         unimplemented!()
     }
 
-    pub fn compile_bin(&self, cfg: &CFG) -> String {
+    pub fn compile_bin(&self) -> String {
+        /*
+            Produce a working binary from the source program.
+
+            Or, produce Rust code.
+            SKIP in class.
+        */
         unimplemented!()
     }
 }
+
+/*
+    === A folk result about WHILE ===
+
+    Theory exercise
+    (SKIP/BRIEF):
+
+    A "folk result": all programs can be reduced to a WHILE
+    program with only a single WHILE loop.
+
+    Why?
+*/
 
 /*
     === Poll ===
@@ -337,8 +455,23 @@ impl WhileProgCompiler {
 */
 
 /*
-    Proof exercise:
+    RECAP
 
-    A "folk result": all programs can be reduced to a WHILE
-    program with only a single WHILE loop.
+    Concluding thoughts on compilers:
+
+    - In order to build a compiler, we want to generate an IR and operate on that!
+
+        An incredibly important and fundamentally useful IRs: a control flow graph (CFG),
+        store information at each node.
+
+    - Example common compiler optimizations:
+
+    - WHILE language
+
+        Interesting fact: any WHILE program can be reduced to an equivalent program
+        involving only a single WHILE loop.
+
+    - Building an optimizer requires knowing information at each node -- I.E., static analysis!
+
+        So --> Static analysis is useful/important for compilers.
 */

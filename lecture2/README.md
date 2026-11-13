@@ -270,6 +270,7 @@ Questions?
 ### Friday, Nov 13
 
 (Happy Friday the 13th!)
+(Hope you are staying dry)
 
 Announcements/reminders:
 
@@ -296,11 +297,21 @@ Plan:
 
   + Example: constant propagation in the WHILE language.
 
-This will be a "very brief" introduction to compiler optimizations.
-I hope to give you a sense of the main principles of how optimizers are built,
-and how to build your own optimizer for your projects.
+  + Mention a folk result about WHILE.
+
+  + Poll on valid compiler optimizations.
+
+This will be a "very brief" introduction to compiler optimizations overall.
+I hope to give you a sense of some of the principles of how optimizers are built,
+and to give some example code, which will serve as a sketch
+of how to write your own optimizer for your projects.
+
+Some of this will only be a sketch, I can fill in the full code after class
+for those of you who are interested or who may need it for your projects.
 
 This will be the last lecture on compilers.
 We will spend next week, the last week, on static analysis,
 which is one of my favorite topics and which I hope to touch on
 using our remaining time.
+
+Questions?
