@@ -114,6 +114,23 @@
 
     EXAMPLE: replace x != 10 with x < 10. What happens?
 
+        1. x = 5
+        2. WHILE x < 10
+            3. x += 1
+            4. y += 1
+
+        // what do I know here?
+        I know x is a number >= 10
+        // How to determine x == 10?
+        // ^^^ this requires an additional invariant!
+        // we would need to determine that x <= 10 throughout
+        // the program
+
+        // This requires a static analysis!
+
+        5. x += 1
+        6. output/return (x, y)
+
     .
     .
     .
@@ -139,6 +156,9 @@
     Remember: a compiler optimization is carried out on one of the intermediate representation
     layers (one of the IRs)
         ---> usually at the middle point, or simplest layers
+
+        ----> We will often want to use a very specififc IR
+              known as the control-flow graph (CFG)
 
     It should replace code for equivalent code!
 
@@ -434,7 +454,7 @@ impl WhileProgCompiler {
     Theory exercise
     (SKIP/BRIEF):
 
-    A "folk result": all programs can be reduced to a WHILE
+    A "folk result": WHILE all programs can be reduced to a WHILE
     program with only a single WHILE loop.
 
     Why?
@@ -457,14 +477,18 @@ impl WhileProgCompiler {
 /*
     RECAP
 
-    Concluding thoughts on compilers:
+    Concluding thoughts on optimizing compilers:
 
-    - In order to build a compiler, we want to generate an IR and operate on that!
+    - In order to build an optimizer, we want to generate an IR and operate on that!
 
         An incredibly important and fundamentally useful IRs: a control flow graph (CFG),
         store information at each node.
 
-    - Example common compiler optimizations:
+    - Example common optimizations:
+        Constant propagation
+        Loop unrolling
+        Dead code elimination
+        Others :-)
 
     - WHILE language
 
