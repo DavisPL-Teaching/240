@@ -293,7 +293,7 @@ pub struct WhileProgCompiler {
     // Backward edges: 1 <- 0, 2 <- 1, etc.
     edges_bck: Vec<Vec<usize>>,
     // Is constant:
-    is_const: Vec<HashMap<Variable, bool>>,
+    is_const: Vec<HashMap<Variable, usize>>,
 }
 
 impl WhileProgCompiler {
@@ -311,6 +311,7 @@ impl WhileProgCompiler {
 
     pub fn compile_cfg(&mut self, prog: &WhileProg) {
         self.compile_cfg_core(prog);
+        // Finally: push end node
         self.cfg.nodes.push(CFGNode::End);
     }
 
@@ -344,6 +345,7 @@ impl WhileProgCompiler {
 
                 // In prog1: have to fill in any edges to the end of the program that point
                 // to mid_index to point to end_index
+                // (NB: this can be done more efficiently)
                 for node in self.cfg.nodes.iter_mut() {
                     // Some Rust pattern matching!
                     if let CFGNode::Assignment(_, _, idx) = node {
@@ -373,7 +375,8 @@ impl WhileProgCompiler {
                 let end_idx = self.cfg.nodes.len();
 
                 // In prog1: have to fill in any edges to the end of the program that point
-                // to end_index to point to start_index
+                // to end_index to point back around to start_index
+                // (NB: this can be done more efficiently)
                 for node in self.cfg.nodes.iter_mut() {
                     // Rust pattern matching again
                     if let CFGNode::Assignment(_, _, idx) = node {
@@ -394,7 +397,7 @@ impl WhileProgCompiler {
         }
     }
 
-    pub fn analyze_cfg(&self) -> CFG {
+    pub fn analyze_cfg(&mut self) {
         /*
             SKETCH:
 
@@ -404,7 +407,25 @@ impl WhileProgCompiler {
 
             We should add an entry to self.bck_edges for
                 node2 --> node1.
+        */
 
+        // initialize
+        self.edges_bck = vec![vec![]; self.cfg.nodes.len()];
+
+        for (i, node) in self.cfg.nodes.iter().enumerate() {
+            match node {
+                CFGNode::Assignment(_var, _expr, j) => {
+                    self.edges_bck[*j].push(i);
+                }
+                CFGNode::Branch(_expr, j1, j2) => {
+                    self.edges_bck[*j1].push(i);
+                    self.edges_bck[*j2].push(i);
+                }
+                CFGNode::End => {}
+            }
+        }
+
+        /*
             - Second, we iterate over the nodes in the CFG:
 
                 1. For each variable, if it is constant along all back edges, it remains constant
@@ -420,7 +441,12 @@ impl WhileProgCompiler {
 
                     Var is now constant.
         */
-        unimplemented!()
+
+        self.is_const = vec![HashMap::new(); self.cfg.nodes.len()];
+
+        for node in self.cfg.nodes.iter().enumerate() {
+            unimplemented!()
+        }
     }
 
     pub fn optimize_cfg(&self) {
