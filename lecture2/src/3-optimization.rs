@@ -197,14 +197,14 @@
     Some Rust code:
 */
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 // re-use
 pub use super::intro::Variable;
 
 // Rust enums
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum IntExpr {
     Zero,
     One,
@@ -213,13 +213,14 @@ pub enum IntExpr {
     Times(Box<IntExpr>, Box<IntExpr>),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum BoolExpr {
     LessThan(IntExpr, IntExpr),
     Equal(IntExpr, IntExpr),
+    // Add others: Not, And, Or, etc.
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum WhileProg {
     Assignment(Variable, IntExpr),
     Seq(Box<WhileProg>, Box<WhileProg>),
@@ -289,11 +290,16 @@ pub struct WhileProgCompiler {
     // CFG
     cfg: CFG,
 
-    // Info for analyzed CFG
+    /* Info for analyzed CFG */
     // Backward edges: 1 <- 0, 2 <- 1, etc.
-    edges_bck: Vec<Vec<usize>>,
-    // Is constant:
-    is_const: Vec<HashMap<Variable, usize>>,
+    back_edges: Vec<Vec<usize>>,
+
+    // vars
+    vars: HashSet<Variable>,
+
+    // Is constant: on all executions, before and after each CFG node
+    is_const_pre: Vec<HashMap<Variable, usize>>,
+    is_const_post: Vec<HashMap<Variable, usize>>,
 }
 
 impl WhileProgCompiler {
@@ -407,19 +413,22 @@ impl WhileProgCompiler {
 
             We should add an entry to self.bck_edges for
                 node2 --> node1.
+
+            - Also, collect the set of all variables. We store only vars that are modified during the program.
         */
 
         // initialize
-        self.edges_bck = vec![vec![]; self.cfg.nodes.len()];
+        self.back_edges = vec![vec![]; self.cfg.nodes.len()];
 
         for (i, node) in self.cfg.nodes.iter().enumerate() {
             match node {
-                CFGNode::Assignment(_var, _expr, j) => {
-                    self.edges_bck[*j].push(i);
+                CFGNode::Assignment(var, _expr, j) => {
+                    self.back_edges[*j].push(i);
+                    self.vars.insert(var.clone());
                 }
                 CFGNode::Branch(_expr, j1, j2) => {
-                    self.edges_bck[*j1].push(i);
-                    self.edges_bck[*j2].push(i);
+                    self.back_edges[*j1].push(i);
+                    self.back_edges[*j2].push(i);
                 }
                 CFGNode::End => {}
             }
@@ -440,13 +449,93 @@ impl WhileProgCompiler {
                     where IntExpr is Constant,
 
                     Var is now constant.
+
+            For loops, we can apply the above steps until reaching a fixpoint.
+            Below we will just do it in two passes.
         */
 
-        self.is_const = vec![HashMap::new(); self.cfg.nodes.len()];
+        self.is_const_pre = vec![HashMap::new(); self.cfg.nodes.len()];
+        self.is_const_post = vec![HashMap::new(); self.cfg.nodes.len()];
 
-        for node in self.cfg.nodes.iter().enumerate() {
-            unimplemented!()
+        const FIXPOINT_ITERS: usize = 2;
+        for _ in 0..FIXPOINT_ITERS {
+            for (i, node) in self.cfg.nodes.iter().enumerate() {
+                // *** check cond 1 ***
+                // add set of vars that is constant on all entries to the node
+                // uses helper function below
+                for var in &self.vars {
+                    if let Some(val) = self.is_constant_along_all_backedges(var, i) {
+                        if !self.is_const_pre[i].contains_key(var) {
+                            self.is_const_pre[i].insert(var.clone(), val);
+                        }
+                    }
+                }
+
+                // *** check cond 3 ***
+                for var in &self.vars {
+                    if let Some(val) = self.is_forced_by_backedges(var, i) {
+                        if !self.is_const_pre[i].contains_key(var) {
+                            self.is_const_pre[i].insert(var.clone(), val);
+                        }
+                    }
+                }
+
+                // cases based on node
+                match node {
+                    CFGNode::Assignment(var, expr, j) => {
+                        self.is_const_post[i] = self.is_const_pre[i].clone();
+                        self.is_const_post[i].remove(var);
+                        // *** check cond 2 ***
+                        if let Some(result) = self.is_constant_expression(expr, i) {
+                            self.is_const_post[i].insert(var.clone(), result);
+                        }
+                    }
+                    _ => {
+                        self.is_const_post[i] = self.is_const_pre[i].clone();
+                    }
+                }
+            }
         }
+    }
+
+    // helper functions
+    fn is_constant_along_all_backedges(&self, var: &Variable, node_i: usize) -> Option<usize> {
+        let mut result = None;
+        for &node_prev in &self.back_edges[node_i] {
+            let val = self.is_const_post[node_prev].get(var).copied()?;
+            if result != None && result != Some(val) {
+                // inconsistent constant along two edges
+                return None;
+            }
+            result = Some(val);
+        }
+        result
+    }
+    fn is_forced_by_backedges(&self, var: &Variable, node_i: usize) -> Option<usize> {
+        if self.back_edges[node_i].len() != 1 {
+            return None;
+        }
+        let node_prev = self.back_edges[node_i][0];
+        let CFGNode::Branch(expr, i1, i2) = &self.cfg.nodes[node_prev] else { return None };
+        let BoolExpr::Equal(expr1, expr2) = expr else { return None };
+        // Not-equal case: can't deduce anything
+        // (if adding BoolExpr::Not, would need a case for this also)
+        if !i1 != node_i {
+            debug_assert_eq!(*i2, node_i);
+            return None
+        };
+        // Equal case
+        let var = IntExpr::Var(var.clone());
+        if expr1 == &var {
+            self.is_constant_expression(expr2, node_prev)
+        } else if expr2 == &var {
+            self.is_constant_expression(expr1, node_prev)
+        } else {
+            None
+        }
+    }
+    fn is_constant_expression(&self, expr: &IntExpr, node_i: usize) -> Option<usize> {
+        unimplemented!()
     }
 
     pub fn optimize_cfg(&self) {
