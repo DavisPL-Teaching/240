@@ -98,5 +98,8 @@ c) The semantics has to be nondeterministic.
     how this differs between C and Rust.
 
 Nov 9:
-Note: statement 2 is considered to be executed at each iteration of the loop, and 5 only after exiting.
 5 and 6.
+Note: statement 2 is considered to be executed at each iteration of the loop, and 5 only after exiting.
+
+Nov 13:
+Optimizations 2, 6, 8, 9 are valid.

@@ -1,7 +1,7 @@
 //!
 //! ECS 240 Lecture 2!
 //!
-//! Compilers and Static Analysis.
+//! Compilers and Optimization.
 //!
 
 #![allow(unused_variables)]
