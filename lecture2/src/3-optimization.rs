@@ -206,8 +206,9 @@ pub use super::intro::Variable;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum IntExpr {
-    Zero,
-    One,
+    // Zero,
+    // One,
+    Const(usize),
     Var(Variable),
     Plus(Box<IntExpr>, Box<IntExpr>),
     Times(Box<IntExpr>, Box<IntExpr>),
@@ -251,7 +252,7 @@ pub enum WhileProg {
     Sketch:
 */
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum CFGNode {
     // Assignment: x := IntExpr
     // Include index of next CFG node to go to
@@ -307,12 +308,16 @@ impl WhileProgCompiler {
         Default::default()
     }
 
-    pub fn compile(&mut self, prog: &WhileProg) -> String {
+    pub fn compile(&mut self, prog: &WhileProg) -> CFG {
         // Separated out into stages:
         self.compile_cfg(prog);
         self.analyze_cfg();
         self.optimize_cfg();
-        self.compile_bin()
+
+        // TBD: produce binary or Rust code.
+        // For now, just return the CFG
+        // self.compile_bin()
+        self.cfg.clone()
     }
 
     pub fn compile_cfg(&mut self, prog: &WhileProg) {
@@ -403,6 +408,7 @@ impl WhileProgCompiler {
         }
     }
 
+    #[allow(clippy::collapsible_if)]
     pub fn analyze_cfg(&mut self) {
         /*
             SKETCH:
@@ -503,7 +509,7 @@ impl WhileProgCompiler {
         let mut result = None;
         for &node_prev in &self.back_edges[node_i] {
             let val = self.is_const_post[node_prev].get(var).copied()?;
-            if result != None && result != Some(val) {
+            if result.is_some() && result != Some(val) {
                 // inconsistent constant along two edges
                 return None;
             }
@@ -516,13 +522,17 @@ impl WhileProgCompiler {
             return None;
         }
         let node_prev = self.back_edges[node_i][0];
-        let CFGNode::Branch(expr, i1, i2) = &self.cfg.nodes[node_prev] else { return None };
-        let BoolExpr::Equal(expr1, expr2) = expr else { return None };
+        let CFGNode::Branch(expr, i1, i2) = &self.cfg.nodes[node_prev] else {
+            return None;
+        };
+        let BoolExpr::Equal(expr1, expr2) = expr else {
+            return None;
+        };
         // Not-equal case: can't deduce anything
         // (if adding BoolExpr::Not, would need a case for this also)
         if !i1 != node_i {
             debug_assert_eq!(*i2, node_i);
-            return None
+            return None;
         };
         // Equal case
         let var = IntExpr::Var(var.clone());
@@ -557,10 +567,40 @@ impl WhileProgCompiler {
             Produce a working binary from the source program.
 
             Or, produce Rust code.
+
             SKIP in class.
         */
         unimplemented!()
     }
+}
+
+// Unit test to see if it worked
+#[test]
+fn test_optimizer() {
+    // Example:
+    // x := 5
+    // x := x + 1
+
+    let mut compiler = WhileProgCompiler::new();
+
+    // Construct the program
+    let x = Variable::new("x".to_string());
+    let stmt1 = WhileProg::Assignment(x.clone(), IntExpr::Const(5));
+    let stmt2 = WhileProg::Assignment(
+        x.clone(),
+        IntExpr::Plus(
+            Box::new(IntExpr::Var(x.clone())),
+            Box::new(IntExpr::Const(5)),
+        ),
+    );
+    let prog = WhileProg::Seq(Box::new(stmt1), Box::new(stmt2));
+
+    let cfg = compiler.compile(&prog);
+    let expected_l0 = CFGNode::Assignment(x, IntExpr::Const(6), 1);
+    let expected_l1 = CFGNode::End;
+    let expected = vec![expected_l0, expected_l1];
+
+    assert_eq!(cfg.nodes, expected);
 }
 
 /*

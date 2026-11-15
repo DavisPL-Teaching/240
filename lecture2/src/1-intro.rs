@@ -166,6 +166,12 @@ pub enum RandProg {
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct Variable(String);
 
+impl Variable {
+    pub fn new(s: String) -> Self {
+        Variable(s)
+    }
+}
+
 // NB: This saves us some boilerplate below
 use std::fmt::{self, Display};
 impl Display for Variable {
