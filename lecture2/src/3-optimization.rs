@@ -261,6 +261,8 @@ pub enum CFGNode {
     Branch(BoolExpr, usize, usize),
     // Terminate program
     End,
+    // Pass statement - we use this to replace unneeded statements during optimization
+    Pass(usize),
 }
 
 #[derive(Debug, Default, Clone)]
@@ -437,6 +439,9 @@ impl WhileProgCompiler {
                     self.back_edges[*j2].push(i);
                 }
                 CFGNode::End => {}
+                CFGNode::Pass(j) => {
+                    self.back_edges[*j].push(i);
+                }
             }
         }
 
@@ -492,7 +497,7 @@ impl WhileProgCompiler {
                         self.is_const_post[i] = self.is_const_pre[i].clone();
                         self.is_const_post[i].remove(var);
                         // *** check cond 2 ***
-                        if let Some(result) = self.is_constant_expression(expr, i) {
+                        if let Some(result) = self.is_const_expression(expr, i) {
                             self.is_const_post[i].insert(var.clone(), result);
                         }
                     }
@@ -537,18 +542,31 @@ impl WhileProgCompiler {
         // Equal case
         let var = IntExpr::Var(var.clone());
         if expr1 == &var {
-            self.is_constant_expression(expr2, node_prev)
+            self.is_const_expression(expr2, node_prev)
         } else if expr2 == &var {
-            self.is_constant_expression(expr1, node_prev)
+            self.is_const_expression(expr1, node_prev)
         } else {
             None
         }
     }
-    fn is_constant_expression(&self, expr: &IntExpr, node_i: usize) -> Option<usize> {
-        unimplemented!()
+    fn is_const_expression(&self, expr: &IntExpr, i: usize) -> Option<usize> {
+        match expr {
+            IntExpr::Const(c) => Some(*c),
+            IntExpr::Var(v) => self.is_const_pre[i].get(v).copied(),
+            IntExpr::Plus(e1, e2) => {
+                let res1 = self.is_const_expression(e1, i)?;
+                let res2 = self.is_const_expression(e2, i)?;
+                Some(res1 + res2)
+            }
+            IntExpr::Times(e1, e2) => {
+                let res1 = self.is_const_expression(e1, i)?;
+                let res2 = self.is_const_expression(e2, i)?;
+                Some(res1 * res2)
+            }
+        }
     }
 
-    pub fn optimize_cfg(&self) {
+    pub fn optimize_cfg(&mut self) {
         /*
             SKETCH:
 
@@ -558,8 +576,41 @@ impl WhileProgCompiler {
                 Var := IntExpr
 
             or IntExpr inside Boolean expressions with their constant equivalents.
+
+            For now: Only optimize assignments.
+            Also, we replace statements with
+            Pass statements (which we add to the CFG nodes)
+            for simplicity. These can be removed when we compile out to the binary.
         */
-        unimplemented!()
+
+        // Pass 1: replace statements with constants
+        for (i, node) in self.cfg.nodes.iter_mut().enumerate() {
+            if let CFGNode::Assignment(var, expr, j) = node {
+                if let Some(val) = self.is_const_post[i].get(var) {
+                    *expr = IntExpr::Const(*val);
+                }
+            }
+        }
+
+        // Pass 2: replace redundant assignment statements
+        // x := a
+        // x := b
+        // to: x := b
+        let mut to_replace = Vec::new();
+        for (i, node) in self.cfg.nodes.iter().enumerate() {
+            if let CFGNode::Assignment(var, expr, j) = node {
+                if let CFGNode::Assignment(var2, expr2, _j2) = &self.cfg.nodes[*j]
+                    && var2 == var
+                    && matches!(expr2, IntExpr::Const(_))
+                {
+                    to_replace.push((i, *j));
+                }
+            }
+        }
+
+        for (i, j) in &to_replace {
+            self.cfg.nodes[*i] = CFGNode::Pass(*j);
+        }
     }
 
     pub fn compile_bin(&self) -> String {
@@ -596,8 +647,9 @@ fn test_optimizer() {
     let prog = WhileProg::Seq(Box::new(stmt1), Box::new(stmt2));
 
     let cfg = compiler.compile(&prog);
-    let expected_l0 = CFGNode::Assignment(x, IntExpr::Const(6), 1);
-    let expected_l1 = CFGNode::End;
+    let expected_l0 = CFGNode::Pass(1);
+    let expected_l1 = CFGNode::Assignment(x, IntExpr::Const(6), 2);
+    let expected_l2 = CFGNode::End;
     let expected = vec![expected_l0, expected_l1];
 
     assert_eq!(cfg.nodes, expected);
