@@ -349,6 +349,7 @@ impl WhileProgCompiler {
                 // will fill in values at the end
                 let cond_idx = self.cfg.nodes.len();
                 let cond_node = CFGNode::Branch(cond.clone(), 0, 0);
+                self.cfg.nodes.push(cond_node);
 
                 // compile sub-programs
                 self.compile_cfg_core(prog1);
@@ -382,9 +383,10 @@ impl WhileProgCompiler {
                 // dummy node
                 let start_idx = self.cfg.nodes.len();
                 let cond_node = CFGNode::Branch(cond.clone(), 0, 0);
+                self.cfg.nodes.push(cond_node);
 
                 // compile sub-program
-                self.compile_cfg_core(prog);
+                self.compile_cfg_core(prog1);
                 let end_idx = self.cfg.nodes.len();
 
                 // In prog1: have to fill in any edges to the end of the program that point
@@ -535,7 +537,7 @@ impl WhileProgCompiler {
         };
         // Not-equal case: can't deduce anything
         // (if adding BoolExpr::Not, would need a case for this also)
-        if !i1 != node_i {
+        if *i1 != node_i {
             debug_assert_eq!(*i2, node_i);
             return None;
         };
@@ -566,6 +568,7 @@ impl WhileProgCompiler {
         }
     }
 
+    #[allow(clippy::collapsible_if)]
     pub fn optimize_cfg(&mut self) {
         /*
             SKETCH:
@@ -641,7 +644,7 @@ fn test_optimizer() {
         x.clone(),
         IntExpr::Plus(
             Box::new(IntExpr::Var(x.clone())),
-            Box::new(IntExpr::Const(5)),
+            Box::new(IntExpr::Const(1)),
         ),
     );
     let prog = WhileProg::Seq(Box::new(stmt1), Box::new(stmt2));
@@ -650,7 +653,7 @@ fn test_optimizer() {
     let expected_l0 = CFGNode::Pass(1);
     let expected_l1 = CFGNode::Assignment(x, IntExpr::Const(6), 2);
     let expected_l2 = CFGNode::End;
-    let expected = vec![expected_l0, expected_l1];
+    let expected = vec![expected_l0, expected_l1, expected_l2];
 
     assert_eq!(cfg.nodes, expected);
 }
