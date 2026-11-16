@@ -20,5 +20,5 @@ pub mod abstract_interpretation;
 // pub mod util;
 
 fn main() {
-    println!("Lecture 3!");
+    println!("Welcome to ECS 240 Lecture 3.");
 }

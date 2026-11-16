@@ -11,7 +11,7 @@ Announcements:
   Sign ups will open **after class today** and due by this Wednesday, 11:59pm.
 
   Project presentation details: SEE `project/presentation.md`.
-  Nov 23-
+  Starting next Monday!
 
 Reminders:
 
@@ -19,23 +19,41 @@ Reminders:
 
 Looking ahead:
 
-- Presentations: Nov 23 - Dec 4
+- Presentations: Nov 23 -- Dec 4
 
 - Final exam: **Tuesday, Dec 8 3:30-5:30pm**
 
-- Final projects due: last day of finals period (Dec 11, 11:59pm), by popular request
-    (tally was: 4 votes to 3)
+  Please make sure you have marked your calendar
+
+- Final projects due: last day of finals period (Dec 11, 11:59pm)
+
+  by popular request (tally was: 4 votes to 3)
 
 Plan:
 
-- Go over poll from last time
+(first ~20 mins of class)
 
 - Presentation details
 
-- Concluding thoughts on Compiler optimization (end notes from `lecture2/src/3-optimization.rs`)
+- Go over last time's poll
 
-- Part 3 on static analysis
+- Finished compiler implementation from last time, and a few concluding thoughts (`lecture2/src/3-optimization.rs`)
 
-  + Introduction
+(last ~30 mins of class)
 
-  + Two techniques: Symbolic execution, abstract interpretation.
+- Lecture 3, Part 1: Introduction to Static analysis:
+
+  + Start with the poll
+
+  + Motivation: Enabling compiler optimization, + Safety
+
+  + Soundness and completeness
+    (or: overapproximation and underapproximation, and why)
+
+  + Interval analysis example
+
+  + General def. of static analysis.
+
+  + Rice's theorem and undecidability (aka "Compiler full employment theorem").
+
+  + Types of static analysis

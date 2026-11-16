@@ -1,10 +1,333 @@
 //!
-//! Part 1: Intro
+//! Introduction to static analysis:
 //!
-//! (TBD)
+//! Part 1: Introduction and main concepts.
+//!
 
 /*
     POLL
 
+    (This will tie into today's lecture)
+
+    Which of the following is true about optimization for WHILE programs? (Select all that apply)
+
+    <Options cut>
+
     https://forms.gle/qrdUHMGXKnzwFfsMA
+
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+*/
+
+/*
+    === What is static analysis? ===
+
+    Static analysis is determining semantic properties
+    of a program (or a program's behavior), without running it.
+
+    There are two main motivations for static analysis:
+
+    1. We saw in last lecture: that in order to perform optimization, we need information about the program!
+
+        ---> Typically of the form: given a program (say in WHILE), P, and a point in that program (say, line n),
+             what properties/information are true at line n?
+
+    This is what static analysis gives us!
+
+    2. The second motivation is less about compiler optimization, and more about safety and correctness:
+
+        we want our programs to be safe to execute! (Not raise errors, not have bad pointer access or
+        undefined behavior, not have crashes or privacy/security bugs, etc.)
+
+        We can use static analysis to try to determine these properties of the programs before running them
+
+        (this is natural! - as deploying and running them directly might be dangerous.)
+
+    However, generally solving a static analysis problem --
+    for **all** possible programs -- is often impossible. (!)
+    We saw examples of this on the poll - more on this below.
+
+    So, we often resort to an approximate answer -- we either
+    **overapproximate** or **underapproximate** the set of actual program behaviors.
+*/
+
+/*
+    Some terminology
+
+    Many static analyses output a **set** of results that are actual possible program behaviors.
+
+        Constant propagation: set of variables that are constant at a point (program behavior = variable is constant)
+
+        Dead code elim: set of program points that are reached (program behavior = reaching that point)
+
+    A static analysis is **sound** if it returns an answer
+
+        Y ⊇ 𝓕(P)
+
+    and **complete** if it returns an answer
+
+        Y ⊆ 𝓕(P).
+
+    It is generally impossible for a static analysis to be both sound and complete! (!)
+
+    We thus resort to either **overapproximation** (sound, but not complete) or
+    **underapproximation** (complete, but unsound) of the possible program behaviors.
+
+    Anders Møller refers to this as giving "Approximative Answers".
+    The idea is that a static analysis can give us useful behavior by either underapproximating
+    or overapproximating the set of bugs we are interested in.
+*/
+
+/*
+    Example: interval analysis
+
+    To each variable, we associate: an interval of values
+
+        [min, max]
+
+    that it might take on at a specific point in the program.
+    These can be ± ∞.
+
+    We ensure that
+
+    We want a sound analysis!
+
+        --> Actual values of the variable should be a subset of [min, max]
+
+    But! We will expect that having a complete analysis is not possible in general.
+    So we want to report an **overapproximation** of the true interval.
+    How?
+
+    (spoiler wall)
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+    .
+
+        IDEA: limit min and max to at most ± 10, OR ± ∞.
+
+    EXERCISE:
+
+    Write an interval analysis that gives sound over-approximations
+    for integer expressions and Boolean expressions from WHILE.
+
+    We will do this exercise below.
+*/
+
+// Similar Variable, IntExpr, BoolExpr from Lecture 2
+
+use std::collections::{HashMap, HashSet};
+
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+pub struct Variable(String);
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum IntExpr {
+    // N.B.: I changed this to isize to allow any positive/negative integer literals
+    Const(isize),
+    Var(Variable),
+    Plus(Box<IntExpr>, Box<IntExpr>),
+    Times(Box<IntExpr>, Box<IntExpr>),
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum BoolExpr {
+    LessThan(IntExpr, IntExpr),
+    Equal(IntExpr, IntExpr),
+    // Add others: Not, And, Or, etc.
+}
+
+// Stores the relevant state for interval analysis!
+// For simplicity, we'll use isize::MIN and isize::MAX for ± ∞.
+#[derive(Debug, Default)]
+pub struct IntervalMap(HashMap<Variable, (isize, isize)>);
+
+impl IntervalMap {
+    pub fn new() -> Self {
+        Default::default()
+    }
+    // Analyze int expr
+    // TODO
+    pub fn analyze_int_expr(&self, i: &IntExpr) -> (isize, isize) {
+        unimplemented!()
+    }
+    // Analyze bool expr
+    // return type - why a HashSet?
+    // TODO
+    pub fn analyze_bool_expr(&self, i: &IntExpr) -> HashSet<bool> {
+        unimplemented!()
+    }
+}
+
+// write some unit tests here
+// #[test]
+// fn test_interval_analysis() {
+//     unimplemented!()
+// }
+
+/*
+    Exercise (follow-up):
+    Add Not to our grammar above for BoolExpr, and adapt the static analysis.
+*/
+
+/*
+    === Definition of static analysis ===
+    (SKIP or brief, time permitting)
+
+    More generally, static analysis is intended to solve the following task:
+
+        Given a program `prog`, and a property of programs 𝓕, determine property 𝓕 for the program,
+        without running it.
+
+        (Often a True-or-False property. Need not be.)
+
+        (NOTE: For those of you who have taken or are interested in taking ECS 261:
+         this is exactly the same as a program specification.
+         Program verification exists to prove that programs satisfy certain properties, it is related to static
+         analysis in that static analysis aims to *automatically* verify certain specific classes of properties.)
+
+    Example:
+
+        Constant propagation
+        𝓕 = which variables are constant in prog at line N?
+
+        Dead code elimination
+        𝓕 = is line N reached in `prog`?
+
+    Simpler examples:
+
+        𝓕 = Does program P terminate on all inputs?
+
+        𝓕 = Does program P terminate on input (x, y, z) = (0, 0, 0)?
+
+    And more...
+
+        𝓕 = Does program P raise an exception or error?
+
+        𝓕 = Does program P return an integer that is out of bounds?
+
+        𝓕 = Does program P return a block of bytes that represents a valid C++ struct in memory?
+
+        𝓕 = Does program P violate user's security/access control constraints,
+                 or leak private user data?
+
+    Key points:
+
+        1. **Without running it:** contrasts with dynamic analysis.
+
+        Does not mean we can't consider what would happen if we did run it! But we don't want to run
+        it directly (would result in performance loss + possible infinite loop)
+
+        2. May be a property of the program **on all inputs**
+
+            Not just on some!
+
+            Again contrasts with dynamic analysis + unit tests + fuzzing -- always test a property on
+            one input at a time only.
+
+            If testing behavior on one input: dynamic analysis is often more effective
+
+        3. These problems are hard (typically undecidable) to solve in general!
+
+            You don't need to know why/the proof - just know that typically,
+            any nontrivial static analysis problem or optimization problem does not
+            have a perfect algorithm.
+
+    === Compiler full employment theorem ===
+
+    **Rice's Theorem (informal):** For any nontrivial property of a program in a
+    Turing-complete programming language,
+    it is not possible to write an algorithm to compete
+
+    Sometimes, this is humorously called the "compiler full employment theorem" since it means
+    that if you work in compilers (or static analysis), you will never be out of a job.
+    (I got that from Andrew Appel, but Appel wasn't the first to state this idea.)
+
+    A little more seriously:
+        undecidable doesn't mean unsolvable!
+
+        Undecidable problems means we can't write a **general** algorithm which solves the problem
+        on **all inputs**
+
+        Well: who cares, right?
+        Most programs that occur in practice are not difficult/impossible to solve. And,
+        programs that occur in practice are not unbounded memory, and are not unbounded in size.
+        There are algorithms that solve important problems for these specific "small" programs.
+        And we can hope to build them.
+
+*/
+
+/*
+    === Approaches ===
+    (SKIP or brief)
+
+    Major approaches to static analysis
+
+    Example:
+
+    (input x)
+    if (x > 10) {
+        x = x + 1
+    } else {
+        x = x - 1
+    }
+    // what are all possible values of x?
+
+    - Symbolic execution
+
+    - Abstract interpretation
+
+    - Type checking.
+
+*/
+
+/*
+    Recap
+
+    .
 */

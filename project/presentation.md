@@ -16,25 +16,20 @@ I will have to cut presentations off after exactly 6 minutes and will give a 1-m
 I recommend carefully rehearsing and timing your presentation beforehand, and having some
 backup slides (in case of extra time) and slides that you can skip (in case you run out of time early).
 
-There will be 3-5 minutes of time for Q+A after your presentation.
-
-Please prepare 3 backup slides for your Q+A with example questions (1 question per slide) in case no one asks anything (see below).
-Usually, these are not needed.
-
+For the Q+A:
 The amount of time for Q+A will depend on if there is buffer time in between the presentations (e.g., someone has difficulty setting up).
 However, I will ensure that it is always at least 4 and no more than 6 minutes, including set up time for the next presenter. I will monitor the time for the Q+A as needed.
 
-If you are in a group, each person should present part of your project (aim for roughly equal speaking time per participant).
+Please prepare 3 backup slides with example questions (1 question per slide) in case no one asks anything. Usually, these are not needed.
+
+### Group participation
+
+Each person in your group should present at least 1 slide (aim for roughly equal speaking time per participant).
 
 ### Slides
 
 **Recommended length:**
 Plan for 4-5 slides (I would set 5 as a maximum), plus backup slides. Plan some slides that you can skip if you are short on time. A good rule of thumb is to aim for about 1 slide per minute.
-
-**Demo:**
-If you want to include a demo of your tool - I don't recommend this as there is not much time -
-plan one slide for this and plan it to take about 1 minute. I recommend recording a video of the demo so you don't
-get hung up on technical difficulties when running your demo.
 
 ### Content
 
@@ -51,9 +46,12 @@ Include 1 slides with what you want feedback on! Questions for the audience: sho
 
 Include a Q+A at the end of your presentation, followed by your backup slides.
 
+**Demo:** If you want to include a quick demo of your tool (this is not required) --
+plan one slide for this and plan it to take at most 1 minute. I recommend recording a video of the demo so you don't get hung up on technical difficulties when running your demo.
+
 ### For the presentation day
 
-If you are the first group to present, please come early!
+Please come early (especially for first group).
 Please come prepared with your slides and a laptop that can plug in to USB-C or HDMI, and give everyone in the group an equal chance to present.
 
 ### Sign-up
@@ -61,4 +59,4 @@ Please come prepared with your slides and a laptop that can plug in to USB-C or 
 The presentation sign-up link will be posted on Piazza after class.
 
 Changes to the schedule will not be possible on the same day as the presentation (see Piazza).
-You may make changes at least 24 hours in advance if you agree with another group to switch.
+You may make changes if it is at least 24 hours in advance and if you agree with another group to switch.
