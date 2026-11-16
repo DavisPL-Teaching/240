@@ -58,6 +58,8 @@
 
     So, we often resort to an approximate answer -- we either
     **overapproximate** or **underapproximate** the set of actual program behaviors.
+
+    ---------- where we ended for 11/16 ----------
 */
 
 /*
@@ -68,7 +70,7 @@
         Constant propagation: set of variables that are constant at a point (program behavior = variable is constant)
 
         Dead code elim: set of program points that are reached (program behavior = reaching that point)
-
+-
     A static analysis is **sound** if it returns an answer
 
         Y ⊇ 𝓕(P)
@@ -282,7 +284,8 @@ impl IntervalMap {
 
     **Rice's Theorem (informal):** For any nontrivial property of a program in a
     Turing-complete programming language,
-    it is not possible to write an algorithm to compete
+    it is not possible to write an algorithm to determine
+    that property perfectly.
 
     Sometimes, this is humorously called the "compiler full employment theorem" since it means
     that if you work in compilers (or static analysis), you will never be out of a job.

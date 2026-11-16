@@ -1,8 +1,10 @@
 # ECS 240 Final Project -- Presentations
 
 Final project presentations will be in class on Nov 23, Nov 25, Nov 30, Dec 2, and Dec 4.
-Please sign up for a slot on Piazza!
+Please sign up for a slot on Piazza! (I will post the link after class)
 Here are some guidelines for your presentation.
+
+20 groups, 4 presentations per class
 
 ## Guidelines
 
@@ -11,7 +13,7 @@ Here are some guidelines for your presentation.
 **Basic details:** You will have 5-6 minutes to present on the topic of your project including your project goals, progress so far, and any challenges you faced/are facing, plus 4-6 minutes of Q+A.
 
 Please don't go overtime!
-Be prepared to fill at least 5 minutes with your slides, demo, or walkthrough.
+Be prepared to fill at least 5 minutes with your slides.
 I will have to cut presentations off after exactly 6 minutes and will give a 1-minute warning at 5 minutes.
 I recommend carefully rehearsing and timing your presentation beforehand, and having some
 backup slides (in case of extra time) and slides that you can skip (in case you run out of time early).

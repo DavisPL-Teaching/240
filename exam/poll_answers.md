@@ -103,3 +103,7 @@ Note: statement 2 is considered to be executed at each iteration of the loop, an
 
 Nov 13:
 Optimizations 2, 6, 8, 9 are valid.
+
+Nov 16:
+T, F, F, T, F, F, F
+1 and 4 are True.

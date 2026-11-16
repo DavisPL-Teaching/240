@@ -635,6 +635,9 @@ fn test_optimizer() {
     // x := 5
     // x := x + 1
 
+    // want to optimize to:
+    // x := 6
+
     let mut compiler = WhileProgCompiler::new();
 
     // Construct the program
