@@ -59,3 +59,34 @@ Plan:
   + Rice's theorem and undecidability (aka "Compiler full employment theorem").
 
   + Types of static analysis
+
+## Wednesday, November 18
+
+Reminders:
+
+- Sign up for a project presentation slot by today 11:59pm!
+
+- HW2 due this Friday (Nov 20).
+
+- Please come by OH for help. My OH: today, TA OH: Friday.
+
+Plan:
+
+- Start with the poll
+
+- Finish: Introduction to Static Analysis
+
+  + Soundness and completeness
+    (or: overapproximation and underapproximation, and why)
+
+  + Interval analysis example
+
+  + Rice's theorem and undecidability (aka "Compiler full employment theorem").
+
+  + Types of static analysis.
+
+(Coming up or time permitting)
+
+- Part 2: Symbolic Execution.
+
+- Part 3: Abstract Interpretation.
