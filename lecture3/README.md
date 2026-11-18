@@ -97,9 +97,12 @@ Plan:
 
   + Interval analysis example
 
-  + Rice's theorem and undecidability (aka "Compiler full employment theorem").
+  + Rice's theorem and undecidability (aka "Compiler full employment theorem")
+    (Recap/reminder)
 
   + Approaches to static analysis.
 
       Major approaches:
       Symbolic execution, abstract interpretation, type checking.
+
+Questions?

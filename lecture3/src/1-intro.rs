@@ -73,11 +73,13 @@
 
     Practice about understanding: Turing completeness + static analysis.
 
-    Consider the following language, FooLang, that has the following grammar. We will consider some static analysis problems for FooProg.
+    Consider the following language, FooLang, that has the following grammar.
 
     (We will consider some static analysis problems for FooProg.)
 
-    FooProg ::= LoopForever | LoopTenTimes | Output <Var> | Input <Var> | Set <Var> := <Int> | FooProg; FooProg
+    FooProg ::= LoopForever { FooProg } | LoopTenTimes { FooProg } | Output <Var> | Input <Var> | Set <Var> := <Int> | FooProg; FooProg
+
+    Assume the semantics of these commands is as you would expect (e.g., looping means to repeat the loop body either forever or repeat it 10 times.)
 
     1. Is FooLang Turing-complete?
 
@@ -90,12 +92,6 @@
 */
 
 /*
-    POLL:
-
-    https://forms.gle/5byQAgVKMYSdBi3t6
-*/
-
-/*
     Some terminology
 
     Many static analyses output a **set** of results that are actual possible program behaviors.
@@ -103,7 +99,10 @@
         Constant propagation: set of variables that are constant at a point (program behavior = variable is constant)
 
         Dead code elim: set of program points that are reached (program behavior = reaching that point)
--
+
+    For a program P, let 𝓕(P) be the set of results that the static analysis
+    is supposed to compute.
+
     A static analysis is **sound** if it returns an answer
 
         Y ⊇ 𝓕(P)
@@ -125,6 +124,13 @@
 /*
     Example: interval analysis
 
+    Task:
+
+        Given a program, and a program point in that program (line number),
+        and a variable (say, x)
+        determine the interval of values that are possible values of x
+        at that program point.
+
     To each variable, we associate: an interval of values
 
         [min, max]
@@ -132,15 +138,50 @@
     that it might take on at a specific point in the program.
     These can be ± ∞.
 
-    We ensure that
-
     We want a sound analysis!
 
         --> Actual values of the variable should be a subset of [min, max]
 
     But! We will expect that having a complete analysis is not possible in general.
     So we want to report an **overapproximation** of the true interval.
-    How?
+
+    One thing we could do is go through our program and
+    iteratively update these intervals [min, max]
+    based on what values each variable seems to be able to take on
+    based on the surrounding context.
+
+    But! We may get stuck forever. Example:
+
+    i = 0
+    WHILE (i >= 0):
+        [0, 3]
+        i := i + 1
+        ^^^^ what are possible values of i at this point
+    return i
+
+    Analysis: maybe we try running the loop and updating possible intervals
+    as we go along ...
+
+    BUT we might not terminate.
+
+    Q: How to fix this problem?
+
+    ---> Look at any branch conditions to see what interval they imply,
+         if no branch conditions that create a smaller value, stop updating
+         the interval?
+
+         SUGGESTION: Modify to positive infinity
+            I.e.: want to return [0, + ∞]
+
+        Q: When?
+
+            Idea: identify an overflow value!
+
+                +100
+                and
+                -100
+
+            If any of our intervals reach > 100 or < -100, replace them with ±∞
 
     (spoiler wall)
     .
@@ -227,10 +268,31 @@ impl IntervalMap {
         Default::default()
     }
     // Analyze int expr
-    // TODO
-    pub fn analyze_int_expr(&self, i: &IntExpr) -> (isize, isize) {
-        unimplemented!()
+    // TODO:
+    // INPUT:
+    // - self, an interval map (map from each var to an interval [min, max])
+    // - iexp, an integer expression
+    // OUTPUT:
+    // - an interval [min, max]
+    pub fn analyze_int_expr(&self, iexp: &IntExpr) -> (isize, isize) {
+        match iexp {
+            IntExpr::Const(i) => {
+                (*i, *i)
+            }
+            IntExpr::Var(v) => {
+                *self.0.get(v).unwrap()
+            }
+            IntExpr::Plus(iexp1, iexp2) => {
+                let (min1, max1) = self.analyze_int_expr(iexp1);
+                let (min2, max2) = self.analyze_int_expr(iexp2);
+                (min1 + min2, max1 + max2)
+            }
+            IntExpr::Times(iexp1, iexp2) => {
+                unimplemented!()
+            }
+        }
     }
+
     // Analyze bool expr
     // return type - why a HashSet?
     // TODO
@@ -253,6 +315,7 @@ impl IntervalMap {
 
 /*
     === Compiler full employment theorem ===
+    (We discussed this a bit last time)
 
     **Rice's Theorem (informal):**
     For any nontrivial property of a program in a

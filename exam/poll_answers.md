@@ -107,3 +107,7 @@ Optimizations 2, 6, 8, 9 are valid.
 Nov 16:
 T, F, F, T, F, F, F
 1 and 4 are True.
+
+Nov 18:
+1) No
+2) a and b are both decidable.
