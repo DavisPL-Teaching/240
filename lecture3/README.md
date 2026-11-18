@@ -62,19 +62,35 @@ Plan:
 
 ## Wednesday, November 18
 
+(Hope everyone is staying dry!)
+
+Second-to-last day of lectures! Your in-class presentations will start next week.
+
 Reminders:
 
-- Sign up for a project presentation slot by today 11:59pm!
+- Please sign up for a project presentation slot by today 11:59pm!
 
 - HW2 due this Friday (Nov 20).
 
-- Please come by OH for help. My OH: today, TA OH: Friday.
+  Please come by OH for help (with HW2 or your project presentations).
+
+  My OH: today 4:30pm on Zoom TA OH: Friday.
+
+  Note:
+    + P1 is the type of proof question I'd like for you to be able to do.
+      Come by if you are stuck or need help!
+
+     + P2, P3 are pretty involved coding questions (especially P2).
+       For the eam you should understand some of those higher level concepts
+       (IR, syntactic sugar, platform-specific code).
+
+     + P5 difficult theory problem. Understand: Turing completeness
 
 Plan:
 
-- Start with the poll
+- Continuing on Static Analysis
 
-- Finish: Introduction to Static Analysis
+  + Start with the poll
 
   + Soundness and completeness
     (or: overapproximation and underapproximation, and why)
@@ -83,10 +99,7 @@ Plan:
 
   + Rice's theorem and undecidability (aka "Compiler full employment theorem").
 
-  + Types of static analysis.
+  + Approaches to static analysis.
 
-(Coming up or time permitting)
-
-- Part 2: Symbolic Execution.
-
-- Part 3: Abstract Interpretation.
+      Major approaches:
+      Symbolic execution, abstract interpretation, type checking.

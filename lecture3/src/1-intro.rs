@@ -60,6 +60,33 @@
     **overapproximate** or **underapproximate** the set of actual program behaviors.
 
     ---------- where we ended for 11/16 ----------
+
+    Last time:
+
+    - Static analysis: determine some properties of a program (often, at a specific program point), without running it
+
+    - Motivation for static analysis
+
+    - A little about undecidability: no "perfect" algorithm for most static analysis problems!
+
+    === POLL ===
+
+    Practice about understanding: Turing completeness + static analysis.
+
+    Consider the following language, FooLang, that has the following grammar. We will consider some static analysis problems for FooProg.
+
+    (We will consider some static analysis problems for FooProg.)
+
+    FooProg ::= LoopForever | LoopTenTimes | Output <Var> | Input <Var> | Set <Var> := <Int> | FooProg; FooProg
+
+    1. Is FooLang Turing-complete?
+
+    2. Which of the following static analysis problems do you think are decidable (that is: there exists an algorithm to solve the problem completely & precisely) for FooLang?
+
+    a) Dead code elimiination: given `prog` and a line number, is that line number reachable on any execution?
+    b) Constant propagation: given `prog`, `Var`, and a line number, is the variable always equal to the same value at that line number?
+
+    https://forms.gle/XGdChvVqVMwBWBy9A
 */
 
 /*
@@ -219,20 +246,54 @@ impl IntervalMap {
 // }
 
 /*
-    Exercise (follow-up):
+    Exercise: (SKIP)
+
     Add Not to our grammar above for BoolExpr, and adapt the static analysis.
 */
 
 /*
-    === Definition of static analysis ===
-    (SKIP or brief, time permitting)
+    === Compiler full employment theorem ===
 
-    More generally, static analysis is intended to solve the following task:
+    **Rice's Theorem (informal):**
+    For any nontrivial property of a program in a
+    Turing-complete programming language,
+    it is not possible to write an algorithm to determine
+    that property perfectly.
+
+    You don't need to know the formal statement of Rice's theorem or its proof.
+    Please know its intuitive meaning.
+    (See today and last time poll for practice!)
+
+    Sometimes, this is humorously called the "compiler full employment theorem" since it means
+    that if you work in compilers (or static analysis), you will never be out of a job.
+    (I got that from Andrew Appel, but Appel wasn't the first to state this idea.)
+
+    A little more seriously:
+        undecidable doesn't mean unsolvable!
+
+        Undecidable problems means we can't write a **general** algorithm which solves the problem
+        on **all inputs**
+
+        Well: who cares, right?
+        Most programs that occur in practice are not difficult/impossible to solve. And,
+        programs that occur in practice are not unbounded memory, and are not unbounded in size.
+        There are algorithms that solve important problems for these specific "small" programs.
+        And we can hope to build them.
+
+        It is sometimes joked that in programming languages research, we
+        solve undecidable problems all the time.
+*/
+
+/*
+    === A general view of static analysis ===
+    (BRIEF, time permitting)
+
+    More generally, static analysis is intended to solve a task of the following form:
 
         Given a program `prog`, and a property of programs 𝓕, determine property 𝓕 for the program,
         without running it.
 
-        (Often a True-or-False property. Need not be.)
+        (Often, but not always, a True-or-False property.)
 
         (NOTE: For those of you who have taken or are interested in taking ECS 261:
          this is exactly the same as a program specification.
@@ -280,52 +341,35 @@ impl IntervalMap {
 
             If testing behavior on one input: dynamic analysis is often more effective
 
-        3. These problems are hard (typically undecidable) to solve in general!
-
-            You don't need to know why/the proof - just know that typically,
-            any nontrivial static analysis problem or optimization problem does not
-            have a perfect algorithm.
-
-    === Compiler full employment theorem ===
-
-    **Rice's Theorem (informal):** For any nontrivial property of a program in a
-    Turing-complete programming language,
-    it is not possible to write an algorithm to determine
-    that property perfectly.
-
-    Sometimes, this is humorously called the "compiler full employment theorem" since it means
-    that if you work in compilers (or static analysis), you will never be out of a job.
-    (I got that from Andrew Appel, but Appel wasn't the first to state this idea.)
-
-    A little more seriously:
-        undecidable doesn't mean unsolvable!
-
-        Undecidable problems means we can't write a **general** algorithm which solves the problem
-        on **all inputs**
-
-        Well: who cares, right?
-        Most programs that occur in practice are not difficult/impossible to solve. And,
-        programs that occur in practice are not unbounded memory, and are not unbounded in size.
-        There are algorithms that solve important problems for these specific "small" programs.
-        And we can hope to build them.
-
+        3. These problems are hard (typically undecidable) to solve in general,
+            as we have seen above.
+            So we often resort to an approximation.
 */
 
 /*
     === Approaches ===
-    (SKIP or brief)
 
-    Major approaches to static analysis
+    Major approaches to static analysis:
+
+    I will illustrate each with an example.
 
     Example:
 
-    (input x)
+    x = INPUT
     if (x > 10) {
         x = x + 1
     } else {
         x = x - 1
     }
-    // what are all possible values of x?
+    OUTPUT x
+
+    Q: what are all possible values of x after the program executes?
+
+    A: How would you solve this problem?
+
+    .
+    .
+    .
 
     - Symbolic execution
 
