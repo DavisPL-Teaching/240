@@ -275,22 +275,41 @@ impl IntervalMap {
     // OUTPUT:
     // - an interval [min, max]
     pub fn analyze_int_expr(&self, iexp: &IntExpr) -> (isize, isize) {
+        // NB: We should be using saturating add/multiply in the below,
+        // or special case the values isize::MIN and isize::MAX for this
+        // to work.
         match iexp {
-            IntExpr::Const(i) => {
-                (*i, *i)
-            }
-            IntExpr::Var(v) => {
-                *self.0.get(v).unwrap()
-            }
+            IntExpr::Const(i) => (*i, *i),
+            IntExpr::Var(v) => *self.0.get(v).unwrap(),
             IntExpr::Plus(iexp1, iexp2) => {
                 let (min1, max1) = self.analyze_int_expr(iexp1);
                 let (min2, max2) = self.analyze_int_expr(iexp2);
                 (min1 + min2, max1 + max2)
             }
             IntExpr::Times(iexp1, iexp2) => {
-                unimplemented!()
+                let (min1, max1) = self.analyze_int_expr(iexp1);
+                let (min2, max2) = self.analyze_int_expr(iexp2);
+                // this is a little more interesting
+                let endpoints = [min1 * min2, min1 * max2, max1 * min2, max1 * max2];
+                let min = *endpoints.iter().min().unwrap();
+                let max = *endpoints.iter().max().unwrap();
+                (min, max)
             }
         }
+    }
+
+    // Clamp function
+    // This would be used to overapproximate the set to the full interval [-∞, +∞] after computing
+    const INTERVAL_MIN: isize = -100;
+    const INTERVAL_MAX: isize = 100;
+    fn clamp(&self, mut min: isize, mut max: isize) -> (isize, isize) {
+        if min < Self::INTERVAL_MIN {
+            min = isize::MIN;
+        }
+        if max > Self::INTERVAL_MAX {
+            max = isize::MAX;
+        }
+        (min, max)
     }
 
     // Analyze bool expr
@@ -315,7 +334,7 @@ impl IntervalMap {
 
 /*
     === Compiler full employment theorem ===
-    (We discussed this a bit last time)
+    (SKIP/BRIEF - We discussed this a bit on 11/16)
 
     **Rice's Theorem (informal):**
     For any nontrivial property of a program in a
