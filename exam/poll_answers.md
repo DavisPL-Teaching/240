@@ -111,3 +111,5 @@ T, F, F, T, F, F, F
 Nov 18:
 1) No
 2) a and b are both decidable.
+
+Nov 20:

@@ -10,6 +10,9 @@
 #[path = "1-intro.rs"]
 pub mod intro;
 
+#[path = "2-approaches.rs"]
+pub mod approaches;
+
 #[path = "2-abstract-interpretation.rs"]
 pub mod abstract_interpretation;
 

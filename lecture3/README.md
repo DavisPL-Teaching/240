@@ -106,3 +106,27 @@ Plan:
       Symbolic execution, abstract interpretation, type checking.
 
 Questions?
+
+## Friday, November 20
+
+Last day of class prior to the presentations.
+
+Reminders:
+
+- HW2 due **today**
+
+- Final presentations starting Monday
+
+We will talk about:
+
+- Approaches to static analysis.
+
+    Major approaches:
+    Symbolic execution, abstract interpretation, type checking.
+
+- Final poll.
+
+Note: There will be in-class polls for the classes next week and the following week.
+These polls will be a chance for you to give feedback on the final presentations.
+If you can't attend class, I will ask the presenters to upload their slides to Piazza so that you can share feedback on the slides
+through the poll.
