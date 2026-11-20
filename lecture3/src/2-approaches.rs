@@ -37,9 +37,6 @@
     https://forms.gle/hcnJHyDzMJoHYMKs8
 */
 
-
-
-
 /*
     Recap
 

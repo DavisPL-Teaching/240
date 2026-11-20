@@ -111,6 +111,17 @@ Questions?
 
 Last day of class prior to the presentations.
 
+Announcements:
+
+- Project proposals graded for those of you presenting on Monday
+
+  + These were primarily graded by the TA, I will grade the presentations + final report
+
+  + Please monitor Gradescope for feedback! I will announce when more grades are available
+    We will get the remainder of them graded ASAP or this weekend.
+
+- Details about final project report: will be posted next week.
+
 Reminders:
 
 - HW2 due **today**
@@ -121,10 +132,14 @@ We will talk about:
 
 - Approaches to static analysis.
 
-    Major approaches:
+  + Interval analysis from last time
+
+  + Major approaches:
     Symbolic execution, abstract interpretation, type checking.
 
 - Final poll.
+
+- Course review.
 
 Note: There will be in-class polls for the classes next week and the following week.
 These polls will be a chance for you to give feedback on the final presentations.

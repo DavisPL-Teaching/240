@@ -260,7 +260,7 @@ pub enum BoolExpr {
 
 // Stores the relevant state for interval analysis!
 // For simplicity, we'll use isize::MIN and isize::MAX for ± ∞.
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct IntervalMap(HashMap<Variable, (isize, isize)>);
 
 impl IntervalMap {
@@ -302,7 +302,7 @@ impl IntervalMap {
     // This would be used to overapproximate the set to the full interval [-∞, +∞] after computing
     const INTERVAL_MIN: isize = -100;
     const INTERVAL_MAX: isize = 100;
-    fn clamp(&self, mut min: isize, mut max: isize) -> (isize, isize) {
+    fn clamp(&self, (mut min, mut max): (isize, isize)) -> (isize, isize) {
         if min < Self::INTERVAL_MIN {
             min = isize::MIN;
         }
@@ -313,9 +313,9 @@ impl IntervalMap {
     }
 
     // Analyze bool expr
-    // return type - why a HashSet?
+    // RETURN: two bools, could_be_true, could_be_false
     // TODO
-    pub fn analyze_bool_expr(&self, i: &IntExpr) -> HashSet<bool> {
+    pub fn analyze_bool_expr(&self, i: &BoolExpr) -> (bool, bool) {
         unimplemented!()
     }
 }
@@ -325,6 +325,109 @@ impl IntervalMap {
 // fn test_interval_analysis() {
 //     unimplemented!()
 // }
+
+/*
+    How is this useful to build an actual static analysis pass?
+
+    Well...
+*/
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum WhileProg {
+    Assignment(Variable, IntExpr),
+    Seq(Box<WhileProg>, Box<WhileProg>),
+    If(BoolExpr, Box<WhileProg>, Box<WhileProg>),
+    While(BoolExpr, Box<WhileProg>),
+}
+
+#[derive(Debug, Clone)]
+pub struct IntervalAnalysis {
+    map: IntervalMap,
+}
+
+impl IntervalAnalysis {
+    pub fn new() -> Self {
+        // initialize all variables to [-∞, +∞] (or other values as desired to test other executions)
+        unimplemented!()
+    }
+    pub fn eval(&mut self, prog: &WhileProg) {
+        match prog {
+            WhileProg::Assignment(v, e) => {
+                // Analyze the expression, getting an interval
+                let res = self.map.analyze_int_expr(e);
+                // Clamp the result
+                let res = self.map.clamp(res);
+                // Insert it into the map
+                self.map.0.insert(v.clone(), res);
+            }
+            WhileProg::Seq(prog1, prog2) => {
+                self.eval(prog1);
+                self.eval(prog2);
+            }
+            WhileProg::If(b, prog1, prog2) => {
+                // Here we will need to fork the state
+                // evaluate both branches, combine the results.
+
+                // sketch
+                let (maybe_true, maybe_false) = self.map.analyze_bool_expr(b);
+
+                if maybe_true && maybe_false {
+                    // clone the state
+                    let mut other = self.clone();
+
+                    // TODO: can also update the interval maps based on true and false case
+                    // For now we ignore this
+
+                    self.eval(prog1);
+                    other.eval(prog2);
+
+                    // Combine the states at the end
+                    self.merge(other);
+                } else if maybe_true {
+                    // TODO: update interval maps based on true case
+                    self.eval(prog1);
+                } else if maybe_false {
+                    // TODO: update interval maps based on false case
+                    self.eval(prog2);
+                } else {
+                    // Neither branch reachable
+                    // This may or may not be a bug, maybe the entire branch of code is dead.
+                    eprintln!("warning: static analysis encountered unreachable branch");
+                    self.set_unreachable();
+                }
+            }
+            WhileProg::While(b, prog1) => {
+                // This is the interesting case
+                // It turns out that this will not necessarily terminate without clamping.
+
+                // The code is something like this:
+
+                let (maybe_true, maybe_false) = self.map.analyze_bool_expr(b);
+                while maybe_true {
+                    let self_before = self.clone();
+                    self.eval(prog1);
+                    self.merge(self_before);
+                }
+            }
+        }
+    }
+
+    pub fn merge(&mut self, mut other: Self) {
+        // Merges the two states, unioning all intervals.
+
+        // drain = consume all values (producing them with ownership) from the hashmap
+        for (var, (min2, max2)) in other.map.0.drain() {
+            let (min1, max1) = self.map.0.get_mut(&var).unwrap();
+            *min1 = std::cmp::min(*min1, min2);
+            *max1 = std::cmp::max(*max1, max2);
+        }
+    }
+
+    pub fn set_unreachable(&mut self) {
+        // Set self to an unreachable state (all intervals empty)
+        unimplemented!()
+    }
+}
 
 /*
     Exercise: (SKIP)
@@ -406,8 +509,12 @@ impl IntervalMap {
 
         𝓕 = Does program P violate user's security/access control constraints,
                  or leak private user data?
+*/
 
-    Key points:
+/*
+    Recap and key points about static analysis:
+
+    Static analysis = determine a property of the program without running it.
 
         1. **Without running it:** contrasts with dynamic analysis.
 
