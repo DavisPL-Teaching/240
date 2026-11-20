@@ -237,7 +237,7 @@
 
 // Similar Variable, IntExpr, BoolExpr from Lecture 2
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub struct Variable(String);
@@ -260,7 +260,7 @@ pub enum BoolExpr {
 
 // Stores the relevant state for interval analysis!
 // For simplicity, we'll use isize::MIN and isize::MAX for ± ∞.
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Eq, PartialEq)]
 pub struct IntervalMap(HashMap<Variable, (isize, isize)>);
 
 impl IntervalMap {
@@ -340,12 +340,13 @@ pub enum WhileProg {
     While(BoolExpr, Box<WhileProg>),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct IntervalAnalysis {
     map: IntervalMap,
 }
 
 impl IntervalAnalysis {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         // initialize all variables to [-∞, +∞] (or other values as desired to test other executions)
         unimplemented!()
@@ -367,6 +368,17 @@ impl IntervalAnalysis {
             WhileProg::If(b, prog1, prog2) => {
                 // Here we will need to fork the state
                 // evaluate both branches, combine the results.
+
+                // EXAMPLE
+                // x: [15, 25]
+                // if x > 20 {
+                //
+                //     x: [5, 17]
+                // } else {
+                //
+                //     x: [0, 3]
+                // }
+                // x: [0, 17]
 
                 // sketch
                 let (maybe_true, maybe_false) = self.map.analyze_bool_expr(b);
@@ -402,12 +414,35 @@ impl IntervalAnalysis {
 
                 // The code is something like this:
 
-                let (maybe_true, maybe_false) = self.map.analyze_bool_expr(b);
-                while maybe_true {
-                    let self_before = self.clone();
-                    self.eval(prog1);
-                    self.merge(self_before);
+                let mut modified = true;
+                while modified {
+                    let (maybe_true, maybe_false) = self.map.analyze_bool_expr(b);
+                    if maybe_true {
+                        let self_before = self.clone();
+                        self.eval(prog1);
+                        self.merge(self_before.clone());
+                        // check if reached fixpoint
+                        modified = self != &self_before;
+                    }
                 }
+
+                // EXAMPLE
+                // x: [0, 10]
+                // while x < 10 {
+                //     x: [0, 9]
+                //     x := x + 1
+                //     x: [1, 10]
+                // }
+                // x: [10, 10]
+                // x must be 10 here.
+
+                // !
+                // x: [1, ∞]
+                // while x > 0 {
+                //     x: [1, ∞]
+                //     x += 1
+                //     x: [1, ∞]
+                // }
             }
         }
     }

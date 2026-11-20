@@ -113,3 +113,5 @@ Nov 18:
 2) a and b are both decidable.
 
 Nov 20:
+1. A, E
+2. Example: while x < 0: (BODY). Or: while x > 100: BODY.
