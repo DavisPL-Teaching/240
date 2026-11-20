@@ -113,7 +113,7 @@ Last day of class prior to the presentations.
 
 Announcements:
 
-- Project proposals graded for those of you presenting on Monday
+- Project proposals **preliminary grades** and feedback has been published for those of you presenting on Monday
 
   + These were primarily graded by the TA, I will grade the presentations + final report
 
@@ -130,18 +130,24 @@ Reminders:
 
 We will talk about:
 
-- Approaches to static analysis.
+- Compositionality in static analysis
 
   + Interval analysis from last time
+
+- Final poll.
+
+- Approaches to static analysis
 
   + Major approaches:
     Symbolic execution, abstract interpretation, type checking.
 
-- Final poll.
-
-- Course review.
-
-Note: There will be in-class polls for the classes next week and the following week.
+Note 1:
+There will be in-class polls for the classes next week and the following week.
 These polls will be a chance for you to give feedback on the final presentations.
-If you can't attend class, I will ask the presenters to upload their slides to Piazza so that you can share feedback on the slides
-through the poll.
+If you can't attend class, I will ask the presenters to upload their slides to Piazza so that you can share feedback on the slides through the poll.
+
+Note 2:
+I am preparing a course review file and some additional content for helping you study for the final exam.
+I will release this on Piazza when it is ready.
+
+Questions?
